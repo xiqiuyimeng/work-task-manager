@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QStatusBar
+from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QStatusBar
 
 from src.constant.window_constant import WINDOW_TITLE
 from src.enum.icon_enum import get_icon
@@ -8,7 +8,7 @@ from src.service.util.system_storage_util import close_conn
 from src.view.bar.menubar import Menubar
 from src.view.bar.titlebar import TitleBar
 from src.view.bar.toolbar import ToolBar
-from src.view.window.central_widget import CentralWidget
+from src.view.widget.search_page_table.task_search_page_table_widget import TaskSearchPageTableWidget
 
 _author_ = 'luwt'
 _date_ = '2023/7/10 13:43'
@@ -25,9 +25,8 @@ class MainWindow(QMainWindow):
         self.main_widget: QWidget = ...
         self.main_layout: QVBoxLayout = ...
 
-        # 定义中心控件，用以包含主体内容
-        self.central_widget: CentralWidget = ...
-        self.central_layout: QHBoxLayout = ...
+        # 任务表格区
+        self.task_table_widget: TaskSearchPageTableWidget = ...
 
         # 菜单栏、标题栏、工具栏、状态栏
         self.menubar: Menubar = ...
@@ -56,14 +55,12 @@ class MainWindow(QMainWindow):
 
         self.init_bars()
 
-        self.central_widget = CentralWidget(self)
-        self.central_widget.setup_ui()
-        self.central_widget.fill_data()
+        self.task_table_widget = TaskSearchPageTableWidget(self)
 
         # 主布局添加所有部件，依次为标题栏、菜单栏、工具栏、承载了实际窗口内容的主控件，将窗口中央控件设置为包含所有的控件
         self.main_layout.addWidget(self.titlebar)
         self.main_layout.addWidget(self.toolbar)
-        self.main_layout.addWidget(self.central_widget)
+        self.main_layout.addWidget(self.task_table_widget)
         self.setCentralWidget(self.main_widget)
 
     def init_bars(self):

@@ -274,110 +274,78 @@ QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal{
 
 /**************************************** 按钮样式设置 start ****************************************/
 
-/* 定位按钮 */
-#locate_button {
-    background-color: OrangeRed;
+/* 切换搜索模式按钮 */
+#switch_search_button {
+    background-color: RoyalBlue;
     color: white;
     border-radius: 4px;
-    padding: 6px;
+    padding: 4px;
     width: 60%;
 }
 /* 悬浮样式 */
-#locate_button:hover {
-    background-color: Coral;
+#switch_search_button:hover {
+    background-color: SteelBlue;
 }
 /* 点击样式 */
-#locate_button:pressed {
-    background-color: OrangeRed;
+#switch_search_button:pressed {
+    background-color: RoyalBlue;
 }
 
 
-/* 新建数据按钮 */
-#create_button {
-    background-color: Green;
+/* 重置按钮 */
+#reset_search_button {
+    background-color: OrangeRed;
     color: white;
     border-radius: 4px;
-    padding: 6px;
+    padding: 4px;
     width: 60%;
 }
 /* 悬浮样式 */
-#create_button:hover {
-    background-color: LimeGreen;
-}
-/* 点击样式 */
-#create_button:pressed {
-    background-color: Green;
-}
-
-
-/* 新建数据行按钮 */
-#create_row_button {
-    background-color: Green;
-    color: white;
-    border-radius: 4px;
-    padding: 4px;
-}
-/* 悬浮样式 */
-#create_row_button:hover {
-    background-color: LimeGreen;
-}
-/* 点击样式 */
-#create_row_button:pressed {
-    background-color: Green;
-}
-
-
-/* 对话框中的帮助按钮 */
-#help_button {
-    background-color: SlateBlue;
-    color: white;
-    border-radius: 4px;
-    padding: 4px;
-}
-/* 悬浮样式 */
-#help_button:hover {
-    background-color: MediumPurple;
-}
-/* 点击样式 */
-#help_button:pressed {
-    background-color: SlateBlue;
-}
-
-
-/* 对话框中的退出按钮 */
-#dialog_quit_button {
-    background-color: OrangeRed;
-    color: white;
-    border-radius: 4px;
-    padding: 4px;
-}
-/* 悬浮样式 */
-#dialog_quit_button:hover {
+#reset_search_button:hover {
     background-color: Coral;
 }
 /* 点击样式 */
-#dialog_quit_button:pressed {
+#reset_search_button:pressed {
     background-color: OrangeRed;
 }
 
 
-/* 保存按钮 */
-#save_button {
-    background-color: SeaGreen;
+/* 查询按钮 */
+#search_button {
+    background-color: Green;
     color: white;
     border-radius: 4px;
     padding: 4px;
+    width: 60%;
 }
 /* 悬浮样式 */
-#save_button:hover {
+#search_button:hover {
     background-color: LimeGreen;
 }
 /* 点击样式 */
-#save_button:pressed {
-    background-color: SeaGreen;
+#search_button:pressed {
+    background-color: Green;
+}
+
+
+/* 删除按钮 */
+#del_button {
+    background-color: Crimson;
+    color: white;
+    border-radius: 4px;
+    padding: 4px;
+    width: 60%;
+}
+/* 悬浮样式 */
+#del_button:hover {
+    background-color: HotPink;
+}
+/* 点击样式 */
+#del_button:pressed {
+    background-color: Crimson;
 }
 /* 禁用样式 */
-#save_button:disabled{
+#del_button:disabled{
     background-color: DimGray;
 }
 
