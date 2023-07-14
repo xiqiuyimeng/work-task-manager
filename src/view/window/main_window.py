@@ -46,6 +46,7 @@ class MainWindow(QMainWindow):
         # 不透明度
         self.setWindowOpacity(0.95)
         self.setWindowTitle(WINDOW_TITLE)
+        self.setFocusPolicy(Qt.FocusPolicy.ClickFocus)
 
         self.main_widget = QWidget()
         self.main_layout = QVBoxLayout(self.main_widget)

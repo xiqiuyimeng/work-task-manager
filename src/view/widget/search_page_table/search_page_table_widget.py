@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
+
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QPushButton, QLabel
 
 from src.constant.window_constant import RESET_SEARCH_BTN_TEXT, SEARCH_BTN_TEXT, DEL_BTN_TEXT
 from src.service.async_func.async_task_abc import LoadingMaskThreadExecutor
-from src.view.custom_widget.page_widget import PageWidget
+from src.view.custom_widget.page.page_widget import PageWidget
 from src.view.table.table_widget.custom_table_widget import CustomTableWidget
 
 _author_ = 'luwt'
@@ -123,3 +124,4 @@ class SearchPageTableWidget(QWidget):
         self.search()
         # 删除按钮默认不可用
         self.del_button.setDisabled(True)
+        self.page_widget.init_page_data()

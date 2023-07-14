@@ -5,91 +5,6 @@ MainWindow{
     border-image: url(bg_jpg:window_bg.jpg);
 }
 
-/* 数据源对话框背景图 */
-DsDialogFrameABC {
-    border-image: url(bg_jpg:conn_dialog_bg.jpg);
-}
-
-/* 文件夹对话框背景图 */
-FolderDialogFrame {
-    border-image: url(bg_jpg:conn_dialog_bg.jpg);
-}
-
-/* 以表格形式管理的数据页，类型映射列表、模板列表对话框 */
-TableDialogFrame {
-    border-image: url(bg_jpg:conn_dialog_bg.jpg);
-}
-
-/* 以表格形式管理的数据页的详情页，类型映射详情、模板详情对话框 */
-StackedDialogFrame {
-    border-image: url(bg_jpg:conn_dialog_bg.jpg);
-}
-
-/* 数据源列类型对话框 */
-DsColTypeDialogFrame {
-    border-image: url(bg_jpg:conn_dialog_bg.jpg);
-}
-
-/* 通用的带有名称检查的对话框 */
-SimpleNameCheckDialog {
-    border-image: url(bg_jpg:conn_dialog_bg.jpg);
-}
-
-/* 模板配置项对话框 */
-TemplateConfigDialogFrame {
-    border-image: url(bg_jpg:conn_dialog_bg.jpg);
-}
-
-/* 维护输出路径配置和文件关系对话框 */
-TemplateMaintainFileConfigFrame {
-    border-image: url(bg_jpg:conn_dialog_bg.jpg);
-}
-
-/* 模板方法对话框 */
-TemplateFuncDetailDialogFrame {
-    border-image: url(bg_jpg:conn_dialog_bg.jpg);
-}
-
-/* 复制模板方法对话框 */
-TemplateCopyFuncDialogFrame, TemplateCopyFuncListFrame {
-    border-image: url(bg_jpg:conn_dialog_bg.jpg);
-}
-
-/* 表格单元格代理编辑对话框 */
-TableItemInputDelegateDialogFrame {
-    border-image: url(bg_jpg:conn_dialog_bg.jpg);
-}
-
-/* 生成链路中使用到的对话框 */
-ChainDialogFrameABC {
-    border-image: url(bg_jpg:conn_dialog_bg.jpg);
-}
-
-/* 画布框架，动态渲染用户配置的模板配置项时使用，最好和生成链路中使用到的对话框背景图可以贴合 */
-#canvas_content_frame {
-    border-image: url(bg_jpg:conn_dialog_bg.jpg);
-}
-
-/* 预览生成结果的对话框 */
-PreviewFileDialogFrame {
-    border-image: url(bg_jpg:conn_dialog_bg.jpg);
-}
-
-/* 保存预览生成结果的对话框 */
-SaveFileDialogFrame {
-    border-image: url(bg_jpg:conn_dialog_bg.jpg);
-}
-
-/* 导入导出对话框 */
-ImportExportDialogFrameABC {
-    border-image: url(bg_jpg:conn_dialog_bg.jpg);
-}
-
-/* 处理导入错误错误的对话框 */
-ImportErrorDataProcessDialogFrameABC {
-    border-image: url(bg_jpg:conn_dialog_bg.jpg);
-}
-
 /* 帮助信息对话框 */
 HelpDialogFrame {
     border-image: url(bg_jpg:conn_dialog_bg.jpg);
@@ -139,17 +54,6 @@ QToolTip{
     font-weight: bold;
 }
 
-/* 数据源树顶部标题 */
-#tree_header_label {
-    font-size: 15px;
-    font-weight: bold;
-}
-
-/* 数据源表格顶部文本 */
-#table_header_label {
-    font-size: 14px;
-}
-
 /* 所有窗口框架的标题文本 */
 #dialog_title {
     font-size: 18px;
@@ -161,25 +65,6 @@ QToolTip{
 #form_label {
     font-size: 14px;
     font-weight: bold;
-}
-
-/* 维护模板配置，顶部标题文本 */
-#maintain_config_tree_top_label, #maintain_config_list_top_label {
-    font-size: 14px;
-    font-weight: bold;
-}
-
-/* 模板配置动态渲染页，无数据时提示文本字体 */
-#no_config_data_label {
-    font-size: 50px;
-    qproperty-alignment: AlignCenter;
-}
-
-/* 温馨提示字体 */
-#tips_label {
-    font-size: 14px;
-    font-weight: bold;
-    color: red;
 }
 
 /* 消息弹窗标题字体 */
@@ -276,7 +161,7 @@ QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal{
 
 /* 切换搜索模式按钮 */
 #switch_search_button {
-    background-color: RoyalBlue;
+    background: RoyalBlue;
     color: white;
     border-radius: 4px;
     padding: 4px;
@@ -284,17 +169,17 @@ QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal{
 }
 /* 悬浮样式 */
 #switch_search_button:hover {
-    background-color: SteelBlue;
+    background: SteelBlue;
 }
 /* 点击样式 */
 #switch_search_button:pressed {
-    background-color: RoyalBlue;
+    background: RoyalBlue;
 }
 
 
 /* 重置按钮 */
 #reset_search_button {
-    background-color: OrangeRed;
+    background: OrangeRed;
     color: white;
     border-radius: 4px;
     padding: 4px;
@@ -302,11 +187,11 @@ QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal{
 }
 /* 悬浮样式 */
 #reset_search_button:hover {
-    background-color: Coral;
+    background: Coral;
 }
 /* 点击样式 */
 #reset_search_button:pressed {
-    background-color: OrangeRed;
+    background: OrangeRed;
 }
 
 
@@ -320,7 +205,7 @@ QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal{
 }
 /* 悬浮样式 */
 #search_button:hover {
-    background-color: LimeGreen;
+    background: LimeGreen;
 }
 /* 点击样式 */
 #search_button:pressed {
@@ -346,350 +231,49 @@ QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal{
 }
 /* 禁用样式 */
 #del_button:disabled{
-    background-color: DimGray;
+    background: DimGray;
 }
 
 
-/* 连接对话框中的测试连接按钮 */
-#test_conn_button {
-    background-color: Purple;
+/* 分页控件，按钮组当前页按钮，禁用样式 */
+#current_page_button:disabled {
+    font-weight: bold;
+    background: RoyalBlue;
     color: white;
-    border-radius: 4px;
-    padding: 4px;
+    border-radius: 3px;
+    padding: 3px;
+}
+
+
+/* 分页控件，按钮组非当前页按钮 */
+#jump_page_button {
+    font-weight: bold;
 }
 /* 悬浮样式 */
-#test_conn_button:hover {
-    background-color: MediumOrchid;
+#jump_page_button:hover {
+    color: RoyalBlue;
 }
-/* 点击样式 */
-#test_conn_button:pressed {
-    background-color: Purple;
+
+
+/* 分页控件，首页尾页按钮悬浮样式 */
+#first_last_page_button:hover {
+    color: RoyalBlue;
 }
 /* 禁用样式 */
-#test_conn_button:disabled{
-    background-color: DimGray;
-}
-
-
-/* 结构体数据源对话框，美化结构体按钮 */
-#pretty_button {
-    background-color: RoyalBlue;
+#first_last_page_button:disabled {
+    background: DimGray;
     color: white;
-    border-radius: 4px;
-    padding: 4px;
-}
-/* 悬浮样式 */
-#pretty_button:hover {
-    background-color: SteelBlue;
-}
-/* 点击样式 */
-#pretty_button:pressed {
-    background-color: RoyalBlue;
-}
-/* 禁用样式 */
-#pretty_button:disabled{
-    background-color: DimGray;
+    border-radius: 3px;
+    padding: 3px;
 }
 
 
-/* 类型映射表格页，数据源列类型按钮 */
-#open_ds_col_type_button {
-    background-color: DeepPink;
+/* 分页控件，上一页下一页按钮禁用样式 */
+#previous_next_page_button:disabled {
+    background: DimGray;
     color: white;
-    border-radius: 4px;
-    padding: 4px;
-}
-/* 悬浮样式 */
-#open_ds_col_type_button:hover {
-    background-color: HotPink;
-}
-/* 点击样式 */
-#open_ds_col_type_button:pressed {
-    background-color: DeepPink;
-}
-
-
-/* 类型映射表格页、模板表格页，删除行数据按钮 */
-#del_row_button {
-    background-color: Crimson;
-    color: white;
-    border-radius: 4px;
-    padding: 4px;
-}
-/* 悬浮样式 */
-#del_row_button:hover {
-    background-color: HotPink;
-}
-/* 点击样式 */
-#del_row_button:pressed {
-    background-color: Crimson;
-}
-/* 禁用样式 */
-#del_row_button:disabled{
-    background-color: DimGray;
-}
-
-
-/* 复制数据按钮 */
-#copy_row_button {
-    background-color: DarkCyan;
-    color: white;
-    border-radius: 4px;
-    padding: 4px;
-}
-/* 悬浮样式 */
-#copy_row_button:hover {
-    background-color: DarkTurquoise;
-}
-/* 点击样式 */
-#copy_row_button:pressed {
-    background-color: DarkCyan;
-}
-/* 禁用样式 */
-#copy_row_button:disabled{
-    background-color: DimGray;
-}
-
-
-/* 类型映射表格页、模板表格页，导入行数据按钮 */
-#import_button {
-    background-color: Chocolate;
-    color: white;
-    border-radius: 4px;
-    padding: 4px;
-}
-/* 悬浮样式 */
-#import_button:hover {
-    background-color: LightSalmon;
-}
-/* 点击样式 */
-#import_button:pressed {
-    background-color: Chocolate;
-}
-
-
-/* 类型映射表格页、模板表格页，导出行数据按钮 */
-#export_button {
-    background-color: BlueViolet;
-    color: white;
-    border-radius: 4px;
-    padding: 4px;
-}
-/* 悬浮样式 */
-#export_button:hover {
-    background-color: MediumOrchid;
-}
-/* 点击样式 */
-#export_button:pressed {
-    background-color: BlueViolet;
-}
-/* 禁用样式 */
-#export_button:disabled{
-    background-color: DimGray;
-}
-
-
-/* 类型映射详情页，列类型映射表格顶部按钮，同步当前数据源列类型按钮 */
-#sync_ds_col_type_button {
-    background-color: DarkOrchid;
-    color: white;
-    border-radius: 4px;
-    padding: 4px;
-}
-/* 悬浮样式 */
-#sync_ds_col_type_button:hover {
-    background-color: MediumOrchid;
-}
-/* 点击样式 */
-#sync_ds_col_type_button:pressed {
-    background-color: DarkOrchid;
-}
-
-
-/* 模板详情页，模板配置表格顶部按钮，预览配置页按钮 */
-#preview_config_button {
-    background-color: BlueViolet;
-    color: white;
-    border-radius: 4px;
-    padding: 4px;
-}
-/* 悬浮样式 */
-#preview_config_button:hover {
-    background-color: MediumPurple;
-}
-/* 点击样式 */
-#preview_config_button:pressed {
-    background-color: BlueViolet;
-}
-
-
-/* 模板详情页，模板输出配置表格顶部按钮，生成文件输出路径配置按钮 */
-#auto_generate_config_button {
-    background-color: RoyalBlue;
-    color: white;
-    border-radius: 4px;
-    padding: 4px;
-}
-/* 悬浮样式 */
-#auto_generate_config_button:hover {
-    background-color: DeepSkyBlue;
-}
-/* 点击样式 */
-#auto_generate_config_button:pressed {
-    background-color: RoyalBlue;
-}
-
-
-/* 模板详情页，模板输出配置表格顶部按钮，维护文件输出路径按钮 */
-#maintain_file_config_button {
-    background-color: DeepPink;
-    color: white;
-    border-radius: 4px;
-    padding: 4px;
-}
-/* 悬浮样式 */
-#maintain_file_config_button:hover {
-    background-color: HotPink;
-}
-/* 点击样式 */
-#maintain_file_config_button:pressed {
-    background-color: DeepPink;
-}
-
-
-/* 全选按钮 */
-#select_button {
-    background-color: RoyalBlue;
-    color: white;
-    border-radius: 4px;
-    padding: 4px;
-}
-/* 悬浮样式 */
-#select_button:hover {
-    background-color: DeepSkyBlue;
-}
-/* 点击样式 */
-#select_button:pressed {
-    background-color: RoyalBlue;
-}
-
-
-/* 取消全选按钮 */
-#unselect_button {
-    background-color: DeepPink;
-    color: white;
-    border-radius: 4px;
-    padding: 4px;
-}
-/* 悬浮样式 */
-#unselect_button:hover {
-    background-color: HotPink;
-}
-/* 点击样式 */
-#unselect_button:pressed {
-    background-color: DeepPink;
-}
-
-
-/* 返回上一页按钮 */
-#to_previous_button {
-    background-color: DarkOrchid;
-    color: white;
-    border-radius: 4px;
-    padding: 4px;
-}
-/* 悬浮样式 */
-#to_previous_button:hover {
-    background-color: Fuchsia;
-}
-/* 点击样式 */
-#to_previous_button:pressed {
-    background-color: DarkOrchid;
-}
-
-
-/* 下一页按钮 */
-#to_next_button {
-    background-color: DarkGreen;
-    color: white;
-    border-radius: 4px;
-    padding: 4px;
-}
-/* 悬浮样式 */
-#to_next_button:hover {
-    background-color: LimeGreen;
-}
-/* 点击样式 */
-#to_next_button:pressed {
-    background-color: DarkGreen;
-}
-
-
-/* 选择文件夹按钮 */
-#choose_dir_button {
-    background-color: DarkCyan;
-    color: white;
-    border-radius: 4px;
-    padding: 4px;
-}
-/* 悬浮样式 */
-#choose_dir_button:hover {
-    background-color: LightSeaGreen;
-}
-/* 点击样式 */
-#choose_dir_button:pressed {
-    background-color: DarkCyan;
-}
-
-
-/* 预览生成按钮 */
-#preview_generate_button {
-    background-color: DarkCyan;
-    color: white;
-    border-radius: 4px;
-    padding: 4px;
-}
-/* 悬浮样式 */
-#preview_generate_button:hover {
-    background-color: LightSeaGreen;
-}
-/* 点击样式 */
-#preview_generate_button:pressed {
-    background-color: DarkCyan;
-}
-
-
-/* 处理导入错误数据，跳过按钮 */
-#skip_button {
-    background-color: DarkMagenta;
-    color: white;
-    border-radius: 4px;
-    padding: 4px;
-}
-/* 悬浮样式 */
-#skip_button:hover {
-    background-color: Fuchsia;
-}
-/* 点击样式 */
-#skip_button:pressed {
-    background-color: DarkMagenta;
-}
-
-
-/* 处理导入错误数据，处理按钮 */
-#process_button {
-    background-color: DarkCyan;
-    color: white;
-    border-radius: 4px;
-    padding: 4px;
-}
-/* 悬浮样式 */
-#process_button:hover {
-    background-color: LightSeaGreen;
-}
-/* 点击样式 */
-#process_button:pressed {
-    background-color: DarkCyan;
+    border-radius: 3px;
+    padding: 3px;
 }
 
 
