@@ -2,7 +2,8 @@
 from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtWidgets import QToolBar
 
-from src.view.bar.bar_action import add_help_action, add_about_action, add_exit_action
+from src.view.bar.bar_action import add_data_dict_action, add_project_action, add_help_action, add_about_action, \
+    add_exit_action
 from src.view.custom_widget.draggable_widget import DraggableWidget
 
 _author_ = 'luwt'
@@ -21,12 +22,27 @@ class ToolBar(QToolBar, DraggableWidget):
         self.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextUnderIcon)
 
     def fill_tool_bar(self):
+        # 数据字典
+        self.add_data_dict_tool()
+        # 项目
+        self.add_project_tool()
+
+        self.addSeparator()
+
         # 帮助
         self.add_help_tool()
         # 关于
         self.add_about_tool()
         # 退出
         self.add_exit_tool()
+
+    def add_data_dict_tool(self):
+        data_dict_tool = add_data_dict_action(self.main_window)
+        self.addAction(data_dict_tool)
+
+    def add_project_tool(self):
+        project_tool = add_project_action(self.main_window)
+        self.addAction(project_tool)
 
     def add_help_tool(self):
         help_tool = add_help_action(self.main_window)

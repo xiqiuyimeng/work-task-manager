@@ -60,9 +60,9 @@ class TaskSearchPageTableWidget(SearchPageTableWidget):
     def setup_search_ui(self):
         # 第一行基本查询  项目名称 优先级 任务名称
         self.basic_search_widget, self.basic_search_layout = self.setup_search_widget_layout()
-        self.basic_search_layout.setColumnStretch(0, 1)
+        self.basic_search_layout.setColumnStretch(0, 2)
         self.basic_search_layout.setColumnStretch(1, 1)
-        self.basic_search_layout.setColumnStretch(2, 2)
+        self.basic_search_layout.setColumnStretch(2, 4)
 
         self.project_name_label, self.project_name_combobox = setup_form_combox(self.basic_search_layout, 0)
         self.priority_label, self.priority_combobox = setup_form_combox(self.basic_search_layout, 1)

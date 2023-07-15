@@ -3,7 +3,7 @@ from enum import Enum
 
 from PyQt6.QtGui import QIcon
 
-from src.constant.bar_constant import EXIT_ACTION, HELP_ACTION, ABOUT_ACTION
+from src.constant.bar_constant import DATA_DICT_ACTION, PROJECT_ACTION, EXIT_ACTION, HELP_ACTION, ABOUT_ACTION
 from src.constant.table_constant import ROW_OPERATION_ICON, ROW_CAT_EDIT_ICON, ROW_DEL_ICON
 
 _author_ = 'luwt'
@@ -19,6 +19,8 @@ class IconEnum(Enum):
     window_icon = 'window', 'icon:exec.png'
 
     # bar icon
+    data_dict_icon = DATA_DICT_ACTION, 'icon:table_icon.png'
+    project_icon = PROJECT_ACTION, 'icon:template.png'
     exit_icon = EXIT_ACTION, 'icon:exit.png'
     help_icon = HELP_ACTION, 'icon:exec.png'
     about_icon = ABOUT_ACTION, 'icon:exec.png'
