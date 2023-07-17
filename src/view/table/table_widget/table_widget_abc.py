@@ -31,13 +31,6 @@ class TableWidgetABC(QTableWidget, ScrollableWidget):
         # 默认行号隐藏
         self.verticalHeader().setHidden(True)
 
-        # 设置表头字体加粗
-        font = self.horizontalHeader().font()
-        # 比原字体略大一点
-        font.setPointSize(font.pointSize() + 1)
-        font.setBold(True)
-        self.horizontalHeader().setFont(font)
-
         self.setup_other_ui()
 
     def setup_other_ui(self):
@@ -73,11 +66,9 @@ class TableWidgetABC(QTableWidget, ScrollableWidget):
         item.setText(text)
         if text_color:
             item.setForeground(QBrush(QColor(text_color)))
+        if background_color:
             item.setBackground(QBrush(QColor(background_color)))
         return item
-
-    def make_data_dict_item(self, data_dict):
-        return self.make_item(data_dict.dict_name, data_dict.font_color, data_dict.background_color)
 
     def insert_row(self, row_index):
         self.insertRow(row_index)

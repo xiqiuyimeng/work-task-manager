@@ -4,7 +4,7 @@ from PyQt6.QtGui import QAction
 from src.constant.bar_constant import DATA_DICT_ACTION, DATA_DICT_ACTION_TIP, PROJECT_ACTION, PROJECT_ACTION_TIP, \
     EXIT_ACTION, EXIT_ACTION_TP, HELP_ACTION, HELP_ACTION_TIP, ABOUT_ACTION, ABOUT_ACTION_TIP
 from src.enum.icon_enum import get_icon
-from src.view.bar.bar_function import open_project_dialog, open_data_dict_dialog, open_help_dialog, open_about_dialog
+from src.view.bar.bar_function import open_data_dict_dialog, open_project_dialog, open_help_dialog, open_about_dialog
 
 _author_ = 'luwt'
 _date_ = '2023/7/10 13:56'

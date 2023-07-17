@@ -20,10 +20,11 @@ class CustomTableWidget(TableWidgetABC):
     # 删除行信号，发送id、行序号和第二列名称
     row_del_signal = pyqtSignal(int, int, str)
 
-    def __init__(self, header_labels, *args):
+    def __init__(self, header_labels, *args, need_operation=True):
+        self.need_operation = need_operation
         # 添加上最后一列，操作列，这里不能对 header_labels 直接 append，
         # 因为引用的是同一个列表，如果直接添加的话，会导致原数据的变化，打开多次表，产生多个操作列。
-        self.header_labels = [*header_labels, OPERATION_HEADER_LABEL]
+        self.header_labels = [*header_labels, OPERATION_HEADER_LABEL] if need_operation else header_labels
         # 表头控件
         self.header_widget: CheckBoxHeader = ...
         super().__init__(*args)
@@ -42,6 +43,10 @@ class CustomTableWidget(TableWidgetABC):
         # 设置表头列宽度
         self.header_widget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+
+        self.setup_edit_trigger()
+
+    def setup_edit_trigger(self):
         # 不可编辑
         self.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
 
@@ -63,8 +68,9 @@ class CustomTableWidget(TableWidgetABC):
         self.setCellWidget(row_index, 0, checkbox_num_widget)
         self.do_fill_row(row_index, row_data)
         # 最后一列添加操作按钮
-        row_id = row_data.id if row_data.id else -1
-        self.setCellWidget(row_index, self.columnCount() - 1, self.make_operation_buttons(order_item, row_id))
+        if self.need_operation:
+            row_id = row_data.id if row_data.id else -1
+            self.setCellWidget(row_index, self.columnCount() - 1, self.make_operation_buttons(order_item, row_id))
         self.header_widget.calculate_header_check_state()
 
     def do_fill_row(self, row_index, row_data, fill_create_time=True):

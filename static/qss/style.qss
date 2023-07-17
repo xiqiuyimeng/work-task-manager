@@ -5,6 +5,21 @@ MainWindow{
     border-image: url(bg_jpg:window_bg.jpg);
 }
 
+/* 数据字典类型对话框 */
+DataDictTypeDialogFrame {
+    border-image: url(bg_jpg:conn_dialog_bg.jpg);
+}
+
+/* 数据字典详情对话框 */
+DataDictDetailDialogFrame {
+    border-image: url(bg_jpg:conn_dialog_bg.jpg);
+}
+
+/* 表格单元格代理编辑对话框 */
+TableItemInputDelegateDialogFrame {
+    border-image: url(bg_jpg:conn_dialog_bg.jpg);
+}
+
 /* 帮助信息对话框 */
 HelpDialogFrame {
     border-image: url(bg_jpg:conn_dialog_bg.jpg);
@@ -61,10 +76,26 @@ QToolTip{
     qproperty-alignment: AlignCenter;
 }
 
+/* 温馨提示字体 */
+#tips_label {
+    font-size: 14px;
+    font-weight: bold;
+    color: red;
+}
+
 /* 所有form表单中的label文本 */
 #form_label {
     font-size: 14px;
     font-weight: bold;
+}
+
+/* 检查器，正确配色 */
+#checker_right{
+    color: green;
+}
+/* 检查器，错误配色 */
+#checker_wrong{
+    color: red;
 }
 
 /* 消息弹窗标题字体 */
@@ -90,6 +121,12 @@ QLineEdit:hover{
 /* 输入框禁用边框颜色 */
 QLineEdit:disabled{
     border:1px solid gray;
+}
+
+/* 名称输入框样式 */
+#name_input{
+    border-color:red;
+    color:red
 }
 
 /**************************************** linedit 输入框文本样式设置 end ****************************************/
@@ -319,6 +356,96 @@ QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal{
 /* 点击样式 */
 #close_button:pressed {
     background: #F76677;
+}
+
+
+/* 对话框中的帮助按钮 */
+#help_button {
+    background: SlateBlue;
+    color: white;
+    border-radius: 4px;
+    padding: 4px;
+}
+/* 悬浮样式 */
+#help_button:hover {
+    background: MediumPurple;
+}
+/* 点击样式 */
+#help_button:pressed {
+    background: SlateBlue;
+}
+
+
+/* 对话框中的退出按钮 */
+#dialog_quit_button {
+    background: OrangeRed;
+    color: white;
+    border-radius: 4px;
+    padding: 4px;
+}
+/* 悬浮样式 */
+#dialog_quit_button:hover {
+    background: Coral;
+}
+/* 点击样式 */
+#dialog_quit_button:pressed {
+    background: OrangeRed;
+}
+
+
+/* 保存按钮 */
+#save_button {
+    background: SeaGreen;
+    color: white;
+    border-radius: 4px;
+    padding: 4px;
+}
+/* 悬浮样式 */
+#save_button:hover {
+    background: LimeGreen;
+}
+/* 点击样式 */
+#save_button:pressed {
+    background: SeaGreen;
+}
+/* 禁用样式 */
+#save_button:disabled{
+    background: DimGray;
+}
+
+
+/* 数据字典详情，同步默认数据字典按钮 */
+#sync_default_values_button {
+    background: RoyalBlue;
+    color: white;
+    border-radius: 4px;
+    padding: 4px;
+    width: 60%;
+}
+/* 悬浮样式 */
+#sync_default_values_button:hover {
+    background: SteelBlue;
+}
+/* 点击样式 */
+#sync_default_values_button:pressed {
+    background: RoyalBlue;
+}
+
+
+/* 新建数据行按钮 */
+#create_row_button {
+    background: Green;
+    color: white;
+    border-radius: 4px;
+    padding: 4px;
+}
+/* 悬浮样式 */
+#create_row_button:hover {
+    background: LimeGreen;
+}
+/* 点击样式 */
+#create_row_button:pressed {
+    background: Green;
 }
 
 

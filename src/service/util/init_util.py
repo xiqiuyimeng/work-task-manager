@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from src.service.system_storage.data_dict_sqlite import DataDictSqlite
+from src.service.util.data_dict_cache_util import init_data_dict
 from src.service.util.db_id_generator_util import init_id_generator
 from src.service.util.system_storage_util import get_sqlite_sequence, release_connection
 
@@ -9,8 +9,8 @@ _date_ = '2023/7/10 12:48'
 
 def init_data():
     try:
-        # 触发数据字典建表操作
-        DataDictSqlite()
+        # 加载数据字典数据到缓存中
+        init_data_dict()
         # 初始化id生成器
         init_id_generator(get_sqlite_sequence)
     finally:

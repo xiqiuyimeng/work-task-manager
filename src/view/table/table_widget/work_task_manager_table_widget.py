@@ -26,3 +26,6 @@ class WorkTaskManagerTableWidget(CustomTableWidget):
     def make_project_item(self, project_info):
         return self.make_item(project_info.project_name, project_info.font_color,
                               project_info.background_color)
+
+    def make_data_dict_item(self, data_dict):
+        return self.make_item(data_dict.dict_name, data_dict.font_color, data_dict.background_color)
