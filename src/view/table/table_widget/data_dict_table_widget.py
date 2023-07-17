@@ -97,8 +97,9 @@ class DataDictTableWidget(CustomTableWidget):
         # 连接信号
         self.itemChanged.connect(self.data_change)
 
-    def add_new_data_dict(self):
+    def add_new_data_dict(self, data_dict_type):
         data_dict = DataDict()
+        data_dict.dict_type = data_dict_type
         # 断开信号
         self.itemChanged.disconnect()
         super().add_row(data_dict)

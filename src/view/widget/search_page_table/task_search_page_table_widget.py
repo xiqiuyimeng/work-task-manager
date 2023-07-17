@@ -7,10 +7,12 @@ from src.constant.window_constant import TASK_BOX_TITLE, PROJECT_NAME_LABEL_TEXT
     TASK_STATUS_LABEL_TEXT, TASK_STATUS_PLACEHOLDER_TEXT, PUBLISH_STATUS_LABEL_TEXT, PUBLISH_STATUS_PLACEHOLDER_TEXT, \
     START_TIME_LABEL_TEXT, START_TIME_PLACEHOLDER_TEXT, END_TIME_LABEL_TEXT, END_TIME_PLACEHOLDER_TEXT, \
     SWITCH_ADVANCED_SEARCH_BTN_TEXT, SWITCH_BASIC_SEARCH_BTN_TEXT
+from src.enum.data_dict_enum import DataDictTypeEnum
 from src.service.async_func.async_work_task import ListTaskExecutor
 from src.view.table.table_widget.work_task_manager_table_widget import WorkTaskManagerTableWidget
 from src.view.widget.search_page_table.search_page_table_widget import SearchPageTableWidget
-from src.view.widget.search_page_table.search_widget_func import setup_form_combox, setup_form_lineedit
+from src.view.widget.search_page_table.search_widget_func import setup_form_combox, setup_form_lineedit, \
+    fill_data_dict_combobox
 
 _author_ = 'luwt'
 _date_ = '2023/7/12 10:49'
@@ -55,6 +57,9 @@ class TaskSearchPageTableWidget(SearchPageTableWidget):
         self.switch_search_button: QPushButton = ...
         # 主数据表格
         self.table_widget: WorkTaskManagerTableWidget = ...
+
+        # 数据字典搜索下拉框与数据字典类型关系
+        self.data_dict_type_combobox_dict = dict()
         super().__init__()
 
     def setup_search_ui(self):
@@ -171,3 +176,14 @@ class TaskSearchPageTableWidget(SearchPageTableWidget):
         super().post_process()
         # 默认隐藏高级查询
         self.advanced_search_widget.setVisible(False)
+
+        # 收集数据
+        self.data_dict_type_combobox_dict[DataDictTypeEnum.priority.value[0]] = self.priority_combobox
+        self.data_dict_type_combobox_dict[DataDictTypeEnum.task_type.value[0]] = self.task_type_combobox
+        self.data_dict_type_combobox_dict[DataDictTypeEnum.demand_person.value[0]] = self.demand_person_combobox
+        self.data_dict_type_combobox_dict[DataDictTypeEnum.task_status.value[0]] = self.task_status_combobox
+        self.data_dict_type_combobox_dict[DataDictTypeEnum.publish_status.value[0]] = self.publish_status_combobox
+
+        # 填充数据字典下拉框列表
+        for data_dict_type, combobox in self.data_dict_type_combobox_dict.items():
+            fill_data_dict_combobox(combobox, data_dict_type)
