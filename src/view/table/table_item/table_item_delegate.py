@@ -82,8 +82,14 @@ class ColorDelegate(QItemDelegate):
             # 数据重置
             self.new_data = ...
         else:
+            # 获取原来的颜色
+            origin_color_name = index.data()
+            if origin_color_name:
+                origin_color = QColor(origin_color_name)
+            else:
+                origin_color = Qt.GlobalColor.transparent
             # 重置颜色
-            self.change_color(index, Qt.GlobalColor.transparent)
+            self.change_color(index, origin_color)
 
     def updateEditorGeometry(self, editor: QWidget, option: 'QStyleOptionViewItem', index: QModelIndex):
         """调整颜色选择对话框位置"""
