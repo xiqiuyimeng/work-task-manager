@@ -20,6 +20,16 @@ TableItemInputDelegateDialogFrame {
     border-image: url(bg_jpg:conn_dialog_bg.jpg);
 }
 
+/* 项目对话框 */
+ProjectDialogFrame {
+    border-image: url(bg_jpg:conn_dialog_bg.jpg);
+}
+
+/* 项目详情对话框 */
+ProjectDetailDialogFrame {
+    border-image: url(bg_jpg:conn_dialog_bg.jpg);
+}
+
 /* 帮助信息对话框 */
 HelpDialogFrame {
     border-image: url(bg_jpg:conn_dialog_bg.jpg);
@@ -446,6 +456,27 @@ QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal{
 /* 点击样式 */
 #create_row_button:pressed {
     background: Green;
+}
+
+
+/* 表格页，删除行数据按钮 */
+#del_row_button {
+    background: Crimson;
+    color: white;
+    border-radius: 4px;
+    padding: 4px;
+}
+/* 悬浮样式 */
+#del_row_button:hover {
+    background: HotPink;
+}
+/* 点击样式 */
+#del_row_button:pressed {
+    background: Crimson;
+}
+/* 禁用样式 */
+#del_row_button:disabled{
+    background: DimGray;
 }
 
 

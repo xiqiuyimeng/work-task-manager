@@ -40,6 +40,7 @@ class SqliteBasic:
         self._update_sql = f'update {self.table_name} set'
         self._delete_sql = f'delete from {self.table_name}'
         self._max_order_sql = f'select ifnull(max(item_order), 0) as max_order from {self.table_name}'
+        self._count_sql = f'select count(*) as count from {self.table_name}'
 
     def _create_table(self):
         cursor = get_cursor()
@@ -183,6 +184,10 @@ class SqliteBasic:
         if not return_type:
             return_type = self.model_type
         return return_type(**dict(result)) if result else None
+
+    def select_count(self, condition: Union[Condition, str] = None):
+        result = self.select_by_condition(self._count_sql, condition, fetch_all=False)
+        return dict(result).get('count')
 
     def select_by_condition(self, select_cols: Union[SelectCol, str] = None,
                             condition: Union[Condition, str] = None,

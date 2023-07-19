@@ -134,8 +134,8 @@ class CustomTableWidget(TableWidgetABC):
         setattr(order_item, 'row_data', row_data)
         self.do_fill_row(row_index, row_data, fill_create_time=False)
 
-    def get_all_checked_id_names(self):
-        checked_ids, checked_names = list(), list()
+    def get_checked_id_name_index_list(self):
+        checked_ids, checked_names, checked_index_list = list(), list(), list()
         for row_idx in range(self.rowCount()):
             check_num_widget = self.cellWidget(row_idx, 0)
             # 如果选中，收集到列表中
@@ -144,7 +144,8 @@ class CustomTableWidget(TableWidgetABC):
                 if row_id:
                     checked_ids.append(int(row_id))
                 checked_names.append(self.item(row_idx, 1).text())
-        return checked_ids, checked_names
+                checked_index_list.append(row_idx)
+        return checked_ids, checked_names, checked_index_list
 
     def del_rows(self):
         # 根据选中状态删除

@@ -1,0 +1,34 @@
+# -*- coding: utf-8 -*-
+
+_author_ = 'luwt'
+_date_ = '2023/7/18 14:57'
+
+
+PROJECT_TITLE = '项目'
+
+ADD_PROJECT_BUTTON_TEXT = '添加项目'
+DEL_PROJECT_BUTTON_TEXT = '删除项目'
+
+DEL_PROJECT_TITLE = '删除项目'
+DEL_PROJECT_PROMPT = '确定要删除项目 [{}] 吗？'
+BATCH_DEL_PROJECT_PROMPT = '当前已选中 {} 条项目数据，确定删除吗？'
+
+ADD_PROJECT_TITLE = '添加项目'
+ADD_PROJECT_BOX_TITLE = '添加项目'
+EDIT_PROJECT_TITLE = '编辑项目'
+EDIT_PROJECT_BOX_TITLE = '编辑项目'
+
+PROJECT_NAME_LABEL_TXT = '项目名称：'
+PROJECT_NAME_DISPLAY_LABEL_TXT = '名称预览：'
+FONT_COLOR_LABEL_TXT = '项目名称字体颜色：'
+BACKGROUND_COLOR_LABEL_TXT = '项目名称背景色：'
+PRIORITY_LABEL_TXT = '优先级：'
+PROJECT_DESC_LABEL_TXT = '项目描述：'
+
+OPEN_FONT_COLOR_DIALOG_BTN_TXT = '选择字体颜色'
+OPEN_BACKGROUND_COLOR_DIALOG_BTN_TXT = '选择背景颜色'
+
+PRIORITY_COMBOBOX_PLACEHOLDER_TEXT = '请选择优先级'
+
+FONT_COLOR_TYPE = 'font_color'
+BACKGROUND_COLOR_TYPE = 'background_color'

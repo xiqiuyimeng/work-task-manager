@@ -2,15 +2,13 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QLabel, QGridLayout, QPushButton
 
-from src.constant.data_dict_dialog_constant import SYNC_DEFAULT_DATA_DICT_BTN_TEXT, \
-    DEL_DATA_DICT_BTN_TEXT, ADD_DATA_DICT_BTN_TEXT, DATA_DICT_DETAIL_TIP, DATA_DICT_DETAIL_BOX_TITLE, \
-    BLANK_DATA_DICT_NAME_PROMPT
+from src.constant.data_dict_dialog_constant import SYNC_DEFAULT_DATA_DICT_BTN_TEXT, DEL_DATA_DICT_BTN_TEXT, \
+    ADD_DATA_DICT_BTN_TEXT, DATA_DICT_DETAIL_TIP, DATA_DICT_DETAIL_BOX_TITLE, BLANK_DATA_DICT_NAME_PROMPT
 from src.service.async_func.async_data_dict_task import SaveDataDictExecutor
-from src.service.util.data_dict_cache_util import get_data_dict
+from src.service.util.data_dict_cache_util import get_data_dict_list
 from src.view.box.message_box import pop_fail
 from src.view.frame.save_dialog_frame import SaveDialogFrame
 from src.view.table.table_widget.data_dict_table_widget import DataDictTableWidget
-from src.view.widget.search_page_table.search_widget_func import update_data_dict_combobox
 from src.view.window.main_window_func import get_window
 
 _author_ = 'luwt'
@@ -23,7 +21,7 @@ class DataDictDetailDialogFrame(SaveDialogFrame):
     def __init__(self, data_dict_type, *args):
         # 加载当前类型的数据
         self.data_dict_type = data_dict_type
-        self.data_dict_list = get_data_dict(self.data_dict_type[0])
+        self.data_dict_list = get_data_dict_list(self.data_dict_type[0])
         # 表格顶部布局
         self.table_button_layout: QGridLayout = ...
         # 温馨提示
@@ -107,9 +105,8 @@ class DataDictDetailDialogFrame(SaveDialogFrame):
         self.save_data_executor.start()
 
     def save_callback(self):
-        # 获取主页面搜索下拉框和数据字典类型映射字典
-        combobox_dict = get_window().task_table_widget.data_dict_type_combobox_dict
-        update_data_dict_combobox(combobox_dict.get(self.data_dict_type[0]), self.data_dict_type[0])
+        # 更新主页面数据字典搜索下拉框值
+        get_window().task_table_widget.update_data_dict_combobox(self.data_dict_type[0])
         self.parent_dialog.close()
 
     # ------------------------------ 信号槽处理 end ------------------------------ #

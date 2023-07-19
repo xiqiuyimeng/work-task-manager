@@ -27,3 +27,6 @@ MAIN_TABLE_HEADER_LABELS = ['项目名称', '任务名称', '任务类型', '任
 
 # 数据字典详情表头
 DATA_DICT_HEADER_LABELS = ['字典名称', '字体颜色', '字体背景色']
+
+# 项目列表表头
+PROJECT_HEADER_LABELS = ['项目名称', '优先级', '字体颜色', '字体背景色']

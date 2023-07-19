@@ -12,7 +12,8 @@ from src.service.async_func.async_work_task import ListTaskExecutor
 from src.view.table.table_widget.work_task_manager_table_widget import WorkTaskManagerTableWidget
 from src.view.widget.search_page_table.search_page_table_widget import SearchPageTableWidget
 from src.view.widget.search_page_table.search_widget_func import setup_form_combox, setup_form_lineedit, \
-    fill_data_dict_combobox
+    fill_project_combobox, fill_data_dict_combobox, update_data_dict_combobox, add_project_combobox_item, \
+    update_project_combobox_item
 
 _author_ = 'luwt'
 _date_ = '2023/7/12 10:49'
@@ -177,6 +178,9 @@ class TaskSearchPageTableWidget(SearchPageTableWidget):
         # 默认隐藏高级查询
         self.advanced_search_widget.setVisible(False)
 
+        # 填充项目下拉框列表
+        fill_project_combobox(self.project_name_combobox)
+
         # 收集数据
         self.data_dict_type_combobox_dict[DataDictTypeEnum.priority.value[0]] = self.priority_combobox
         self.data_dict_type_combobox_dict[DataDictTypeEnum.task_type.value[0]] = self.task_type_combobox
@@ -187,3 +191,20 @@ class TaskSearchPageTableWidget(SearchPageTableWidget):
         # 填充数据字典下拉框列表
         for data_dict_type, combobox in self.data_dict_type_combobox_dict.items():
             fill_data_dict_combobox(combobox, data_dict_type)
+
+    def add_project_combobox_item(self, project):
+        # 提供给外部调用，更新项目名称搜素下拉框，添加值
+        add_project_combobox_item(self.project_name_combobox, project)
+
+    def update_project_combobox_item(self, project):
+        # 提供给外部调用，更新项目名称搜素下拉框，更新值
+        update_project_combobox_item(self.project_name_combobox, project)
+
+    def del_project_combobox_item(self, row_index_list):
+        # 提供给外部调用，更新项目名称搜素下拉框，删除值
+        for row_index in row_index_list:
+            self.project_name_combobox.removeItem(row_index)
+
+    def update_data_dict_combobox(self, data_dict_type):
+        # 提供给外部调用，更新数据字典搜索下拉框
+        update_data_dict_combobox(self.data_dict_type_combobox_dict.get(data_dict_type), data_dict_type)

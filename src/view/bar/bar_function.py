@@ -3,6 +3,7 @@ from src.constant.help_constant import CENTRAL_HELP
 from src.view.dialog.about_dialog import AboutDialog
 from src.view.dialog.data_dict.data_dict_type_dialog import DataDictTypeDialog
 from src.view.dialog.help_dialog import HelpDialog
+from src.view.dialog.project.project_dialog import ProjectDialog
 
 _author_ = 'luwt'
 _date_ = '2023/7/10 14:02'
@@ -15,7 +16,7 @@ def open_data_dict_dialog():
 
 def open_project_dialog():
     """打开项目管理对话框"""
-    ...
+    ProjectDialog().exec()
 
 
 def open_help_dialog():

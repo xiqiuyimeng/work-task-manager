@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 
 from src.service.system_storage.sqlite_abc import BasicSqliteDTO, SqliteBasic
 from src.service.util.dataclass_util import init
-from src.service.util.group_util import group_model_list
+from src.service.util.group_util import group_model_dict
 from src.service.util.system_storage_util import Condition, transactional
 
 _author_ = 'luwt'
@@ -47,7 +47,7 @@ class DataDictSqlite(SqliteBasic):
     def get_all_data_dict(self):
         data_dict_list = self.select_by_order()
         # 按类型分组
-        return group_model_list(data_dict_list, lambda x: x.dict_type)
+        return group_model_dict(data_dict_list, lambda x: x.dict_type, lambda x: x.id)
 
     @transactional
     def save_data_dict(self, data_dict_list):

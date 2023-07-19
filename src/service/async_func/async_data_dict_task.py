@@ -25,7 +25,8 @@ class SaveDataDictWorker(ThreadWorkerABC):
         # 持久化到数据库
         DataDictSqlite().save_data_dict(self.data_dict_list)
         # 更新缓存数据
-        update_data_dict(self.data_dict_list[0].dict_type, self.data_dict_list)
+        dict_dict = {data_dict.id: data_dict for data_dict in self.data_dict_list}
+        update_data_dict(self.data_dict_list[0].dict_type, dict_dict)
         self.success_signal.emit()
         log.info('保存数据字典成功')
 

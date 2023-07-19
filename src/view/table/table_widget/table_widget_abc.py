@@ -70,6 +70,9 @@ class TableWidgetABC(QTableWidget, ScrollableWidget):
             item.setBackground(QBrush(QColor(background_color)))
         return item
 
+    def make_data_dict_item(self, data_dict):
+        return self.make_item(data_dict.dict_name, data_dict.font_color, data_dict.background_color)
+
     def insert_row(self, row_index):
         self.insertRow(row_index)
         # 行高设为原行高的1.5倍，主要为了美观

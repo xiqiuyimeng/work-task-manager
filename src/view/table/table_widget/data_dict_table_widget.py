@@ -36,11 +36,11 @@ class DataDictTableWidget(CustomTableWidget):
         self.setEditTriggers(QAbstractItemView.EditTrigger.DoubleClicked)
 
     def fill_table(self, cols):
-        # 断开信号
-        self.itemChanged.disconnect()
+        # 屏蔽信号
+        self.blockSignals(True)
         super().fill_table(cols)
-        # 连接信号
-        self.itemChanged.connect(self.data_change)
+        # 恢复信号
+        self.blockSignals(False)
 
     def do_fill_row(self, row_index, row_data, fill_create_time=True):
         self.setItem(row_index, 1, self.make_item(row_data.dict_name, row_data.font_color,
@@ -81,8 +81,8 @@ class DataDictTableWidget(CustomTableWidget):
         self.dynamic_render_color(item.row(), item.column(), color)
 
     def dynamic_render_color(self, row, col, color):
-        # 断开信号
-        self.itemChanged.disconnect()
+        # 屏蔽信号
+        self.blockSignals(True)
         # 动态渲染颜色
         if col == 2:
             if color == Qt.GlobalColor.transparent:
@@ -94,23 +94,23 @@ class DataDictTableWidget(CustomTableWidget):
                 self.item(row, 1).setData(Qt.ItemDataRole.BackgroundRole, None)
             else:
                 self.item(row, 1).setBackground(QBrush(color))
-        # 连接信号
-        self.itemChanged.connect(self.data_change)
+        # 恢复信号
+        self.blockSignals(False)
 
     def add_new_data_dict(self, data_dict_type):
         data_dict = DataDict()
         data_dict.dict_type = data_dict_type
-        # 断开信号
-        self.itemChanged.disconnect()
+        # 屏蔽信号
+        self.blockSignals(True)
         super().add_row(data_dict)
-        # 连接信号
-        self.itemChanged.connect(self.data_change)
+        # 恢复信号
+        self.blockSignals(False)
         # 触发编辑模式
         self.editItem(self.item(self.rowCount() - 1, 1))
 
     def sync_default_data_dict(self, data_dict_type):
-        # 断开信号
-        self.itemChanged.disconnect()
+        # 屏蔽信号
+        self.blockSignals(True)
         # 获取当前表格已存在的值列表
         exists_data_dict_names = self.get_exists_data_dict_names()
         # 获取当前类型默认值列表
@@ -120,8 +120,8 @@ class DataDictTableWidget(CustomTableWidget):
                 data_dict.dict_name = data_dict_name
                 data_dict.dict_type = data_dict_type[0]
                 self.add_row(data_dict)
-        # 连接信号
-        self.itemChanged.connect(self.data_change)
+        # 恢复信号
+        self.blockSignals(False)
 
     def get_exists_data_dict_names(self, index=-1):
         return [self.item(row, 1).text() for row in range(self.rowCount()) if row != index]
