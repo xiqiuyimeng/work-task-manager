@@ -39,4 +39,17 @@ DUPLICATE_DATA_DICT_NAME_PROMPT = '字典名称已存在，请重新填写'
 # 字典名称存在空值
 BLANK_DATA_DICT_NAME_PROMPT = '字典名称不允许为空，请填写完成后再保存数据'
 
+# 字典为空，且需要转移数据时，不允许保存
+NO_DATA_DICT_PROMPT = '已删除的字典项绑定了数据，新的字典项不能为空，否则无法重新绑定数据，\n请先添加字典项再保存数据'
+
 DATA_DICT_DETAIL_BOX_TITLE = '保存数据字典'
+QUERY_DATA_DICT_BIND_DATA_TITLE = '查询数据字典绑定数据情况'
+
+MAINTAIN_DATA_DICT_BIND_TITLE = '数据字典绑定数据维护'
+DATA_DICT_HEADER_TEXT = '新的数据字典值列表'
+ORIGIN_DATA_DICT_HEADER_TEXT = '已删除的数据字典列表'
+DATA_DICT_BIND_ARROW_TEXT = '-------------------->'
+DATA_DICT_COMBOBOX_PLACEHOLDER_TEXT = '请选择数据字典值'
+
+CHECK_COMBOBOX_PROMPT = '已删除字典项数据存在未绑定新字典项，请检查'
+CHECK_COMBOBOX_TITLE = '检查字典项'

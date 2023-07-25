@@ -162,17 +162,17 @@ class Condition:
         if col in self.col_list:
             if operator == 'eq':
                 self._add_eq_condition(col, param)
-            elif operator == 'in':
-                self._add_in_condition(col, param)
+            elif operator == 'in' or operator == 'not in':
+                self._add_in_condition(col, param, operator)
         return self
 
     def _add_eq_condition(self, col, param):
         self.condition_list.append(f'{col} = ?')
         self.params.append(param)
 
-    def _add_in_condition(self, col, params):
+    def _add_in_condition(self, col, params, operator):
         if len(params):
-            self.condition_list.append(f'{col} in ({", ".join("?" * len(params))})')
+            self.condition_list.append(f'{col} {operator} ({", ".join("?" * len(params))})')
             self.params.extend(params)
 
     def __str__(self):
@@ -192,8 +192,10 @@ class SelectCol:
         self.col_list = get_field_list(table_name)
         self.select_cols = list()
 
-    def add(self, col):
+    def add(self, col, distinct=False):
         if col in self.col_list:
+            if distinct:
+                col = f'distinct {col}'
             self.select_cols.append(col)
         return self
 

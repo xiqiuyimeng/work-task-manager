@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from dataclasses import dataclass, field
+from typing import List
 
 from src.service.system_storage.sqlite_abc import BasicSqliteDTO, SqliteBasic
 from src.service.util.dataclass_util import init
@@ -37,6 +38,8 @@ class DataDict(BasicSqliteDTO):
     font_color: str = field(init=False, default=None)
     # 字体背景色
     background_color: str = field(init=False, default=None)
+    # 非数据库字段，在保存数据时使用
+    bind_data_list: List = field(init=False, default=None)
 
 
 class DataDictSqlite(SqliteBasic):
@@ -51,15 +54,23 @@ class DataDictSqlite(SqliteBasic):
 
     @transactional
     def save_data_dict(self, data_dict_list):
-        # 首先删除原有类型下的数据字典
+        # id集合，插入数据集合，更新数据集合
+        id_list, insert_list, update_list = list(), list(), list()
+        # 首先处理顺序问题
+        for order, data_dict in enumerate(data_dict_list, start=1):
+            data_dict.item_order = order
+            if data_dict.id:
+                id_list.append(data_dict.id)
+                update_list.append(data_dict)
+            else:
+                insert_list.append(data_dict)
+        # 删除不在 id list 中的数据
         condition = Condition(self.table_name).add('dict_type', data_dict_list[0].dict_type)
-        self.delete_by_condition(condition)
-        # 再插入新的数据
-        for idx, data_dict in enumerate(data_dict_list, start=1):
-            data_dict.item_order = idx
-        self.batch_insert(data_dict_list)
-
-    def get_id_dict(self, dict_ids):
-        condition = Condition(self.table_name).add('id', dict_ids, 'in')
-        data_list = self.select(condition=condition)
-        return {data.id: data for data in data_list}
+        condition.add('id', id_list, 'not in')
+        self.delete_by_condition(condition=condition)
+        # 插入新的数据
+        if insert_list:
+            self.batch_insert(insert_list)
+        # 更新数据
+        if update_list:
+            self.batch_update(update_list)

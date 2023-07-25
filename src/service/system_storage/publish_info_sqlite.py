@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from dataclasses import dataclass, field
 
-from src.service.system_storage.data_dict_sqlite import DataDict, DataDictSqlite
+from src.enum.data_dict_enum import DataDictTypeEnum
+from src.service.system_storage.data_dict_sqlite import DataDict
 from src.service.system_storage.sqlite_abc import BasicSqliteDTO, SqliteBasic
+from src.service.util.data_dict_cache_util import get_data_dict
 from src.service.util.dataclass_util import init
-from src.service.util.system_storage_util import Condition
+from src.service.util.system_storage_util import Condition, SelectCol
 
 _author_ = 'luwt'
 _date_ = '2023/7/11 10:25'
@@ -45,9 +47,20 @@ class PublishInfoSqlite(SqliteBasic):
 
     def get_by_task_id(self, task_id):
         condition = Condition(self.table_name).add('task_id', task_id)
-        publish_info_list = self.select_by_order(condition)
-        publish_type_ids = {publish_info.publish_type_id for publish_info in publish_info_list}
-        publish_type_id_dict = DataDictSqlite().get_id_dict(publish_type_ids)
+        publish_info_list = self.select_by_order(condition=condition)
         for publish_info in publish_info_list:
-            publish_info.publish_type = publish_type_id_dict.get(publish_info.publish_type_id)
+            publish_info.publish_type = get_data_dict(DataDictTypeEnum.publish_type.value[0],
+                                                      publish_info.publish_type_id)
         return publish_info_list
+
+    def get_used_publish_type_ids(self, publish_type_ids):
+        select_col = SelectCol(self.table_name).add('publish_type_id', distinct=True)
+        condition = Condition(self.table_name).add('publish_type_id', publish_type_ids, 'in')
+        return [publish_info.publish_type_id
+                for publish_info in self.select(select_cols=select_col, condition=condition)]
+
+    def update_publish_type_ids(self, new_id, origin_ids):
+        update_publish_info = PublishInfo()
+        update_publish_info.publish_type_id = new_id
+        condition = Condition(self.table_name).add('publish_type_id', origin_ids, 'in')
+        self.update_by_condition(update_publish_info, condition)

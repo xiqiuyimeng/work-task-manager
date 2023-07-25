@@ -28,17 +28,13 @@ def setup_form_lineedit(layout, col, row=0):
 
 
 def fill_project_combobox(project_combobox):
-    for idx, project in enumerate(get_project_dict_list()):
-        add_project_combobox_item(project_combobox, project, idx)
+    for project in get_project_dict_list():
+        add_project_combobox_item(project_combobox, project)
 
 
-def add_project_combobox_item(project_combobox, project, index=-1):
+def add_project_combobox_item(project_combobox, project):
     # 添加项目下拉框值
-    project_combobox.addItem(project.project_name)
-    # 记录数据
-    if index == -1:
-        index = project_combobox.count()
-    project_combobox.setItemData(index, project, Qt.ItemDataRole.UserRole)
+    project_combobox.addItem(project.project_name, project)
 
 
 def update_project_combobox_item(project_combobox, project):

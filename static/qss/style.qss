@@ -15,6 +15,14 @@ DataDictDetailDialogFrame {
     border-image: url(bg_jpg:conn_dialog_bg.jpg);
 }
 
+/* 数据字典操作数据绑定对话框 */
+DataDictBindDialogFrame {
+    border-image: url(bg_jpg:conn_dialog_bg.jpg);
+}
+#data_dict_bind_canvas_content_frame {
+    border-image: url(bg_jpg:conn_dialog_bg.jpg);
+}
+
 /* 表格单元格代理编辑对话框 */
 TableItemInputDelegateDialogFrame {
     border-image: url(bg_jpg:conn_dialog_bg.jpg);

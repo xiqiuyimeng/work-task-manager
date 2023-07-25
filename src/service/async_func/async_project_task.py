@@ -103,9 +103,13 @@ class DelProjectWorker(ThreadWorkerABC):
     def do_run(self):
         log.info(f'开始删除项目 {self.project_names}')
         # 检查是否存在子任务，如果存在，不允许删除
-        task_count = TaskSqlite().count_task_by_project_ids(self.project_ids)
-        if task_count:
-            raise Exception('请先删除项目关联的任务，或解除任务与项目的关系，再删除项目')
+        task_used_project_ids = TaskSqlite().get_used_project_ids(self.project_ids)
+        if task_used_project_ids:
+            used_project_names = [self.project_names[self.project_ids.index(project_id)]
+                                  for project_id in task_used_project_ids]
+            used_project_name_str = '\n'.join(used_project_names)
+            raise Exception(f'以下项目已存在子任务，请先删除项目关联的任务，或解除任务与项目的关系，'
+                            f'再删除项目\n{used_project_name_str}')
         # 删除项目
         ProjectSqlite().delete_by_ids(self.project_ids)
         # 更新缓存数据

@@ -10,7 +10,7 @@ from src.service.system_storage.publish_info_sqlite import PublishInfo
 from src.service.system_storage.sqlite_abc import BasicSqliteDTO, SqliteBasic
 from src.service.util.dataclass_util import init
 from src.service.util.project_cache_util import get_project
-from src.service.util.system_storage_util import Condition
+from src.service.util.system_storage_util import Condition, SelectCol
 from src.service.util.task_util import set_data_dict_obj
 
 _author_ = 'luwt'
@@ -114,6 +114,46 @@ class TaskSqlite(SqliteBasic):
         set_data_dict_obj(task_detail)
         return task_detail
 
-    def count_task_by_project_ids(self, project_ids):
-        condition = Condition(self.table_name).add('project_id', project_ids, 'in')
-        return self.select_count(condition)
+    def get_used_foreign_ids(self, foreign_ids, col_name, get_foreign_id_func):
+        select_col = SelectCol(self.table_name).add(col_name, distinct=True)
+        condition = Condition(self.table_name).add(col_name, foreign_ids, 'in')
+        return [get_foreign_id_func(task) for task in self.select(select_cols=select_col, condition=condition)]
+
+    def get_used_project_ids(self, project_ids):
+        return self.get_used_foreign_ids(project_ids, 'project_id', lambda task: task.project_id)
+
+    def get_used_priority_ids(self, priority_ids):
+        return self.get_used_foreign_ids(priority_ids, 'priority_id', lambda task: task.priority_id)
+
+    def get_used_task_type_ids(self, task_type_ids):
+        return self.get_used_foreign_ids(task_type_ids, 'task_type_id', lambda task: task.task_type_id)
+
+    def get_used_demand_person_ids(self, demand_person_ids):
+        return self.get_used_foreign_ids(demand_person_ids, 'demand_person_id', lambda task: task.demand_person_id)
+
+    def get_used_task_status_ids(self, status_ids):
+        return self.get_used_foreign_ids(status_ids, 'status_id', lambda task: task.status_id)
+
+    def get_used_publish_status_ids(self, publish_status_ids):
+        return self.get_used_foreign_ids(publish_status_ids, 'publish_status_id', lambda task: task.publish_status_id)
+
+    def update_data_dict_ids(self, new_id, origin_ids, property_name):
+        update_task = Task()
+        setattr(update_task, property_name, new_id)
+        condition = Condition(self.table_name).add(property_name, origin_ids, 'in')
+        self.update_by_condition(update_task, condition)
+
+    def update_priority_ids(self, new_id, origin_ids):
+        self.update_data_dict_ids(new_id, origin_ids, 'priority_id')
+
+    def update_task_type_ids(self, new_id, origin_ids):
+        self.update_data_dict_ids(new_id, origin_ids, 'task_type_id')
+
+    def update_demand_person_ids(self, new_id, origin_ids):
+        self.update_data_dict_ids(new_id, origin_ids, 'demand_person_id')
+
+    def update_task_status_ids(self, new_id, origin_ids):
+        self.update_data_dict_ids(new_id, origin_ids, 'status_id')
+
+    def update_publish_status_ids(self, new_id, origin_ids):
+        self.update_data_dict_ids(new_id, origin_ids, 'publish_status_id')

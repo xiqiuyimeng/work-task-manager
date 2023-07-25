@@ -6,6 +6,7 @@ from src.service.system_storage.data_dict_sqlite import DataDict
 from src.service.system_storage.sqlite_abc import BasicSqliteDTO, SqliteBasic
 from src.service.util.data_dict_cache_util import get_data_dict
 from src.service.util.dataclass_util import init
+from src.service.util.system_storage_util import SelectCol, Condition
 
 _author_ = 'luwt'
 _date_ = '2023/7/10 17:32'
@@ -62,3 +63,14 @@ class ProjectSqlite(SqliteBasic):
     def add_project(self, project):
         project.item_order = self.get_max_order()
         self.insert(project)
+
+    def get_used_priority_ids(self, priority_ids):
+        select_col = SelectCol(self.table_name).add('priority_id', distinct=True)
+        condition = Condition(self.table_name).add('priority_id', priority_ids, 'in')
+        return [project.priority_id for project in self.select(select_cols=select_col, condition=condition)]
+
+    def update_priority_ids(self, new_id, origin_ids):
+        update_project = Project()
+        update_project.priority_id = new_id
+        condition = Condition(self.table_name).add('priority_id', origin_ids, 'in')
+        self.update_by_condition(update_project, condition)

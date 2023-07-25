@@ -39,4 +39,4 @@ class CommentSqlite(SqliteBasic):
 
     def get_by_task_id(self, task_id):
         condition = Condition(self.table_name).add('task_id', task_id)
-        return self.select_by_order(condition)
+        return self.select_by_order(condition=condition)
