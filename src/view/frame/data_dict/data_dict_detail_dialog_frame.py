@@ -5,6 +5,7 @@ from PyQt6.QtWidgets import QLabel, QGridLayout, QPushButton
 from src.constant.data_dict_dialog_constant import SYNC_DEFAULT_DATA_DICT_BTN_TEXT, DEL_DATA_DICT_BTN_TEXT, \
     ADD_DATA_DICT_BTN_TEXT, DATA_DICT_DETAIL_TIP, DATA_DICT_DETAIL_BOX_TITLE, BLANK_DATA_DICT_NAME_PROMPT, \
     QUERY_DATA_DICT_BIND_DATA_TITLE, NO_DATA_DICT_PROMPT
+from src.enum.data_dict_enum import DataDictTypeEnum
 from src.service.async_func.async_data_dict_task import SaveDataDictExecutor, QueryDataDictBindDataExecutor
 from src.service.util.data_dict_cache_util import get_data_dict_list, get_data_dict
 from src.view.box.message_box import pop_fail
@@ -140,10 +141,13 @@ class DataDictDetailDialogFrame(SaveDialogFrame):
             self.data_dict_bind_dialog = DataDictBindDialog(bind_data_dict_list, data_dict_list)
             self.data_dict_bind_dialog.save_signal.connect(lambda: self.do_save_data(data_dict_list))
             self.data_dict_bind_dialog.exec()
+        else:
+            self.do_save_data(data_dict_list)
 
     def save_callback(self):
         # 更新主页面数据字典搜索下拉框值
-        get_window().task_table_widget.update_data_dict_combobox(self.data_dict_type_code)
+        if self.data_dict_type_code != DataDictTypeEnum.publish_type.value[0]:
+            get_window().task_table_widget.update_data_dict_combobox(self.data_dict_type_code)
         self.parent_dialog.close()
 
     # ------------------------------ 信号槽处理 end ------------------------------ #
