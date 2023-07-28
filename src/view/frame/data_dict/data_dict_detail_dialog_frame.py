@@ -147,7 +147,10 @@ class DataDictDetailDialogFrame(SaveDialogFrame):
     def save_callback(self):
         # 更新主页面数据字典搜索下拉框值
         if self.data_dict_type_code != DataDictTypeEnum.publish_type.value[0]:
-            get_window().task_table_widget.update_data_dict_combobox(self.data_dict_type_code)
+            task_table_widget = get_window().task_table_widget
+            task_table_widget.update_data_dict_combobox(self.data_dict_type_code)
+            # 刷新页面数据，以更新字典项值
+            task_table_widget.search()
         self.parent_dialog.close()
 
     # ------------------------------ 信号槽处理 end ------------------------------ #
