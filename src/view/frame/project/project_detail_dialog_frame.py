@@ -28,8 +28,6 @@ class ProjectDetailDialogFrame(NameCheckDialogFrame):
     def __init__(self, parent_dialog, dialog_title, exists_names, project=None):
         self.dialog_data: Project = ...
         self.new_dialog_data: Project = ...
-        # 优先级数据
-        self.priority_list = list(get_data_dict_list(DataDictTypeEnum.priority.value[0]))
         # 彩色名称展示label
         self.name_display_label: QLabel = ...
         self.name_value_display_label: QLabel = ...
@@ -126,7 +124,7 @@ class ProjectDetailDialogFrame(NameCheckDialogFrame):
         self.new_dialog_data.background_color = self.background_color_value_label.text()
         index = self.priority_combobox.currentIndex()
         if index >= 0:
-            self.new_dialog_data.priority = self.priority_list[index]
+            self.new_dialog_data.priority = self.priority_combobox.itemData(index)
             self.new_dialog_data.priority_id = self.new_dialog_data.priority.id
         self.new_dialog_data.project_desc = self.project_desc_text_edit.toPlainText()
 
@@ -223,7 +221,8 @@ class ProjectDetailDialogFrame(NameCheckDialogFrame):
         # 暂时屏蔽信号
         self.priority_combobox.blockSignals(True)
         # 填充优先级下拉框
-        self.priority_combobox.addItems([priority.dict_name for priority in self.priority_list])
+        for priority in get_data_dict_list(DataDictTypeEnum.priority.value[0]):
+            self.priority_combobox.addItem(priority.dict_name, priority)
         self.priority_combobox.setMaximumWidth(self.parent_dialog.width() >> 1)
         self.priority_combobox.setCurrentIndex(-1)
         # 恢复信号

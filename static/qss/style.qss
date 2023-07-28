@@ -5,6 +5,11 @@ MainWindow{
     border-image: url(bg_jpg:window_bg.jpg);
 }
 
+/* 任务详情对话框 */
+TaskDetailDialogFrame{
+    border-image: url(bg_jpg:conn_dialog_bg.jpg);
+}
+
 /* 数据字典类型对话框 */
 DataDictTypeDialogFrame {
     border-image: url(bg_jpg:conn_dialog_bg.jpg);
@@ -233,7 +238,7 @@ QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal{
 
 
 /* 重置按钮 */
-#reset_search_button {
+#reset_button {
     background: OrangeRed;
     color: white;
     border-radius: 4px;
@@ -241,11 +246,11 @@ QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal{
     width: 60%;
 }
 /* 悬浮样式 */
-#reset_search_button:hover {
+#reset_button:hover {
     background: Coral;
 }
 /* 点击样式 */
-#reset_search_button:pressed {
+#reset_button:pressed {
     background: OrangeRed;
 }
 
@@ -265,6 +270,24 @@ QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal{
 /* 点击样式 */
 #search_button:pressed {
     background-color: Green;
+}
+
+
+/* 新建按钮 */
+#add_button {
+    background: Green;
+    color: white;
+    border-radius: 4px;
+    padding: 4px;
+    width: 60%;
+}
+/* 悬浮样式 */
+#add_button:hover {
+    background: LimeGreen;
+}
+/* 点击样式 */
+#add_button:pressed {
+    background: Green;
 }
 
 
@@ -429,6 +452,23 @@ QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal{
 /* 禁用样式 */
 #save_button:disabled{
     background: DimGray;
+}
+
+
+/* 取消按钮 */
+#cancel_button {
+    background: OrangeRed;
+    color: white;
+    border-radius: 4px;
+    padding: 4px;
+}
+/* 悬浮样式 */
+#cancel_button:hover {
+    background: Coral;
+}
+/* 点击样式 */
+#cancel_button:pressed {
+    background: OrangeRed;
 }
 
 

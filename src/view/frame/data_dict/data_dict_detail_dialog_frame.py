@@ -133,7 +133,7 @@ class DataDictDetailDialogFrame(SaveDialogFrame):
         for bind_data_dict_id in self.bind_data_dict_ids:
             # 获取已删除且绑定数据的原字典项
             bind_data_dict = get_data_dict(self.data_dict_type_code, bind_data_dict_id)
-            # 如果字典项已删除（不在需要保存的数据中），并且原字典项也不在新
+            # 如果字典项已删除（不在需要保存的数据中），并且原字典项也不在新数据中
             if bind_data_dict_id not in save_data_dict_ids:
                 bind_data_dict_list.append(bind_data_dict)
         # 如果存在需要重新分配的数据，打开处理对话框

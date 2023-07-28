@@ -40,3 +40,18 @@ class CommentSqlite(SqliteBasic):
     def get_by_task_id(self, task_id):
         condition = Condition(self.table_name).add('task_id', task_id)
         return self.select_by_order(condition=condition)
+
+    def add_comment_list(self, task_id, comment_list):
+        for index, comment in enumerate(comment_list, start=1):
+            comment.item_order = index
+            comment.task_id = task_id
+        self.batch_insert(comment_list)
+
+    def del_comment_list(self, task_ids):
+        condition = Condition(self.table_name).add('task_id', task_ids, 'in')
+        self.delete_by_condition(condition)
+
+    def update_comment_list(self, task_id, comment_list):
+        self.del_comment_list((task_id,))
+        if comment_list:
+            self.add_comment_list(task_id, comment_list)

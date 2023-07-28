@@ -53,6 +53,21 @@ class PublishInfoSqlite(SqliteBasic):
                                                       publish_info.publish_type_id)
         return publish_info_list
 
+    def add_publish_info_list(self, task_id, publish_info_list):
+        for index, publish_info in enumerate(publish_info_list, start=1):
+            publish_info.item_order = index
+            publish_info.task_id = task_id
+        self.batch_insert(publish_info_list)
+
+    def del_publish_info_list(self, task_ids):
+        condition = Condition(self.table_name).add('task_id', task_ids, 'in')
+        self.delete_by_condition(condition)
+
+    def update_publish_info_list(self, task_id, publish_info_list):
+        self.del_publish_info_list((task_id,))
+        if publish_info_list:
+            self.add_publish_info_list(task_id, publish_info_list)
+
     def get_used_publish_type_ids(self, publish_type_ids):
         select_col = SelectCol(self.table_name).add('publish_type_id', distinct=True)
         condition = Condition(self.table_name).add('publish_type_id', publish_type_ids, 'in')

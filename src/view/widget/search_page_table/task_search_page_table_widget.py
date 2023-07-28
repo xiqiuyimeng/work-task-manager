@@ -1,17 +1,20 @@
 # -*- coding: utf-8 -*-
 from PyQt6.QtWidgets import QComboBox, QLineEdit, QLabel, QGridLayout, QWidget, QPushButton
 
-from src.constant.window_constant import TASK_BOX_TITLE, PROJECT_NAME_LABEL_TEXT, PROJECT_NAME_PLACEHOLDER_TEXT, \
-    TASK_NAME_LABEL_TEXT, TASK_NAME_PLACEHOLDER_TEXT, TASK_TYPE_LABEL_TEXT, TASK_TYPE_PLACEHOLDER_TEXT, \
-    DEMAND_PERSON_LABEL_TEXT, DEMAND_PERSON_PLACEHOLDER_TEXT, PRIORITY_LABEL_TEXT, PRIORITY_PLACEHOLDER_TEXT, \
-    TASK_STATUS_LABEL_TEXT, TASK_STATUS_PLACEHOLDER_TEXT, PUBLISH_STATUS_LABEL_TEXT, PUBLISH_STATUS_PLACEHOLDER_TEXT, \
-    START_TIME_LABEL_TEXT, START_TIME_PLACEHOLDER_TEXT, END_TIME_LABEL_TEXT, END_TIME_PLACEHOLDER_TEXT, \
-    SWITCH_ADVANCED_SEARCH_BTN_TEXT, SWITCH_BASIC_SEARCH_BTN_TEXT
+from src.constant.task_constant import BATCH_DEL_TASK_PROMPT, DEL_TASK_BOX_TITLE, DEL_TASK_PROMPT
+from src.constant.task_constant import PROJECT_NAME_LABEL_TEXT, PROJECT_NAME_PLACEHOLDER_TEXT, TASK_NAME_LABEL_TEXT, \
+    TASK_NAME_PLACEHOLDER_TEXT, TASK_TYPE_LABEL_TEXT, TASK_TYPE_PLACEHOLDER_TEXT, DEMAND_PERSON_LABEL_TEXT, \
+    DEMAND_PERSON_PLACEHOLDER_TEXT, PRIORITY_LABEL_TEXT, PRIORITY_PLACEHOLDER_TEXT, TASK_STATUS_LABEL_TEXT, \
+    TASK_STATUS_PLACEHOLDER_TEXT, PUBLISH_STATUS_LABEL_TEXT, PUBLISH_STATUS_PLACEHOLDER_TEXT, \
+    START_TIME_LABEL_TEXT, START_TIME_PLACEHOLDER_TEXT, END_TIME_LABEL_TEXT, END_TIME_PLACEHOLDER_TEXT
+from src.constant.window_constant import SWITCH_ADVANCED_SEARCH_BTN_TEXT, SWITCH_BASIC_SEARCH_BTN_TEXT, TASK_BOX_TITLE
 from src.enum.data_dict_enum import DataDictTypeEnum
-from src.service.async_func.async_work_task import ListTaskExecutor
+from src.service.async_func.async_work_task import ListTaskExecutor, DelTaskExecutor
+from src.view.custom_widget.calendar_time_lineedit import CalendarTimeLineEdit
+from src.view.dialog.task.task_detail_dialog import TaskDetailDialog
 from src.view.table.table_widget.work_task_manager_table_widget import WorkTaskManagerTableWidget
 from src.view.widget.search_page_table.search_page_table_widget import SearchPageTableWidget
-from src.view.widget.search_page_table.search_widget_func import setup_form_combox, setup_form_lineedit, \
+from src.view.widget.widget_func import setup_grid_form_combox, setup_form_lineedit, \
     fill_project_combobox, fill_data_dict_combobox, update_data_dict_combobox, add_project_combobox_item, \
     update_project_combobox_item
 
@@ -50,14 +53,12 @@ class TaskSearchPageTableWidget(SearchPageTableWidget):
         self.publish_status_combobox: QComboBox = ...
         # 开始时间搜索框，日历
         self.start_time_label: QLabel = ...
-        self.start_time_lineedit: QLineEdit = ...
+        self.start_time_lineedit: CalendarTimeLineEdit = ...
         # 结束时间搜索框，日历
         self.end_time_label: QLabel = ...
-        self.end_time_lineedit: QLineEdit = ...
+        self.end_time_lineedit: CalendarTimeLineEdit = ...
         # 高级查询、基本查询切换按钮
         self.switch_search_button: QPushButton = ...
-        # 主数据表格
-        self.table_widget: WorkTaskManagerTableWidget = ...
 
         # 数据字典搜索下拉框与数据字典类型关系
         self.data_dict_type_combobox_dict = dict()
@@ -66,12 +67,12 @@ class TaskSearchPageTableWidget(SearchPageTableWidget):
     def setup_search_ui(self):
         # 第一行基本查询  项目名称 优先级 任务名称
         self.basic_search_widget, self.basic_search_layout = self.setup_search_widget_layout()
-        self.basic_search_layout.setColumnStretch(0, 2)
-        self.basic_search_layout.setColumnStretch(1, 1)
+        self.basic_search_layout.setColumnStretch(0, 3)
+        self.basic_search_layout.setColumnStretch(1, 2)
         self.basic_search_layout.setColumnStretch(2, 4)
 
-        self.project_name_label, self.project_name_combobox = setup_form_combox(self.basic_search_layout, 0)
-        self.priority_label, self.priority_combobox = setup_form_combox(self.basic_search_layout, 1)
+        self.project_name_label, self.project_name_combobox = setup_grid_form_combox(self.basic_search_layout, 0)
+        self.priority_label, self.priority_combobox = setup_grid_form_combox(self.basic_search_layout, 1)
         self.task_name_label, self.task_name_lineedit = setup_form_lineedit(self.basic_search_layout, 2)
 
         # 第二行高级查询 任务类型  任务需求方  任务状态
@@ -80,14 +81,17 @@ class TaskSearchPageTableWidget(SearchPageTableWidget):
         self.advanced_search_layout.setColumnStretch(1, 1)
         self.advanced_search_layout.setColumnStretch(2, 1)
 
-        self.task_type_label, self.task_type_combobox = setup_form_combox(self.advanced_search_layout, 0)
-        self.demand_person_label, self.demand_person_combobox = setup_form_combox(self.advanced_search_layout, 1)
-        self.task_status_label, self.task_status_combobox = setup_form_combox(self.advanced_search_layout, 2)
+        self.task_type_label, self.task_type_combobox = setup_grid_form_combox(self.advanced_search_layout, 0)
+        self.demand_person_label, self.demand_person_combobox = setup_grid_form_combox(self.advanced_search_layout, 1)
+        self.task_status_label, self.task_status_combobox = setup_grid_form_combox(self.advanced_search_layout, 2)
 
         # 第三行高级查询 发版状态 开始时间 结束时间
-        self.publish_status_label, self.publish_status_combobox = setup_form_combox(self.advanced_search_layout, 0, 1)
-        self.start_time_label, self.start_time_lineedit = setup_form_lineedit(self.advanced_search_layout, 1, 1)
-        self.end_time_label, self.end_time_lineedit = setup_form_lineedit(self.advanced_search_layout, 2, 1)
+        self.publish_status_label, self.publish_status_combobox = setup_grid_form_combox(self.advanced_search_layout,
+                                                                                         0, 1)
+        self.start_time_label, self.start_time_lineedit = setup_form_lineedit(self.advanced_search_layout, 1, 1,
+                                                                              lineedit_class=CalendarTimeLineEdit)
+        self.end_time_label, self.end_time_lineedit = setup_form_lineedit(self.advanced_search_layout, 2, 1,
+                                                                          lineedit_class=CalendarTimeLineEdit)
 
     def setup_search_widget_layout(self):
         search_widget = QWidget()
@@ -97,11 +101,11 @@ class TaskSearchPageTableWidget(SearchPageTableWidget):
         search_widget.setLayout(search_layout)
         return search_widget, search_layout
 
-    def setup_button_ui(self, blank_left=8):
+    def setup_button_ui(self, blank_left=6):
         super().setup_button_ui()
         self.switch_search_button = QPushButton()
         self.switch_search_button.setObjectName('switch_search_button')
-        self.button_layout.addWidget(self.switch_search_button, 0, blank_left, 1, 1)
+        self.button_layout.addWidget(self.switch_search_button, 0, blank_left + 3, 1, 1)
 
     def get_table_widget(self) -> WorkTaskManagerTableWidget:
         return WorkTaskManagerTableWidget(self)
@@ -167,11 +171,21 @@ class TaskSearchPageTableWidget(SearchPageTableWidget):
         self.start_time_lineedit.clear()
         self.end_time_lineedit.clear()
 
-    def get_search_executor(self):
-        return ListTaskExecutor(self.main_window, self.main_window, TASK_BOX_TITLE, self.table_widget.fill_table)
+    def get_search_executor(self, search_callback):
+        return ListTaskExecutor(self.main_window, self.main_window, TASK_BOX_TITLE, search_callback)
 
-    def del_rows(self):
-        ...
+    def get_row_data_dialog(self, title, row_id) -> TaskDetailDialog:
+        return TaskDetailDialog(title, row_id)
+
+    def get_batch_del_prompt_title(self) -> tuple:
+        return BATCH_DEL_TASK_PROMPT, DEL_TASK_BOX_TITLE
+
+    def get_del_row_executor(self, task_ids, task_names, del_title, del_callback) -> DelTaskExecutor:
+        return DelTaskExecutor(task_ids, task_names, self.main_window,
+                               self.main_window, del_title, del_callback)
+
+    def get_del_prompt_title(self) -> tuple:
+        return DEL_TASK_PROMPT, DEL_TASK_BOX_TITLE
 
     def post_process(self):
         super().post_process()
@@ -205,6 +219,6 @@ class TaskSearchPageTableWidget(SearchPageTableWidget):
         for row_index in row_index_list:
             self.project_name_combobox.removeItem(row_index)
 
-    def update_data_dict_combobox(self, data_dict_type):
+    def update_data_dict_combobox(self, data_dict_type_code):
         # 提供给外部调用，更新数据字典搜索下拉框
-        update_data_dict_combobox(self.data_dict_type_combobox_dict.get(data_dict_type), data_dict_type)
+        update_data_dict_combobox(self.data_dict_type_combobox_dict.get(data_dict_type_code), data_dict_type_code)

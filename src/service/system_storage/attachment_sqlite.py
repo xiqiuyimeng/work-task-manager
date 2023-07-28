@@ -8,7 +8,6 @@ from src.service.util.system_storage_util import Condition
 _author_ = 'luwt'
 _date_ = '2023/7/11 9:49'
 
-
 table_name = 'attachment'
 
 sql_dict = {
@@ -43,3 +42,18 @@ class AttachmentSqlite(SqliteBasic):
     def get_by_task_id(self, task_id):
         condition = Condition(self.table_name).add('task_id', task_id)
         return self.select_by_order(condition=condition)
+
+    def del_attachment_list(self, task_ids):
+        condition = Condition(self.table_name).add('task_id', task_ids, 'in')
+        self.delete_by_condition(condition)
+
+    def update_attachment_list(self, task_id, attachment_list):
+        self.del_attachment_list((task_id,))
+        if attachment_list:
+            self.add_attachment_list(task_id, attachment_list)
+
+    def add_attachment_list(self, task_id, attachment_list):
+        for index, attachment in enumerate(attachment_list, start=1):
+            attachment.item_order = index
+            attachment.task_id = task_id
+        self.batch_insert(attachment_list)

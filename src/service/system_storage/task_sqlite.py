@@ -28,11 +28,11 @@ sql_dict = {
     demand_person_id integer not null,
     priority_id integer not null,
     status_id integer not null,
-    start_time datetime not null,
-    end_time datetime not null,
-    time_duration char(20) not null,
+    start_time datetime,
+    end_time datetime,
+    time_duration char(10),
     publish_status_id integer not null,
-    content text not null,
+    content text,
     item_order integer not null,
     create_time datetime not null,
     update_time datetime not null
@@ -95,8 +95,12 @@ class TaskSqlite(SqliteBasic):
     def __init__(self):
         super().__init__(table_name, sql_dict, Task)
 
+    def get_task_names(self):
+        select_col = SelectCol(self.table_name).add('task_name')
+        return [task.task_name for task in self.select(select_cols=select_col)]
+
     def get_task_list(self):
-        task_list = self.select_by_order(return_type=BasicTask)
+        task_list = self.select(return_type=BasicTask, order_by='create_time', sort_order='desc')
         if task_list:
             for task in task_list:
                 # 项目
@@ -113,6 +117,16 @@ class TaskSqlite(SqliteBasic):
         # 字典项
         set_data_dict_obj(task_detail)
         return task_detail
+
+    def add_task(self, task):
+        task.item_order = self.get_max_order()
+        self.insert(task)
+
+    def get_task_name(self, task_id):
+        select_col = SelectCol(self.table_name).add('task_name')
+        condition = Condition(self.table_name).add('id', task_id)
+        task = self.select_one(select_cols=select_col, condition=condition)
+        return task.task_name if task else None
 
     def get_used_foreign_ids(self, foreign_ids, col_name, get_foreign_id_func):
         select_col = SelectCol(self.table_name).add(col_name, distinct=True)

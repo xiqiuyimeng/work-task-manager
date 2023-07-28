@@ -22,16 +22,16 @@ class AddProjectWorker(ThreadWorkerABC):
         self.project = project
 
     def do_run(self):
-        log.info(f'开始添加项目 {self.project.project_name}')
+        log.info(f'开始添加项目：{self.project.project_name}')
         # 持久化到数据库
         ProjectSqlite().add_project(self.project)
         # 更新缓存数据
         update_project_dict(self.project)
         self.success_signal.emit()
-        log.info(f'添加项目成功 {self.project.project_name}')
+        log.info(f'添加项目成功：{self.project.project_name}')
 
     def get_err_msg(self) -> str:
-        return f'添加项目失败 {self.project.project_name}'
+        return f'添加项目失败：{self.project.project_name}'
 
 
 class AddProjectExecutor(LoadingMaskThreadExecutor):
@@ -44,7 +44,7 @@ class AddProjectExecutor(LoadingMaskThreadExecutor):
         return AddProjectWorker(self.project)
 
     def success_post_process(self, *args):
-        pop_ok(f'添加项目成功 {self.project.project_name}', self.error_box_title, self.window)
+        pop_ok(f'添加项目成功：{self.project.project_name}', self.error_box_title, self.window)
         super().success_post_process()
 
 
@@ -61,16 +61,16 @@ class EditProjectWorker(ThreadWorkerABC):
         self.project = project
 
     def do_run(self):
-        log.info(f'开始编辑项目 {self.project.project_name}')
+        log.info(f'开始编辑项目：{self.project.project_name}')
         # 持久化到数据库
         ProjectSqlite().update_by_id(self.project)
         # 更新缓存数据
         update_project_dict(self.project)
         self.success_signal.emit()
-        log.info(f'编辑项目成功 {self.project.project_name}')
+        log.info(f'编辑项目成功：{self.project.project_name}')
 
     def get_err_msg(self) -> str:
-        return f'编辑项目失败 {self.project.project_name}'
+        return f'编辑项目失败：{self.project.project_name}'
 
 
 class EditProjectExecutor(LoadingMaskThreadExecutor):
@@ -83,7 +83,7 @@ class EditProjectExecutor(LoadingMaskThreadExecutor):
         return EditProjectWorker(self.project)
 
     def success_post_process(self, *args):
-        pop_ok(f'编辑项目成功 {self.project.project_name}', self.error_box_title, self.window)
+        pop_ok(f'编辑项目成功：{self.project.project_name}', self.error_box_title, self.window)
         super().success_post_process()
 
 
@@ -101,7 +101,7 @@ class DelProjectWorker(ThreadWorkerABC):
         self.project_names = project_names
 
     def do_run(self):
-        log.info(f'开始删除项目 {self.project_names}')
+        log.info(f'开始删除项目：{self.project_names}')
         # 检查是否存在子任务，如果存在，不允许删除
         task_used_project_ids = TaskSqlite().get_used_project_ids(self.project_ids)
         if task_used_project_ids:
@@ -115,10 +115,10 @@ class DelProjectWorker(ThreadWorkerABC):
         # 更新缓存数据
         remove_project(self.project_ids)
         self.success_signal.emit()
-        log.info(f'删除项目成功 {self.project_names}')
+        log.info(f'删除项目成功：{self.project_names}')
 
     def get_err_msg(self) -> str:
-        return f'删除项目失败 {self.project_names}'
+        return f'删除项目失败：{self.project_names}'
 
 
 class DelProjectExecutor(LoadingMaskThreadExecutor):

@@ -9,8 +9,9 @@ _author_ = 'luwt'
 _date_ = '2023/7/12 15:58'
 
 
-def setup_form_combox(layout, col, row=0):
+def setup_grid_form_combox(layout, col, row=0):
     label = QLabel()
+    label.setObjectName('form_label')
     combobox = QComboBox()
     form_layout = QFormLayout()
     form_layout.addRow(label, combobox)
@@ -18,9 +19,18 @@ def setup_form_combox(layout, col, row=0):
     return label, combobox
 
 
-def setup_form_lineedit(layout, col, row=0):
+def setup_form_combox(layout):
     label = QLabel()
-    linedit = QLineEdit()
+    label.setObjectName('form_label')
+    combobox = QComboBox()
+    layout.addRow(label, combobox)
+    return label, combobox
+
+
+def setup_form_lineedit(layout, col, row=0, lineedit_class=QLineEdit):
+    label = QLabel()
+    label.setObjectName('form_label')
+    linedit = lineedit_class()
     form_layout = QFormLayout()
     form_layout.addRow(label, linedit)
     layout.addLayout(form_layout, row, col)
@@ -44,14 +54,22 @@ def update_project_combobox_item(project_combobox, project):
     project_combobox.setItemData(index, project, Qt.ItemDataRole.UserRole)
 
 
-def fill_data_dict_combobox(combobox, data_dict_type):
-    for data_dict in get_data_dict_list(data_dict_type):
-        combobox.addItem(data_dict.dict_name)
+def fill_data_dict_combobox(combobox, data_dict_type_code):
+    for data_dict in get_data_dict_list(data_dict_type_code):
+        combobox.addItem(data_dict.dict_name, data_dict)
 
 
-def update_data_dict_combobox(combobox, data_dict_type):
+def update_data_dict_combobox(combobox, data_dict_type_code):
     # 记录原值
     origin_text = combobox.currentText()
     combobox.clear()
-    fill_data_dict_combobox(combobox, data_dict_type)
+    fill_data_dict_combobox(combobox, data_dict_type_code)
     combobox.setCurrentText(origin_text)
+
+
+def get_task_combobox_data(combobox, task, obj_property_name, id_property_name):
+    index = combobox.currentIndex()
+    if index >= 0:
+        item_data = combobox.itemData(index)
+        setattr(task, obj_property_name, item_data)
+        setattr(task, id_property_name, item_data.id)
