@@ -4,6 +4,7 @@ from typing import Union
 
 from src.logger.log import logger as log
 from src.service.util.db_id_generator_util import update_id_generator, get_id
+from src.service.util.page_util import Page
 from src.service.util.system_storage_util import get_cursor, get_now_str, batch_operate, Condition, get_field_list, \
     SelectCol, update_table_field_dict
 
@@ -168,13 +169,18 @@ class SqliteBasic:
         return self.select(return_type, select_cols, condition, order_by='item_order', sort_order=sort_order)
 
     def select(self, return_type=None, select_cols: Union[SelectCol, str] = None,
-               condition: Union[Condition, str] = None, order_by=None, sort_order='asc'):
+               condition: Union[Condition, str] = None, order_by=None,
+               sort_order='asc', page: Page = None):
         """根据条件查询，根据不为空的属性作为条件进行查询"""
-        rows = self.select_by_condition(select_cols, condition, order_by, sort_order)
+        rows = self.select_by_condition(select_cols, condition, order_by, sort_order, page=page)
         # 映射为参数对象类
         if not return_type:
             return_type = self.model_type
-        return [return_type(**dict(row)) for row in rows]
+        data_list = [return_type(**dict(row)) for row in rows]
+        if page:
+            page.data = data_list
+        else:
+            return data_list
 
     def select_one(self, return_type=None, select_cols: Union[SelectCol, str] = None,
                    condition: Union[Condition, str] = None, order_by=None, sort_order='asc'):
@@ -191,15 +197,16 @@ class SqliteBasic:
 
     def select_by_condition(self, select_cols: Union[SelectCol, str] = None,
                             condition: Union[Condition, str] = None,
-                            order_by=None, sort_order='asc', fetch_all=True):
+                            order_by=None, sort_order='asc',
+                            page: Page = None, fetch_all=True):
         if not select_cols:
             select_cols = SelectCol(self.table_name)
         if not condition:
             condition = Condition(self.table_name)
-        return self._do_select(select_cols, condition, condition.params, order_by, sort_order, fetch_all)
+        return self._do_select(select_cols, condition, condition.params, order_by, sort_order, page, fetch_all)
 
     def _do_select(self, select_col_sql, where_clause=None, params=None, order_by=None,
-                   sort_order='asc', fetch_all=True):
+                   sort_order='asc', page: Page = None, fetch_all=True):
         """根据条件查询"""
         select_sql = str(select_col_sql)
         if where_clause:
@@ -208,6 +215,10 @@ class SqliteBasic:
             select_sql += f' order by {order_by} {sort_order}'
         if not fetch_all:
             select_sql += ' limit 1'
+        elif page:
+            # 首先进行一次总条数查询，填充 page
+            self._select_page(select_sql, params, page)
+            select_sql += f' limit {page.page_size} offset {page.page_size * (page.page_no - 1)}'
         log.info(f'查询[{self.table_name}]语句 ==> {select_sql}')
         cursor = get_cursor()
         if params:
@@ -219,6 +230,16 @@ class SqliteBasic:
             return cursor.fetchall()
         else:
             return cursor.fetchone()
+
+    def _select_page(self, select_sql, param, page):
+        page_sql = f'select count(1) as row_count from ({select_sql})'
+        log.info(f'查询[{self.table_name}]分页条数语句 ==> {page_sql}')
+        cursor = get_cursor()
+        cursor.execute(page_sql, param)
+        row_count_data = dict(cursor.fetchone())
+        row_count = row_count_data.get('row_count')
+        # 填充 page
+        page.fill_page(row_count)
 
     def filter_illegal_field(self, data):
         # 过滤掉不合法的field

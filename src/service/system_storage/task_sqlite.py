@@ -99,15 +99,36 @@ class TaskSqlite(SqliteBasic):
         select_col = SelectCol(self.table_name).add('task_name')
         return [task.task_name for task in self.select(select_cols=select_col)]
 
-    def get_task_list(self):
-        task_list = self.select(return_type=BasicTask, order_by='create_time', sort_order='desc')
+    def search_task(self, search_param: BasicTask, page):
+        condition = Condition(self.table_name)
+        # 拼接条件
+        if search_param.task_name:
+            condition.add('task_name', search_param.task_name, 'like')
+        if search_param.project_id:
+            condition.add('project_id', search_param.project_id)
+        if search_param.priority_id:
+            condition.add('priority_id', search_param.priority_id)
+        if search_param.task_type_id:
+            condition.add('task_type_id', search_param.task_type_id)
+        if search_param.demand_person_id:
+            condition.add('demand_person_id', search_param.demand_person_id)
+        if search_param.status_id:
+            condition.add('status_id', search_param.status_id)
+        if search_param.publish_status_id:
+            condition.add('publish_status_id', search_param.publish_status_id)
+        if search_param.start_time:
+            condition.add('start_time', search_param.start_time, 'ge')
+        if search_param.end_time:
+            condition.add('end_time', search_param.end_time, 'le')
+
+        self.select(return_type=BasicTask, condition=condition, order_by='create_time', sort_order='desc', page=page)
+        task_list = page.data
         if task_list:
             for task in task_list:
                 # 项目
                 task.project_info = get_project(task.project_id)
                 # 数据字典
                 set_data_dict_obj(task)
-        return task_list
 
     def get_task_detail(self, task_id):
         condition = Condition(self.table_name).add('id', task_id)

@@ -18,12 +18,17 @@ _date_ = '2023/7/11 17:31'
 # ----------------------- 获取任务列表 start ----------------------- #
 
 class ListTaskWorker(ThreadWorkerABC):
-    success_signal = pyqtSignal(list)
+    success_signal = pyqtSignal()
+
+    def __init__(self, search_param, page):
+        super().__init__()
+        self.search_param = search_param
+        self.page = page
 
     def do_run(self):
         log.info('开始读取任务列表')
-        task_list = TaskSqlite().get_task_list()
-        self.success_signal.emit(task_list)
+        TaskSqlite().search_task(self.search_param, self.page)
+        self.success_signal.emit()
         log.info('读取任务列表成功')
 
     def get_err_msg(self) -> str:
@@ -32,8 +37,13 @@ class ListTaskWorker(ThreadWorkerABC):
 
 class ListTaskExecutor(LoadingMaskThreadExecutor):
 
+    def __init__(self, search_param, page, *args):
+        self.search_param = search_param
+        self.page = page
+        super().__init__(*args)
+
     def get_worker(self) -> ListTaskWorker:
-        return ListTaskWorker()
+        return ListTaskWorker(self.search_param, self.page)
 
 # ----------------------- 获取任务列表 end ----------------------- #
 

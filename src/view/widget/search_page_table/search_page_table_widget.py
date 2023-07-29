@@ -99,6 +99,7 @@ class SearchPageTableWidget(QWidget):
         ...
 
     def connect_signal(self):
+        self.page_widget.page_changed.connect(self.search)
         self.reset_search_button.clicked.connect(self.reset_search)
         self.search_button.clicked.connect(self.search)
         self.add_button.clicked.connect(lambda: self.open_row_data_dialog())
@@ -113,6 +114,7 @@ class SearchPageTableWidget(QWidget):
     def reset_search(self):
         # 清空数据
         self.reset_search_data()
+        self.page_widget.init_page_data()
         # 重新搜索
         self.search()
 
@@ -127,13 +129,15 @@ class SearchPageTableWidget(QWidget):
     def get_search_executor(self, search_callback) -> LoadingMaskThreadExecutor:
         ...
 
-    def search_callback(self, data_list):
+    def search_callback(self):
         # 首先清除页面数据
         if self.table_widget.rowCount():
             self.table_widget.clearContents()
             self.table_widget.setRowCount(0)
         # 重新填充数据
-        self.table_widget.fill_table(data_list)
+        self.table_widget.fill_table(self.page_widget.page_data.data)
+        # 更新分页组件
+        self.page_widget.update_page()
 
     def open_row_data_dialog(self, row_id=None, row_index=None):
         if row_id:
@@ -183,7 +187,7 @@ class SearchPageTableWidget(QWidget):
         ...
 
     def post_process(self):
+        self.page_widget.init_page_data()
         self.search()
         # 删除按钮默认不可用
         self.del_button.setDisabled(True)
-        self.page_widget.init_page_data()

@@ -269,13 +269,12 @@ class PageWidget(QWidget):
     # ------------------------------ 信号槽处理 end ------------------------------ #
 
     def init_page_data(self):
-        self.set_page_data(Page().init_page())
+        self.page_data = Page().init_page()
+        self.update_page()
 
-    def set_page_data(self, page):
-        self.page_data = page
-
+    def update_page(self):
+        self.blockSignals(True)
         self.page_size_combobox.setCurrentIndex(PAGE_SIZE_RANGE.index(str(self.page_data.page_size)))
-
         self.total_count_label.setText(TOTAL_COUNT_LABEL_TEXT.format(self.page_data.total_count))
 
         # 动态渲染按钮组
@@ -285,8 +284,9 @@ class PageWidget(QWidget):
         self.jump_page_lineedit.set_init_page_no(self.group_first_button.text())
         # 设置最大页码
         self.jump_page_lineedit.set_max_page_no(self.page_data.total_page)
-        self.jump_page_lineedit.init_page()
+        self.jump_page_lineedit.set_current_page(self.page_data.page_no)
         self.jump_page()
+        self.blockSignals(False)
 
         # 调整控件尺寸
         self.adjust_widget_size()

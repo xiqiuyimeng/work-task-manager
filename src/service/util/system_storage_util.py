@@ -162,6 +162,12 @@ class Condition:
         if col in self.col_list:
             if operator == 'eq':
                 self._add_eq_condition(col, param)
+            elif operator == 'ge':
+                self._add_ge_condition(col, param)
+            elif operator == 'le':
+                self._add_le_condition(col, param)
+            elif operator == 'like':
+                self._add_like_condition(col, param)
             elif operator == 'in' or operator == 'not in':
                 self._add_in_condition(col, param, operator)
         return self
@@ -169,6 +175,17 @@ class Condition:
     def _add_eq_condition(self, col, param):
         self.condition_list.append(f'{col} = ?')
         self.params.append(param)
+
+    def _add_ge_condition(self, col, param):
+        self.condition_list.append(f'{col} >= ?')
+        self.params.append(param)
+
+    def _add_le_condition(self, col, param):
+        self.condition_list.append(f'{col} <= ? and {col} <> "" and {col} is not null')
+        self.params.append(param)
+
+    def _add_like_condition(self, col, param):
+        self.condition_list.append(f'{col} like "%{param}%"')
 
     def _add_in_condition(self, col, params, operator):
         if len(params):

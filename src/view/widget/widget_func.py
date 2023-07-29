@@ -67,9 +67,10 @@ def update_data_dict_combobox(combobox, data_dict_type_code):
     combobox.setCurrentText(origin_text)
 
 
-def get_task_combobox_data(combobox, task, obj_property_name, id_property_name):
+def get_task_combobox_data(combobox, task, id_property_name, obj_property_name=None):
     index = combobox.currentIndex()
     if index >= 0:
         item_data = combobox.itemData(index)
-        setattr(task, obj_property_name, item_data)
         setattr(task, id_property_name, item_data.id)
+        if obj_property_name:
+            setattr(task, obj_property_name, item_data)

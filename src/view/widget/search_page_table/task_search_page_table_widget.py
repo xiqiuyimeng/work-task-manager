@@ -10,12 +10,14 @@ from src.constant.task_constant import PROJECT_NAME_LABEL_TEXT, PROJECT_NAME_PLA
 from src.constant.window_constant import SWITCH_ADVANCED_SEARCH_BTN_TEXT, SWITCH_BASIC_SEARCH_BTN_TEXT, TASK_BOX_TITLE
 from src.enum.data_dict_enum import DataDictTypeEnum
 from src.service.async_func.async_work_task import ListTaskExecutor, DelTaskExecutor
+from src.service.system_storage.task_sqlite import BasicTask
 from src.view.custom_widget.calendar_time_lineedit import CalendarTimeLineEdit
 from src.view.dialog.task.task_detail_dialog import TaskDetailDialog
 from src.view.table.table_widget.work_task_manager_table_widget import WorkTaskManagerTableWidget
 from src.view.widget.search_page_table.search_page_table_widget import SearchPageTableWidget
 from src.view.widget.widget_func import setup_grid_form_combox, setup_form_lineedit, fill_project_combobox, \
-    fill_data_dict_combobox, update_data_dict_combobox, add_project_combobox_item, update_project_combobox_item
+    fill_data_dict_combobox, update_data_dict_combobox, add_project_combobox_item, update_project_combobox_item, \
+    get_task_combobox_data
 
 _author_ = 'luwt'
 _date_ = '2023/7/12 10:49'
@@ -170,8 +172,24 @@ class TaskSearchPageTableWidget(SearchPageTableWidget):
         self.start_time_lineedit.clear()
         self.end_time_lineedit.clear()
 
+    def collect_search_param(self):
+        search_param = BasicTask()
+        search_param.task_name = self.task_name_lineedit.text()
+        get_task_combobox_data(self.project_name_combobox, search_param, 'project_id')
+        get_task_combobox_data(self.priority_combobox, search_param, 'priority_id')
+        get_task_combobox_data(self.task_type_combobox, search_param, 'task_type_id')
+        get_task_combobox_data(self.demand_person_combobox, search_param, 'demand_person_id')
+        get_task_combobox_data(self.task_status_combobox, search_param, 'status_id')
+        get_task_combobox_data(self.publish_status_combobox, search_param, 'publish_status_id')
+        search_param.start_time = self.start_time_lineedit.text()
+        search_param.end_time = self.end_time_lineedit.text()
+        return search_param
+
     def get_search_executor(self, search_callback):
-        return ListTaskExecutor(self.main_window, self.main_window, TASK_BOX_TITLE, search_callback)
+        search_param = self.collect_search_param()
+        page = self.page_widget.page_data
+        return ListTaskExecutor(search_param, page, self.main_window, self.main_window,
+                                TASK_BOX_TITLE, search_callback)
 
     def get_row_data_dialog(self, title, row_id) -> TaskDetailDialog:
         return TaskDetailDialog(title, row_id)

@@ -71,6 +71,9 @@ class PageLineEdit(QLineEdit):
     def init_page(self):
         self.setText(self.init_page_no)
 
+    def set_current_page(self, page_no):
+        self.setText(str(page_no))
+
     def set_max_page_no(self, page_no):
         self.max_page_no = page_no
 

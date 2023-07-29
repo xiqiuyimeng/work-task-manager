@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import math
 from dataclasses import dataclass, field
 from typing import List
 
@@ -32,3 +33,8 @@ class Page:
         self.total_count = 0
         self.total_page = 1
         return self
+
+    def fill_page(self, row_count):
+        self.total_count = row_count
+        total_page = math.ceil(row_count / self.page_size)
+        self.total_page = total_page if total_page else 1
