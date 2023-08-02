@@ -2,6 +2,7 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QGridLayout, QPushButton, QLabel
 
+from src.constant.help_constant import PROJECT_TABLE_HELP
 from src.constant.project_constant import ADD_PROJECT_BUTTON_TEXT, DEL_PROJECT_BUTTON_TEXT, EDIT_PROJECT_TITLE, \
     ADD_PROJECT_TITLE, DEL_PROJECT_PROMPT, DEL_PROJECT_TITLE, BATCH_DEL_PROJECT_PROMPT
 from src.service.async_func.async_project_task import DelProjectExecutor, BatchDelProjectExecutor
@@ -65,7 +66,7 @@ class ProjectDialogFrame(DialogFrameABC):
     # ------------------------------ 信号槽处理 start ------------------------------ #
 
     def get_help_info_type(self) -> str:
-        ...
+        return PROJECT_TABLE_HELP
 
     def connect_other_signal(self):
         # 添加行按钮点击，打开添加行对话框

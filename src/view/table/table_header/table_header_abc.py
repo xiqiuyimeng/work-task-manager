@@ -65,7 +65,17 @@ class TableHeaderABC(TableWidgetABC):
         return make_checkbox_num_widget(TABLE_HEADER_FIRST_COL_LABEL, self.click_header_checkbox)
 
     def click_header_checkbox(self, check_state):
+        # 更改子项复选框状态
+        self.change_child_check_state(check_state)
         self.header_check_changed.emit(check_state)
+
+    def change_child_check_state(self, check_state):
+        for row_idx in range(self.parent_table.rowCount()):
+            cell_widget = self.parent_table.cellWidget(row_idx, 0)
+            if hasattr(cell_widget, 'check_box'):
+                check_box = self.parent_table.cellWidget(row_idx, 0).check_box
+                if check_box.checkState() != check_state:
+                    check_box.setCheckState(check_state)
 
     def setup_header_items(self):
         ...

@@ -11,12 +11,16 @@ CENTRAL_HELP = '主界面'
 DATA_DICT_TYPE_HELP = '数据字典类型'
 DATA_DICT_DETAIL_HELP = '数据字典详情'
 DATA_DICT_BIND_HELP = '数据字典绑定数据维护'
+PROJECT_TABLE_HELP = '项目管理'
+PROJECT_DETAIL_HELP = '项目详情'
 
 HELP_TYPE_DICT = {
     CENTRAL_HELP: 'CentralHelpWidget',
     DATA_DICT_TYPE_HELP: 'DataDictTypeHelpWidget',
     DATA_DICT_DETAIL_HELP: 'DataDictDetailHelpWidget',
     DATA_DICT_BIND_HELP: 'DataDictBindHelpWidget',
+    PROJECT_TABLE_HELP: 'ProjectTableHelpWidget',
+    PROJECT_DETAIL_HELP: 'ProjectDetailHelpWidget',
 }
 
 TEXT_BROWSER_STYLE = '''

@@ -11,7 +11,7 @@ DATA_DICT_DETAIL_LABEL_TEXT = '数据字典表格：'
 DATA_DICT_DETAIL_HELP_TEXT = '数据字典系统内置了一套默认的下拉值列表，可点击【同步默认数据字典】获取默认值'
 
 COLOR_DIALOG_LABEL_TEXT = '颜色选择：'
-COLOR_DIALOG_HELP_TEXT = ('<p>双击字体颜色或背景色单元格，可打开颜色选择对话框</p>'
+COLOR_DIALOG_HELP_TEXT = ('<p>双击字体颜色或背景色单元格，可打开颜色选择对话框，在选择颜色后，将会实时渲染实际颜色效果</p>'
                           '<p class="import">如果【clear】当前颜色，请保存并退出颜色对话框，'
                           '如果需要再次选择颜色，重新打开对话框以选择颜色。'
                           '清除颜色后，如果不退出对话框，那么需要手动将 alpha 调整大于0，否则颜色无法显示，'
