@@ -105,6 +105,6 @@ class TaskBasicInfoWidget(QWidget):
             end_time = datetime.strptime(self.end_time_lineedit.text(), CALENDAR_FORMATTER)
             time_duration = end_time - start_time
             diff_days = time_duration.days
-            diff_minutes = time_duration.seconds // 60
-            diff_hours = diff_minutes // 60
+            diff_hours = time_duration.seconds // 3600
+            diff_minutes = (time_duration.seconds % 3600) // 60
             self.time_duration_value_label.setText(f'{diff_days} 天 {diff_hours} 时 {diff_minutes} 分')
