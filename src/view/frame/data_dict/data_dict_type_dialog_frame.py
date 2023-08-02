@@ -2,6 +2,7 @@
 from PyQt6.QtWidgets import QLabel
 
 from src.constant.data_dict_dialog_constant import DATA_DICT_TYPE_OPERATION_TIP
+from src.constant.help_constant import DATA_DICT_TYPE_HELP
 from src.enum.data_dict_enum import get_data_dict_type_names, get_data_dict_type_by_name
 from src.view.dialog.data_dict.data_dict_detail_dialog import DataDictDetailDialog
 from src.view.frame.dialog_frame_abc import DialogFrameABC
@@ -40,7 +41,7 @@ class DataDictTypeDialogFrame(DialogFrameABC):
     # ------------------------------ 信号槽处理 start ------------------------------ #
 
     def get_help_info_type(self) -> str:
-        ...
+        return DATA_DICT_TYPE_HELP
 
     def open_data_dict_detail_dialog(self, data_dict_type_name):
         data_dict_type = get_data_dict_type_by_name(data_dict_type_name)

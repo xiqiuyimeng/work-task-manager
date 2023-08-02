@@ -97,4 +97,3 @@ class TableHeaderABC(TableWidgetABC):
         # 水平滚动条，和父表联动
         self.horizontalScrollBar().valueChanged.connect(self.parent_table.horizontalScrollBar().setValue)
         self.parent_table.horizontalScrollBar().valueChanged.connect(self.horizontalScrollBar().setValue)
-

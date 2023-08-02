@@ -8,39 +8,15 @@ HELP_TITLE = '帮助信息'
 
 
 CENTRAL_HELP = '主界面'
-SQL_DS_HELP = 'sql数据源'
-FOLDER_HELP = '结构体文件夹'
-STRUCT_DS_HELP = '结构体数据源'
-TYPE_MAPPING_TABLE_HELP = '类型映射管理'
-TYPE_MAPPING_DETAIL_HELP = '类型映射详情'
-DS_COL_TYPE_HELP = '数据源列类型'
-TEMPLATE_TABLE_HELP = '模板管理'
-TEMPLATE_DETAIL_HELP = '模板详情'
-TEMPLATE_CONFIG_HELP = '模板配置详情'
-TEMPLATE_FILE_OUTPUT_CONFIG_MAINTAIN_HELP = '模板文件输出配置维护'
-TEMPLATE_FUNC_DETAIL_HELP = '模板方法详情'
-TEMPLATE_COPY_FUNC_HELP = '复制其他模板方法'
-IMPORT_DATA_HELP = '导入数据'
-IMPORT_ERROR_DATA_HELP = '导入数据异常处理'
-EXPORT_DATA_HELP = '导出数据'
+DATA_DICT_TYPE_HELP = '数据字典类型'
+DATA_DICT_DETAIL_HELP = '数据字典详情'
+DATA_DICT_BIND_HELP = '数据字典绑定数据维护'
 
 HELP_TYPE_DICT = {
     CENTRAL_HELP: 'CentralHelpWidget',
-    # SQL_DS_HELP: 'SqlDsHelpWidget',
-    # FOLDER_HELP: 'FolderHelpWidget',
-    # STRUCT_DS_HELP: 'StructDsHelpWidget',
-    # TYPE_MAPPING_TABLE_HELP: 'TypeMappingTableHelpWidget',
-    # TYPE_MAPPING_DETAIL_HELP: 'TypeMappingDetailHelpWidget',
-    # DS_COL_TYPE_HELP: 'DsColTypeHelpWidget',
-    # TEMPLATE_TABLE_HELP: 'TemplateTableHelpWidget',
-    # TEMPLATE_DETAIL_HELP: 'TemplateDetailHelpWidget',
-    # TEMPLATE_CONFIG_HELP: 'TemplateConfigHelpWidget',
-    # TEMPLATE_FILE_OUTPUT_CONFIG_MAINTAIN_HELP: 'TemplateFileOutputConfigMaintainHelpWidget',
-    # TEMPLATE_FUNC_DETAIL_HELP: 'TemplateFuncDetailHelpWidget',
-    # TEMPLATE_COPY_FUNC_HELP: 'TemplateCopyFuncHelpWidget',
-    # IMPORT_DATA_HELP: 'ImportDataHelpWidget',
-    # IMPORT_ERROR_DATA_HELP: 'ImportErrorDataHelpWidget',
-    # EXPORT_DATA_HELP: 'ExportDataHelpWidget',
+    DATA_DICT_TYPE_HELP: 'DataDictTypeHelpWidget',
+    DATA_DICT_DETAIL_HELP: 'DataDictDetailHelpWidget',
+    DATA_DICT_BIND_HELP: 'DataDictBindHelpWidget',
 }
 
 TEXT_BROWSER_STYLE = '''

@@ -4,6 +4,7 @@ from PyQt6.QtWidgets import QLabel, QGridLayout
 
 from src.constant.data_dict_dialog_constant import DATA_DICT_HEADER_TEXT, ORIGIN_DATA_DICT_HEADER_TEXT, \
     CHECK_COMBOBOX_PROMPT, CHECK_COMBOBOX_TITLE
+from src.constant.help_constant import DATA_DICT_BIND_HELP
 from src.view.box.message_box import pop_fail
 from src.view.frame.save_dialog_frame import SaveDialogFrame
 from src.view.widget.data_dict_bind_widget import DataDictBindWidget
@@ -53,7 +54,7 @@ class DataDictBindDialogFrame(SaveDialogFrame):
     # ------------------------------ 信号槽处理 start ------------------------------ #
 
     def get_help_info_type(self) -> str:
-        ...
+        return DATA_DICT_BIND_HELP
 
     def save_func(self):
         if self.content_widget.check_combobox_value():

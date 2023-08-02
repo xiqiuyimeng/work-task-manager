@@ -5,6 +5,7 @@ from PyQt6.QtWidgets import QLabel, QGridLayout, QPushButton
 from src.constant.data_dict_dialog_constant import SYNC_DEFAULT_DATA_DICT_BTN_TEXT, DEL_DATA_DICT_BTN_TEXT, \
     ADD_DATA_DICT_BTN_TEXT, DATA_DICT_DETAIL_TIP, DATA_DICT_DETAIL_BOX_TITLE, BLANK_DATA_DICT_NAME_PROMPT, \
     QUERY_DATA_DICT_BIND_DATA_TITLE, NO_DATA_DICT_PROMPT
+from src.constant.help_constant import DATA_DICT_DETAIL_HELP
 from src.enum.data_dict_enum import DataDictTypeEnum
 from src.service.async_func.async_data_dict_task import SaveDataDictExecutor, QueryDataDictBindDataExecutor
 from src.service.util.data_dict_cache_util import get_data_dict_list, get_data_dict
@@ -80,7 +81,7 @@ class DataDictDetailDialogFrame(SaveDialogFrame):
     # ------------------------------ 信号槽处理 start ------------------------------ #
 
     def get_help_info_type(self) -> str:
-        ...
+        return DATA_DICT_DETAIL_HELP
 
     def connect_other_signal(self):
         # 同步默认的数据字典
