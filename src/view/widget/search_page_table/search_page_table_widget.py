@@ -163,11 +163,15 @@ class SearchPageTableWidget(QWidget):
         ...
 
     def do_del_rows(self, delete_ids, delete_names, del_title):
-        self.del_data_executor = self.get_del_row_executor(delete_ids, delete_names, del_title, self.search)
+        self.del_data_executor = self.get_del_row_executor(delete_ids, delete_names, del_title, self.del_callback)
         self.del_data_executor.start()
 
     def get_del_row_executor(self, delete_ids, delete_names, del_title, del_callback) -> LoadingMaskThreadExecutor:
         ...
+
+    def del_callback(self):
+        self.table_widget.header_widget.init_header_check_state()
+        self.search()
 
     def set_button_available(self, checked):
         # 如果表格存在行，删除按钮状态根据传入状态变化，否则应该置为不可用

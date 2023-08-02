@@ -160,9 +160,12 @@ class TaskSearchPageTableWidget(SearchPageTableWidget):
         self.reset_advanced_search_data()
 
     def reset_basic_search_data(self):
-        self.project_name_combobox.setCurrentIndex(-1)
+        self.reset_project_name_combobox()
         self.priority_combobox.setCurrentIndex(-1)
         self.task_name_lineedit.clear()
+
+    def reset_project_name_combobox(self):
+        self.project_name_combobox.setCurrentIndex(-1)
 
     def reset_advanced_search_data(self):
         self.task_type_combobox.setCurrentIndex(-1)
@@ -235,6 +238,7 @@ class TaskSearchPageTableWidget(SearchPageTableWidget):
         # 提供给外部调用，更新项目名称搜素下拉框，删除值
         for row_index in row_index_list:
             self.project_name_combobox.removeItem(row_index)
+        self.reset_project_name_combobox()
 
     def update_data_dict_combobox(self, data_dict_type_code):
         # 提供给外部调用，更新数据字典搜索下拉框

@@ -56,7 +56,6 @@ def set_thread_terminate(thread_id, thread_terminate):
 def get_db_cursor():
     while conn_in_use:
         log.info("连接被其他线程占用，需要等待")
-        ...
     with lock:
         set_conn_in_use(True)
         cursor = conn.cursor()
@@ -221,4 +220,3 @@ class SelectCol:
         if self.select_cols:
             select_cols = self.select_cols
         return f'select {", ".join(select_cols)} from {self.table_name}'
-
