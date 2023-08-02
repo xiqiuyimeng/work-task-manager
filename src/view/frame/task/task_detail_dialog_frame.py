@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from PyQt6.QtCore import pyqtSignal
 
+from src.constant.help_constant import TASK_DETAIL_HELP
 from src.constant.task_constant import TASK_NAME_LABEL_TEXT, BASIC_INFO_TEXT, FEATURE_INFO_TEXT, ATTACHMENT_INFO_TEXT, \
     PUBLISH_INFO_TEXT, COMMENT_INFO_TEXT, TASK_DETAIL_BOX_TITLE, EDIT_TASK_BOX_TITLE, ADD_TASK_BOX_TITLE
 from src.service.async_func.async_work_task import TaskDetailExecutor, AddTaskExecutor, EditTaskExecutor
@@ -72,7 +73,7 @@ class TaskDetailDialogFrame(StackedDialogFrame):
     # ------------------------------ 信号槽处理 start ------------------------------ #
 
     def get_help_info_type(self) -> str:
-        ...
+        return TASK_DETAIL_HELP
 
     def collect_input(self):
         self.new_dialog_data.task_name = self.name_input.text()

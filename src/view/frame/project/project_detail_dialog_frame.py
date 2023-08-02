@@ -3,6 +3,7 @@ from PyQt6.QtCore import pyqtSignal, Qt
 from PyQt6.QtGui import QPalette, QColor
 from PyQt6.QtWidgets import QLabel, QPushButton, QComboBox, QGridLayout, QFormLayout
 
+from src.constant.help_constant import PROJECT_DETAIL_HELP
 from src.constant.project_constant import PROJECT_NAME_LABEL_TXT, FONT_COLOR_LABEL_TXT, BACKGROUND_COLOR_LABEL_TXT, \
     PRIORITY_LABEL_TXT, PROJECT_DESC_LABEL_TXT, OPEN_FONT_COLOR_DIALOG_BTN_TXT, OPEN_BACKGROUND_COLOR_DIALOG_BTN_TXT, \
     PRIORITY_COMBOBOX_PLACEHOLDER_TEXT, FONT_COLOR_TYPE, BACKGROUND_COLOR_TYPE, PROJECT_NAME_DISPLAY_LABEL_TXT, \
@@ -116,7 +117,7 @@ class ProjectDetailDialogFrame(NameCheckDialogFrame):
     # ------------------------------ 信号槽处理 start ------------------------------ #
 
     def get_help_info_type(self) -> str:
-        ...
+        return PROJECT_DETAIL_HELP
 
     def collect_input(self):
         self.new_dialog_data.project_name = self.name_input.text()
