@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
+
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QFormLayout, QLabel
 
 from src.constant.task_constant import START_TIME_LABEL_TEXT, START_TIME_PLACEHOLDER_TEXT, END_TIME_LABEL_TEXT, \
     END_TIME_PLACEHOLDER_TEXT, TIME_DURATION_LABEL_TEXT, DETAIL_DESC_LABEL_TEXT
+from src.constant.window_constant import CALENDAR_FORMATTER
 from src.view.custom_widget.calendar_time_lineedit import CalendarTimeLineEdit
 from src.view.custom_widget.text_editor import TextEditor
 
@@ -90,3 +93,18 @@ class TaskBasicInfoWidget(QWidget):
         self.end_time_lineedit.setText(task.end_time)
         self.time_duration_value_label.setText(task.time_duration)
         self.detail_desc_text_edit.setPlainText(task.content)
+
+    def connect_signal(self):
+        self.start_time_lineedit.textChanged.connect(self.calculate_time_duration)
+        self.end_time_lineedit.textChanged.connect(self.calculate_time_duration)
+
+    def calculate_time_duration(self):
+        # 当开始时间和结束时间都存在时，计算耗时
+        if self.start_time_lineedit.text() and self.end_time_lineedit.text():
+            start_time = datetime.strptime(self.start_time_lineedit.text(), CALENDAR_FORMATTER)
+            end_time = datetime.strptime(self.end_time_lineedit.text(), CALENDAR_FORMATTER)
+            time_duration = end_time - start_time
+            diff_days = time_duration.days
+            diff_minutes = time_duration.seconds // 60
+            diff_hours = diff_minutes // 60
+            self.time_duration_value_label.setText(f'{diff_days} 天 {diff_hours} 时 {diff_minutes} 分')

@@ -4,6 +4,7 @@ from datetime import datetime
 from PyQt6.QtCore import QPoint
 from PyQt6.QtWidgets import QLineEdit
 
+from src.constant.window_constant import CALENDAR_FORMATTER
 from src.view.custom_widget.calendar_time_widget import CalendarTimeWidget
 
 _author_ = 'luwt'
@@ -25,9 +26,10 @@ class CalendarTimeLineEdit(QLineEdit):
         self.calendar_time_widget.move(self.mapToGlobal(start_point))
         # 日期值回显
         if self.text():
-            current_datetime = datetime.strptime(self.text(), '%Y-%m-%d %H:%M')
+            current_datetime = datetime.strptime(self.text(), CALENDAR_FORMATTER)
             self.calendar_time_widget.set_date(current_datetime.date())
             self.calendar_time_widget.set_time(current_datetime.time())
+            self.calendar_time_widget.display_date_time()
         # 连接信号
         self.calendar_time_widget.date_time_signal.connect(self.setText)
         self.calendar_time_widget.show()

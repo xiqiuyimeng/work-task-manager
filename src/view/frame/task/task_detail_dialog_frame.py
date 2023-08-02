@@ -88,6 +88,8 @@ class TaskDetailDialogFrame(StackedDialogFrame):
         return self.dialog_data != self.new_dialog_data
 
     def connect_child_signal(self):
+        self.basic_info_widget.connect_signal()
+        self.feature_info_widget.connect_signal()
         self.feature_info_widget.data_changed_signal.connect(self.check_input)
 
     def save_func(self):

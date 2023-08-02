@@ -30,7 +30,7 @@ sql_dict = {
     status_id integer not null,
     start_time datetime,
     end_time datetime,
-    time_duration char(10),
+    time_duration char(20),
     publish_status_id integer not null,
     content text,
     item_order integer not null,

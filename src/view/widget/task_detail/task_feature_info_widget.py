@@ -63,7 +63,6 @@ class TaskFeatureInfoWidget(QWidget):
         fill_data_dict_combobox(self.publish_status_combobox, DataDictTypeEnum.publish_status.value[0])
 
         self.init_combobox_index()
-        self.connect_signal()
 
     def setup_label_text(self):
         self.project_label.setText(PROJECT_NAME_LABEL_TEXT)
