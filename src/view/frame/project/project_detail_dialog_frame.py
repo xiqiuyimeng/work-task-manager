@@ -13,7 +13,7 @@ from src.service.async_func.async_project_task import AddProjectExecutor, EditPr
 from src.service.system_storage.project_sqlite import Project
 from src.service.util.data_dict_cache_util import get_data_dict_list
 from src.view.custom_widget.text_editor import TextEditor
-from src.view.dialog.color_dialog import ColorDialog
+from src.view.dialog.color_dialog import ColorDialog, get_rgba_str, get_color_from_rgba_str
 from src.view.frame.name_check_dialog_frame import NameCheckDialogFrame
 from src.view.window.main_window_func import get_window
 
@@ -154,16 +154,16 @@ class ProjectDetailDialogFrame(NameCheckDialogFrame):
 
     def reset_color(self, color_type):
         if color_type == FONT_COLOR_TYPE:
-            origin_color = QColor(self.font_color_value_label.text())
+            origin_color = get_color_from_rgba_str(self.font_color_value_label.text())
         else:
             # 背景色特殊处理，如果原来背景色为空，那么重置为透明
             if self.background_color_value_label.text():
-                origin_color = QColor(self.background_color_value_label.text())
+                origin_color = get_color_from_rgba_str(self.background_color_value_label.text())
             else:
                 origin_color = Qt.GlobalColor.transparent
         self.dynamic_render_color(color_type, origin_color)
 
-    def dynamic_render_color(self, color_type, color):
+    def dynamic_render_color(self, color_type, color: QColor):
         palette = self.name_value_display_label.palette()
         if color_type == FONT_COLOR_TYPE:
             if color == Qt.GlobalColor.transparent:
@@ -175,17 +175,11 @@ class ProjectDetailDialogFrame(NameCheckDialogFrame):
             self.name_value_display_label.setAutoFillBackground(True)
         self.name_value_display_label.setPalette(palette)
 
-    def change_color(self, color_type, color):
+    def change_color(self, color_type, color: QColor):
         if color_type == FONT_COLOR_TYPE:
-            if color == Qt.GlobalColor.transparent:
-                self.font_color_value_label.setText('')
-            else:
-                self.font_color_value_label.setText(color.name())
+            self.font_color_value_label.setText(get_rgba_str(color))
         else:
-            if color == Qt.GlobalColor.transparent:
-                self.background_color_value_label.setText('')
-            else:
-                self.background_color_value_label.setText(color.name())
+            self.background_color_value_label.setText(get_rgba_str(color))
         self.check_input()
 
     def save_func(self):
@@ -205,13 +199,19 @@ class ProjectDetailDialogFrame(NameCheckDialogFrame):
     def edit_callback(self):
         self.edit_signal.emit(self.new_dialog_data)
         # 更新主界面搜索下拉框，更新数据
-        get_window().task_table_widget.update_project_combobox_item(self.new_dialog_data)
+        task_table_widget = get_window().task_table_widget
+        task_table_widget.update_project_combobox_item(self.new_dialog_data)
+        # 更新任务列表数据
+        task_table_widget.search()
         self.parent_dialog.close()
 
     def add_callback(self):
         self.save_signal.emit(self.new_dialog_data)
         # 更新主界面搜索下拉框，添加数据
-        get_window().task_table_widget.add_project_combobox_item(self.new_dialog_data)
+        task_table_widget = get_window().task_table_widget
+        task_table_widget.add_project_combobox_item(self.new_dialog_data)
+        # 更新任务列表数据
+        task_table_widget.search()
         self.parent_dialog.close()
 
     # ------------------------------ 信号槽处理 end ------------------------------ #

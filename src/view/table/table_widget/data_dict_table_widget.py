@@ -6,6 +6,7 @@ from PyQt6.QtWidgets import QAbstractItemView
 from src.constant.data_dict_dialog_constant import DUPLICATE_DATA_DICT_NAME_PROMPT
 from src.constant.table_constant import DATA_DICT_HEADER_LABELS
 from src.service.system_storage.data_dict_sqlite import DataDict
+from src.view.dialog.color_dialog import get_color_from_rgba_str
 from src.view.table.table_item.table_item_delegate import TextInputDelegate, ColorDelegate
 from src.view.table.table_widget.custom_table_widget import CustomTableWidget
 
@@ -75,25 +76,22 @@ class DataDictTableWidget(CustomTableWidget):
             data.background_color = item.text()
 
     def handle_color_change(self, item):
-        color = QColor(item.text())
-        if color == Qt.GlobalColor.transparent:
-            item.setData(Qt.ItemDataRole.EditRole, None)
-        self.dynamic_render_color(item.row(), item.column(), color)
+        self.dynamic_render_color(item.row(), item.column(), item.text())
 
-    def dynamic_render_color(self, row, col, color):
+    def dynamic_render_color(self, row, col, color_rgba_str):
         # 屏蔽信号
         self.blockSignals(True)
         # 动态渲染颜色
         if col == 2:
-            if color == Qt.GlobalColor.transparent:
+            if color_rgba_str:
+                self.item(row, 1).setForeground(QBrush(get_color_from_rgba_str(color_rgba_str)))
+            else:
                 self.item(row, 1).setData(Qt.ItemDataRole.ForegroundRole, None)
-            else:
-                self.item(row, 1).setForeground(QBrush(color))
         elif col == 3:
-            if color == Qt.GlobalColor.transparent:
-                self.item(row, 1).setData(Qt.ItemDataRole.BackgroundRole, None)
+            if color_rgba_str:
+                self.item(row, 1).setBackground(QBrush(get_color_from_rgba_str(color_rgba_str)))
             else:
-                self.item(row, 1).setBackground(QBrush(color))
+                self.item(row, 1).setData(Qt.ItemDataRole.BackgroundRole, None)
         # 恢复信号
         self.blockSignals(False)
 

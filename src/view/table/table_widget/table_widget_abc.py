@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from PyQt6.QtCore import Qt, QObject, QEvent, QPoint
-from PyQt6.QtGui import QBrush, QColor
+from PyQt6.QtGui import QBrush
 from PyQt6.QtWidgets import QTableWidget, QFrame, QToolTip
 
 from src.view.custom_widget.scrollable_widget import ScrollableWidget
+from src.view.dialog.color_dialog import get_color_from_rgba_str
 from src.view.table.table_item.table_item import TableWidgetItem
 
 _author_ = 'luwt'
@@ -65,9 +66,9 @@ class TableWidgetABC(QTableWidget, ScrollableWidget):
         item = TableWidgetItem(self)
         item.setText(text)
         if text_color:
-            item.setForeground(QBrush(QColor(text_color)))
+            item.setForeground(QBrush(get_color_from_rgba_str(text_color)))
         if background_color:
-            item.setBackground(QBrush(QColor(background_color)))
+            item.setBackground(QBrush(get_color_from_rgba_str(background_color)))
         return item
 
     def make_data_dict_item(self, data_dict):

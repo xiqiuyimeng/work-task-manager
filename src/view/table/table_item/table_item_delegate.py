@@ -3,7 +3,7 @@ from PyQt6.QtCore import QModelIndex, QAbstractItemModel, Qt, pyqtSignal
 from PyQt6.QtGui import QColor
 from PyQt6.QtWidgets import QItemDelegate, QWidget
 
-from src.view.dialog.color_dialog import ColorDialog
+from src.view.dialog.color_dialog import ColorDialog, get_rgba_str
 from src.view.dialog.table_item_delegate.table_item_input_delegate_dialog import TableItemInputDelegateDialog
 from src.view.window.main_window_func import get_window_geometry
 
@@ -54,22 +54,25 @@ class TextInputDelegate(QItemDelegate):
 
 
 class ColorDelegate(QItemDelegate):
-    color_changed = pyqtSignal(int, int, QColor)
+    color_changed = pyqtSignal(int, int, str)
 
     def __init__(self):
-        self.new_data = ...
+        self.new_color = ...
         super().__init__()
 
     def createEditor(self, parent, option, index):
         editor = ColorDialog(parent)
         # 颜色改变发出信号，方便页面动态渲染颜色
-        editor.currentColorChanged.connect(lambda color: self.change_color(index, color))
+        editor.currentColorChanged.connect(lambda color: self.color_changed_slot(index, color))
         # 最终选择颜色后，更新数据
         editor.colorSelected.connect(self.update_new_data)
         return editor
 
+    def color_changed_slot(self, index, color):
+        self.change_color(index, get_rgba_str(color))
+
     def update_new_data(self, data):
-        self.new_data = data
+        self.new_color = data
 
     def setEditorData(self, editor, index):
         value = index.data(Qt.ItemDataRole.EditRole)
@@ -77,24 +80,18 @@ class ColorDelegate(QItemDelegate):
             editor.setCurrentColor(value)
 
     def setModelData(self, editor, model, index):
-        if self.new_data is not Ellipsis:
-            model.setData(index, self.new_data, Qt.ItemDataRole.EditRole)
+        if self.new_color is not Ellipsis:
+            model.setData(index, get_rgba_str(self.new_color))
             # 数据重置
-            self.new_data = ...
+            self.new_color = ...
         else:
-            # 获取原来的颜色
-            origin_color_name = index.data()
-            if origin_color_name:
-                origin_color = QColor(origin_color_name)
-            else:
-                origin_color = Qt.GlobalColor.transparent
-            # 重置颜色
-            self.change_color(index, origin_color)
+            # 获取原来的颜色 重置颜色
+            self.change_color(index, index.data())
 
     def updateEditorGeometry(self, editor: QWidget, option: 'QStyleOptionViewItem', index: QModelIndex):
         """调整颜色选择对话框位置"""
         window_geometry = get_window_geometry()
         editor.resize(window_geometry.width(), window_geometry.height())
 
-    def change_color(self, index, color):
-        self.color_changed.emit(index.row(), index.column(), color)
+    def change_color(self, index, color_rgba_str):
+        self.color_changed.emit(index.row(), index.column(), color_rgba_str)
