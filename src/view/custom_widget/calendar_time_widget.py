@@ -51,6 +51,8 @@ class CalendarTimeWidget(QWidget):
         self.time_label.setObjectName('form_label')
         # 创建时间编辑小部件
         self.time_edit = QTimeEdit()
+        # 设置时间显示格式
+        self.time_edit.setDisplayFormat("HH:mm")
         self.form_layout.addRow(self.time_label, self.time_edit)
 
         self.result_label = QLabel()
