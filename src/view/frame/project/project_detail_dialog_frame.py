@@ -219,6 +219,11 @@ class ProjectDetailDialogFrame(NameCheckDialogFrame):
     # ------------------------------ 后置处理 start ------------------------------ #
 
     def post_process(self):
+        super().post_process()
+        # 清除焦点
+        self.pick_font_color_button.setFocusPolicy(Qt.FocusPolicy.NoFocus)
+        self.pick_background_color_button.setFocusPolicy(Qt.FocusPolicy.NoFocus)
+
         # 暂时屏蔽信号
         self.priority_combobox.blockSignals(True)
         # 填充优先级下拉框

@@ -159,6 +159,12 @@ class DataDictDetailDialogFrame(SaveDialogFrame):
     # ------------------------------ 后置处理 start ------------------------------ #
 
     def post_process(self):
+        super().post_process()
+        # 清除焦点
+        self.sync_default_values_button.setFocusPolicy(Qt.FocusPolicy.NoFocus)
+        self.add_button.setFocusPolicy(Qt.FocusPolicy.NoFocus)
+        self.del_button.setFocusPolicy(Qt.FocusPolicy.NoFocus)
+
         self.set_del_btn_available(Qt.CheckState.Unchecked)
         # 加载数据
         if self.data_dict_list:

@@ -132,6 +132,11 @@ class ProjectDialogFrame(DialogFrameABC):
     # ------------------------------ 后置处理 start ------------------------------ #
 
     def post_process(self):
+        super().post_process()
+        # 清除焦点
+        self.add_row_button.setFocusPolicy(Qt.FocusPolicy.NoFocus)
+        self.del_row_button.setFocusPolicy(Qt.FocusPolicy.NoFocus)
+
         # 获取项目列表数据，填充表格
         project_list = get_project_dict_list()
         if project_list:
