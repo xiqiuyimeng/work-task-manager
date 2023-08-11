@@ -149,6 +149,8 @@ class TaskSearchPageTableWidget(SearchPageTableWidget):
         if self.advanced_search_widget.isVisible():
             # 关闭高级查询模式时，清空高级查询输入的数据
             self.reset_advanced_search_data()
+            # 清空数据后，触发查询
+            self.search()
             self.advanced_search_widget.setVisible(False)
             self.switch_search_button.setText(SWITCH_ADVANCED_SEARCH_BTN_TEXT)
         else:
