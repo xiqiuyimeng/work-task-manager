@@ -38,3 +38,6 @@ class Page:
         self.total_count = row_count
         total_page = math.ceil(row_count / self.page_size)
         self.total_page = total_page if total_page else 1
+        # 如果当前页码大于总页数，应将页码设为最后一页
+        if self.page_no > self.total_page:
+            self.page_no = self.total_page
