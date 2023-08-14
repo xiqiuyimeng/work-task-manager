@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QColor, QBrush
+from PyQt6.QtGui import QBrush
 from PyQt6.QtWidgets import QAbstractItemView
 
 from src.constant.data_dict_dialog_constant import DUPLICATE_DATA_DICT_NAME_PROMPT
@@ -48,13 +48,6 @@ class DataDictTableWidget(CustomTableWidget):
                                                   row_data.background_color))
         self.setItem(row_index, 2, self.make_item(row_data.font_color))
         self.setItem(row_index, 3, self.make_item(row_data.background_color))
-
-    def show_tool_tip(self, model_index):
-        if isinstance(model_index.data(), QColor):
-            # 展示颜色名称
-            self.setToolTip(model_index.data().name())
-        else:
-            super().show_tool_tip(model_index)
 
     def connect_other_signal(self):
         # 单行数据变化时，触发
