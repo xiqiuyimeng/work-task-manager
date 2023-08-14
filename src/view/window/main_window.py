@@ -8,13 +8,14 @@ from src.service.util.system_storage_util import close_conn
 from src.view.bar.menubar import Menubar
 from src.view.bar.titlebar import TitleBar
 from src.view.bar.toolbar import ToolBar
+from src.view.custom_widget.animation_widget import OpacityAnimationWidget
 from src.view.widget.search_page_table.task_search_page_table_widget import TaskSearchPageTableWidget
 
 _author_ = 'luwt'
 _date_ = '2023/7/10 13:43'
 
 
-class MainWindow(QMainWindow):
+class MainWindow(QMainWindow, OpacityAnimationWidget):
 
     def __init__(self, screen_rect):
         super().__init__()
@@ -93,5 +94,5 @@ class MainWindow(QMainWindow):
 
     def close(self):
         close_conn()
-        super().close()
-
+        self.close_animation.finished.connect(super().close)
+        self.start_close_animation()
