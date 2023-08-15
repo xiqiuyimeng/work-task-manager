@@ -4,6 +4,7 @@ from src.view.widget.help.central_help_widget import CentralHelpWidget
 from src.view.widget.help.task_detail_help_widget import TaskDetailHelpWidget
 from src.view.widget.help.data_dict_type_help_widget import DataDictTypeHelpWidget
 from src.view.widget.help.data_dict_detail_help_widget import DataDictDetailHelpWidget
+from src.view.widget.help.data_dict_sort_help_widget import DataDictSortHelpWidget
 from src.view.widget.help.data_dict_bind_help_widget import DataDictBindHelpWidget
 from src.view.widget.help.project_table_help_widget import ProjectTableHelpWidget
 from src.view.widget.help.project_detail_help_widget import ProjectDetailHelpWidget
@@ -18,6 +19,7 @@ __all__ = [
     'TaskDetailHelpWidget',
     'DataDictTypeHelpWidget',
     'DataDictDetailHelpWidget',
+    'DataDictSortHelpWidget',
     'DataDictBindHelpWidget',
     'ProjectTableHelpWidget',
     'ProjectDetailHelpWidget',

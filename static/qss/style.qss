@@ -20,6 +20,11 @@ DataDictDetailDialogFrame {
     border-image: url(bg_jpg:conn_dialog_bg.jpg);
 }
 
+/* 数据字典排序对话框 */
+DataDictSortDialogFrame {
+    border-image: url(bg_jpg:conn_dialog_bg.jpg);
+}
+
 /* 数据字典操作数据绑定对话框 */
 DataDictBindDialogFrame {
     border-image: url(bg_jpg:conn_dialog_bg.jpg);
@@ -486,6 +491,24 @@ QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal{
 }
 /* 点击样式 */
 #sync_default_values_button:pressed {
+    background: RoyalBlue;
+}
+
+
+/* 排序按钮 */
+#sort_button {
+    background: RoyalBlue;
+    color: white;
+    border-radius: 4px;
+    padding: 4px;
+    width: 60%;
+}
+/* 悬浮样式 */
+#sort_button:hover {
+    background: SteelBlue;
+}
+/* 点击样式 */
+#sort_button:pressed {
     background: RoyalBlue;
 }
 

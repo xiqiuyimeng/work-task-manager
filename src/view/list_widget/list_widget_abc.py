@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from PyQt6.QtWidgets import QListWidget
 
-from src.view.custom_widget.item_view_abc import ItemViewABC
+from src.view.custom_widget.item_view_abc import ItemViewABC, DraggableItemViewABC
 
 _author_ = 'luwt'
 _date_ = '2023/7/10 14:53'
@@ -16,3 +16,9 @@ class ListWidgetABC(QListWidget, ItemViewABC):
 
     def fill_list_widget(self, *args):
         self.addItems(*args)
+
+
+class DraggableListWidgetABC(ListWidgetABC, DraggableItemViewABC):
+
+    def dropEvent(self, event) -> None:
+        DraggableItemViewABC.dropEvent(self, event)
