@@ -586,4 +586,21 @@ QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal{
     background-color: Crimson;
 }
 
+/* 下载按钮 */
+#download_button {
+    background: RoyalBlue;
+    color: white;
+    border-radius: 4px;
+    padding: 4px;
+    width: 60%;
+}
+/* 悬浮样式 */
+#download_button:hover {
+    background: SteelBlue;
+}
+/* 点击样式 */
+#download_button:pressed {
+    background: RoyalBlue;
+}
+
 /**************************************** 按钮样式设置 end ****************************************/

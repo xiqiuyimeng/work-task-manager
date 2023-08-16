@@ -8,8 +8,11 @@ from src.service.async_func.async_work_task import TaskDetailExecutor, AddTaskEx
 from src.service.system_storage.task_sqlite import Task
 from src.service.util.task_cache_util import get_task_names
 from src.view.frame.stacked_dialog_frame import StackedDialogFrame
+from src.view.widget.task_detail.task_attachment_info_widget import TaskAttachmentInfoWidget
 from src.view.widget.task_detail.task_basic_info_widget import TaskBasicInfoWidget
+from src.view.widget.task_detail.task_comment_info_widget import TaskCommentInfoWidget
 from src.view.widget.task_detail.task_feature_info_widget import TaskFeatureInfoWidget
+from src.view.widget.task_detail.task_publish_info_widget import TaskPublishInfoWidget
 
 _author_ = 'luwt'
 _date_ = '2023/7/26 9:10'
@@ -29,10 +32,11 @@ class TaskDetailDialogFrame(StackedDialogFrame):
         # 第二个窗口，特征信息
         self.feature_info_widget: TaskFeatureInfoWidget = ...
         # 第三个窗口，附件信息
-
+        self.attachment_info_widget: TaskAttachmentInfoWidget = ...
         # 第四个窗口，发版信息
-
+        self.publish_info_widget: TaskPublishInfoWidget = ...
         # 第五个窗口，评论信息
+        self.comment_info_widget: TaskCommentInfoWidget = ...
 
         self.add_task_executor: AddTaskExecutor = ...
         self.edit_task_executor: EditTaskExecutor = ...
@@ -63,10 +67,28 @@ class TaskDetailDialogFrame(StackedDialogFrame):
         self.feature_info_widget.setup_ui()
         self.stacked_widget.addWidget(self.feature_info_widget)
 
+        # 第三窗口，附件信息
+        self.attachment_info_widget = TaskAttachmentInfoWidget(self.parent_dialog)
+        self.attachment_info_widget.setup_ui()
+        self.stacked_widget.addWidget(self.attachment_info_widget)
+
+        # 第四个窗口，发版信息
+        self.publish_info_widget = TaskPublishInfoWidget()
+        self.publish_info_widget.setup_ui()
+        self.stacked_widget.addWidget(self.publish_info_widget)
+
+        # 第五个窗口，评论信息
+        self.comment_info_widget = TaskCommentInfoWidget()
+        self.comment_info_widget.setup_ui()
+        self.stacked_widget.addWidget(self.comment_info_widget)
+
     def setup_other_label_text(self):
         self.name_label.setText(TASK_NAME_LABEL_TEXT)
         self.basic_info_widget.setup_label_text()
         self.feature_info_widget.setup_label_text()
+        self.attachment_info_widget.setup_label_text()
+        self.publish_info_widget.setup_label_text()
+        self.comment_info_widget.setup_label_text()
 
     # ------------------------------ 创建ui界面 end ------------------------------ #
 
@@ -79,6 +101,9 @@ class TaskDetailDialogFrame(StackedDialogFrame):
         self.new_dialog_data.task_name = self.name_input.text()
         self.basic_info_widget.collect_data(self.new_dialog_data)
         self.feature_info_widget.collect_data(self.new_dialog_data)
+        self.attachment_info_widget.collect_data(self.new_dialog_data)
+        self.publish_info_widget.collect_data(self.new_dialog_data)
+        self.comment_info_widget.collect_data(self.new_dialog_data)
 
     def button_available(self) -> bool:
         # 名称可用，并且特征信息都存在
@@ -91,6 +116,7 @@ class TaskDetailDialogFrame(StackedDialogFrame):
         self.basic_info_widget.connect_signal()
         self.feature_info_widget.connect_signal()
         self.feature_info_widget.data_changed_signal.connect(self.check_input)
+        self.attachment_info_widget.connect_signal()
 
     def save_func(self):
         self.collect_input()
@@ -127,5 +153,8 @@ class TaskDetailDialogFrame(StackedDialogFrame):
     def setup_echo_other_data(self):
         self.basic_info_widget.echo_data(self.dialog_data)
         self.feature_info_widget.echo_data(self.dialog_data)
+        self.attachment_info_widget.echo_data(self.dialog_data)
+        self.publish_info_widget.echo_data(self.dialog_data)
+        self.comment_info_widget.echo_data(self.dialog_data)
 
     # ------------------------------ 后置处理 end ------------------------------ #

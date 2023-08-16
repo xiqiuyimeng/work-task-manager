@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
+import os.path
+
 from PyQt6.QtCore import pyqtSignal
 
 from src.logger.log import logger as log
 from src.service.async_func.async_task_abc import ThreadWorkerABC, LoadingMaskThreadExecutor
-from src.service.system_storage.attachment_sqlite import AttachmentSqlite
+from src.service.system_storage.attachment_sqlite import AttachmentSqlite, Attachment
 from src.service.system_storage.comment_sqlite import CommentSqlite
 from src.service.system_storage.publish_info_sqlite import PublishInfoSqlite
 from src.service.system_storage.task_sqlite import TaskSqlite, Task
@@ -220,3 +222,80 @@ class DelTaskExecutor(LoadingMaskThreadExecutor):
         return DelTaskWorker(self.task_ids, self.task_names)
 
 # ----------------------- 删除任务 end ----------------------- #
+
+
+# ----------------------- 加载附件 start ----------------------- #
+
+class LoadAttachmentWorker(ThreadWorkerABC):
+    success_signal = pyqtSignal(list)
+
+    def __init__(self, file_path_list):
+        super().__init__()
+        self.file_path_list = file_path_list
+
+    def do_run(self):
+        attachment_list = list()
+        for file_path in self.file_path_list:
+            file_name = file_path.split('/')[-1]
+            # 读取文件数据
+            with open(file_path, 'rb') as f:
+                file_data = f.read()
+            # 保存数据
+            attachment = Attachment()
+            attachment.attachment_name = file_name
+            attachment.attachment_content = file_data
+            attachment_list.append(attachment)
+        self.success_signal.emit(attachment_list)
+
+    def get_err_msg(self) -> str:
+        return '读取附件失败'
+
+
+class LoadAttachmentExecutor(LoadingMaskThreadExecutor):
+
+    def __init__(self, file_path_list, *args):
+        self.file_path_list = file_path_list
+        super().__init__(*args)
+
+    def get_worker(self) -> LoadAttachmentWorker:
+        return LoadAttachmentWorker(self.file_path_list)
+
+# ----------------------- 加载附件 end ----------------------- #
+
+
+# ----------------------- 加载附件 start ----------------------- #
+
+class DownloadAttachmentWorker(ThreadWorkerABC):
+    success_signal = pyqtSignal()
+
+    def __init__(self, dir_path, attachment_list):
+        super().__init__()
+        self.dir_path = dir_path
+        self.attachment_list = attachment_list
+
+    def do_run(self):
+        for attachment in self.attachment_list:
+            file_path = os.path.join(self.dir_path, attachment.attachment_name)
+            # 写入文件数据
+            with open(file_path, 'wb') as f:
+                f.write(attachment.attachment_content)
+        self.success_signal.emit()
+
+    def get_err_msg(self) -> str:
+        return '下载附件失败'
+
+
+class DownloadAttachmentExecutor(LoadingMaskThreadExecutor):
+
+    def __init__(self, dir_path, attachment_list, *args):
+        self.dir_path = dir_path
+        self.attachment_list = attachment_list
+        super().__init__(*args)
+
+    def get_worker(self) -> DownloadAttachmentWorker:
+        return DownloadAttachmentWorker(self.dir_path, self.attachment_list)
+
+    def success_post_process(self, *args):
+        pop_ok('下载附件成功', self.error_box_title, self.window)
+
+# ----------------------- 加载附件 end ----------------------- #
