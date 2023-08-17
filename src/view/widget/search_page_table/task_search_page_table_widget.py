@@ -13,7 +13,7 @@ from src.service.async_func.async_work_task import ListTaskExecutor, DelTaskExec
 from src.service.system_storage.task_sqlite import BasicTask
 from src.view.custom_widget.calendar_time_lineedit import CalendarTimeLineEdit
 from src.view.dialog.task.task_detail_dialog import TaskDetailDialog
-from src.view.table.table_widget.work_task_manager_table_widget import WorkTaskManagerTableWidget
+from src.view.table.table_widget.task_manager_table_widget import WorkTaskManagerTableWidget
 from src.view.widget.search_page_table.search_page_table_widget import SearchPageTableWidget
 from src.view.widget.widget_func import setup_grid_form_combox, setup_form_lineedit, fill_project_combobox, \
     fill_data_dict_combobox, update_data_dict_combobox, add_project_combobox_item, update_project_combobox_item, \

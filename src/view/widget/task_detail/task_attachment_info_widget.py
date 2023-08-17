@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 from PyQt6.QtCore import Qt, QByteArray
 from PyQt6.QtGui import QPixmap, QImage
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QPushButton, QLabel, QFileDialog, QStyle, QTableWidget, \
-    QHeaderView
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QPushButton, QLabel, QFileDialog, QStyle
 
 from src.constant.task_constant import ADD_ATTACHMENT_BUTTON_TEXT, DOWNLOAD_ATTACHMENT_BUTTON_TEXT, \
     DELETE_ATTACHMENT_BUTTON_TEXT, SELECT_ATTACHMENT_DIALOG_TITLE, LOAD_ATTACHMENT_BOX_TITLE, \
     DOWNLOAD_ATTACHMENT_BOX_TITLE
 from src.service.async_func.async_work_task import LoadAttachmentExecutor, DownloadAttachmentExecutor
+from src.view.table.table_widget.task_attachment_table_widget import TaskAttachmentTableWidget
 
 _author_ = 'luwt'
 _date_ = '2023/8/15 14:51'
@@ -28,7 +28,7 @@ class TaskAttachmentInfoWidget(QWidget):
         # 删除附件按钮
         self.delete_button: QPushButton = ...
         # 附件展示区
-        self.table_widget: QTableWidget = ...
+        self.table_widget: TaskAttachmentTableWidget = ...
         # 图像宽高
         self.image_width = 120
         self.image_height = 150
@@ -71,12 +71,8 @@ class TaskAttachmentInfoWidget(QWidget):
         self.delete_button.setObjectName('del_button')
         self.button_layout.addWidget(self.delete_button, 0, 4, 1, 1)
 
-        self.table_widget = QTableWidget()
-        self.table_widget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.table_widget = TaskAttachmentTableWidget(self)
         self.table_widget.setColumnCount(self.calculate_table_col_count())
-        self.table_widget.setShowGrid(False)
-        self.table_widget.horizontalHeader().setHidden(True)
-        self.table_widget.verticalHeader().setHidden(True)
         self._layout.addWidget(self.table_widget)
 
     def calculate_table_col_count(self):
