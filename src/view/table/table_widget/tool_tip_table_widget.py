@@ -42,16 +42,19 @@ class ToolTipTableWidget(QTableWidget, ScrollableWidget):
         self.setToolTip(model_index.data())
 
     def eventFilter(self, obj, event: QEvent) -> bool:
-        if obj == self and event.type() == QEvent.Type.ToolTip:
+        if event.type() == QEvent.Type.ToolTip:
             # self.indexAt(pos).isValid()，计算规则是默认隐藏了表头，所以需要减去表头高度，才是真实单元格的位置
             horizontal_header_pos = QPoint(0, self.horizontalHeader().height())
             index = self.indexAt(event.pos() - horizontal_header_pos)
             # 索引有效，且索引处部件为空，证明当前是正常的内容单元格，否则为控件单元格
-            if index.isValid() and self.indexWidget(index) is None:
+            if self.check_index_valid(index):
                 # 设置气泡提示，向下略微偏移一些，以免鼠标挡住提示文字
-                QToolTip.showText(QPoint(event.globalPos().x() + 5, event.globalPos().y() + 10), self.toolTip())
+                QToolTip.showText(QPoint(event.globalPos().x() + 5, event.globalPos().y() + 10), obj.toolTip())
             return True
         return super().eventFilter(obj, event)
+
+    def check_index_valid(self, index):
+        return index.isValid() and self.indexWidget(index) is None
 
     def connect_other_signal(self):
         ...

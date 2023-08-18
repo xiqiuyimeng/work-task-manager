@@ -49,6 +49,9 @@ class TaskAttachmentTableWidget(ToolTipTableWidget):
         # 再次计算列数
         return (self.parent_dialog_width - margin - cell_widget_margin) // self.image_width
 
+    def check_index_valid(self, index):
+        return index.isValid()
+
     def collect_attachment_list(self):
         return self.attachment_list
 
@@ -87,6 +90,8 @@ class TaskAttachmentTableWidget(ToolTipTableWidget):
         name_label.setText(file_name)
         attachment_layout.addWidget(name_label)
         attachment_layout.setSpacing(0)
+        # 设置 tooltip
+        attachment_widget.setToolTip(file_name)
         self.add_attachment_cell(attachment_widget)
 
     def add_attachment_cell(self, attachment_widget):
