@@ -17,7 +17,7 @@ from src.view.table.table_widget.task_manager_table_widget import WorkTaskManage
 from src.view.widget.search_page_table.search_page_table_widget import SearchPageTableWidget
 from src.view.widget.widget_func import setup_grid_form_combox, setup_form_lineedit, fill_project_combobox, \
     fill_data_dict_combobox, update_data_dict_combobox, add_project_combobox_item, update_project_combobox_item, \
-    get_task_combobox_data
+    get_combobox_data
 
 _author_ = 'luwt'
 _date_ = '2023/7/12 10:49'
@@ -180,12 +180,12 @@ class TaskSearchPageTableWidget(SearchPageTableWidget):
     def collect_search_param(self):
         search_param = BasicTask()
         search_param.task_name = self.task_name_lineedit.text()
-        get_task_combobox_data(self.project_name_combobox, search_param, 'project_id')
-        get_task_combobox_data(self.priority_combobox, search_param, 'priority_id')
-        get_task_combobox_data(self.task_type_combobox, search_param, 'task_type_id')
-        get_task_combobox_data(self.demand_person_combobox, search_param, 'demand_person_id')
-        get_task_combobox_data(self.task_status_combobox, search_param, 'status_id')
-        get_task_combobox_data(self.publish_status_combobox, search_param, 'publish_status_id')
+        get_combobox_data(self.project_name_combobox, search_param, 'project_id')
+        get_combobox_data(self.priority_combobox, search_param, 'priority_id')
+        get_combobox_data(self.task_type_combobox, search_param, 'task_type_id')
+        get_combobox_data(self.demand_person_combobox, search_param, 'demand_person_id')
+        get_combobox_data(self.task_status_combobox, search_param, 'status_id')
+        get_combobox_data(self.publish_status_combobox, search_param, 'publish_status_id')
         search_param.start_time = self.start_time_lineedit.text()
         search_param.end_time = self.end_time_lineedit.text()
         return search_param

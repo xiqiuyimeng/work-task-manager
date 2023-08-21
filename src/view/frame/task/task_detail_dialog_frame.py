@@ -117,6 +117,7 @@ class TaskDetailDialogFrame(StackedDialogFrame):
         self.feature_info_widget.connect_signal()
         self.feature_info_widget.data_changed_signal.connect(self.check_input)
         self.attachment_info_widget.connect_signal()
+        self.publish_info_widget.connect_signal()
 
     def save_func(self):
         self.collect_input()

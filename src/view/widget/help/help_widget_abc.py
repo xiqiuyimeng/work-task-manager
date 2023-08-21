@@ -99,4 +99,3 @@ class HelpWidgetABC(ScrollArea):
         # 为了美观，高度增加两行
         content_browser.setFixedHeight(doc.size().height() + (line_height << 1))
         self.canvas_content_layout.addRow(label, content_browser)
-

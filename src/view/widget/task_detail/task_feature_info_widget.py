@@ -8,7 +8,7 @@ from src.constant.task_constant import PROJECT_NAME_LABEL_TEXT, PROJECT_NAME_PLA
     PUBLISH_STATUS_PLACEHOLDER_TEXT
 from src.enum.data_dict_enum import DataDictTypeEnum
 from src.view.widget.widget_func import fill_project_combobox, fill_data_dict_combobox, setup_form_combox, \
-    get_task_combobox_data
+    get_combobox_data
 
 _author_ = 'luwt'
 _date_ = '2023/7/27 15:06'
@@ -79,12 +79,12 @@ class TaskFeatureInfoWidget(QWidget):
         self.publish_status_combobox.setPlaceholderText(PUBLISH_STATUS_PLACEHOLDER_TEXT)
 
     def collect_data(self, task):
-        get_task_combobox_data(self.project_combobox, task, 'project_id', 'project_info')
-        get_task_combobox_data(self.priority_combobox, task, 'priority_id', 'priority')
-        get_task_combobox_data(self.task_type_combobox, task, 'task_type_id', 'task_type')
-        get_task_combobox_data(self.demand_person_combobox, task, 'demand_person_id', 'demand_person')
-        get_task_combobox_data(self.task_status_combobox, task, 'status_id', 'status')
-        get_task_combobox_data(self.publish_status_combobox, task, 'publish_status_id', 'publish_status')
+        get_combobox_data(self.project_combobox, task, 'project_id', 'project_info')
+        get_combobox_data(self.priority_combobox, task, 'priority_id', 'priority')
+        get_combobox_data(self.task_type_combobox, task, 'task_type_id', 'task_type')
+        get_combobox_data(self.demand_person_combobox, task, 'demand_person_id', 'demand_person')
+        get_combobox_data(self.task_status_combobox, task, 'status_id', 'status')
+        get_combobox_data(self.publish_status_combobox, task, 'publish_status_id', 'publish_status')
 
     def echo_data(self, task):
         if task.project_info:

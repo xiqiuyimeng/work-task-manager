@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QLabel, QComboBox, QFormLayout, QLineEdit
+from PyQt6.QtWidgets import QLabel, QComboBox, QFormLayout, QLineEdit, QGridLayout
 
 from src.service.util.data_dict_cache_util import get_data_dict_list
 from src.service.util.project_cache_util import get_project_dict_list
@@ -67,10 +67,20 @@ def update_data_dict_combobox(combobox, data_dict_type_code):
     combobox.setCurrentText(origin_text)
 
 
-def get_task_combobox_data(combobox, task, id_property_name, obj_property_name=None):
+def get_combobox_data(combobox, data_obj, id_property_name, obj_property_name=None):
     index = combobox.currentIndex()
     if index >= 0:
         item_data = combobox.itemData(index)
-        setattr(task, id_property_name, item_data.id)
+        setattr(data_obj, id_property_name, item_data.id)
         if obj_property_name:
-            setattr(task, obj_property_name, item_data)
+            setattr(data_obj, obj_property_name, item_data)
+
+
+def clear_gridlayout(gridlayout: QGridLayout):
+    while gridlayout.count():
+        item = gridlayout.takeAt(0)
+        widget = item.widget()
+        if widget:
+            widget.deleteLater()
+        elif isinstance(item, QGridLayout):
+            clear_gridlayout(item)
