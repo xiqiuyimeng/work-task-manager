@@ -121,7 +121,7 @@ class TaskSqlite(SqliteBasic):
         if search_param.end_time:
             condition.add('end_time', search_param.end_time, 'le')
 
-        self.select(return_type=BasicTask, condition=condition, order_by='create_time', sort_order='desc', page=page)
+        self.select(return_type=BasicTask, condition=condition, order_by='start_time', sort_order='desc', page=page)
         task_list = page.data
         if task_list:
             for task in task_list:
