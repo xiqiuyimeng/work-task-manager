@@ -66,7 +66,6 @@ class ScrollableZoomWidget(ScrollableWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setLineWrapMode(self.LineWrapMode.NoWrap)
 
     def wheelEvent(self, e: QWheelEvent):
         """实现ctrl + 滚轮缩放功能"""

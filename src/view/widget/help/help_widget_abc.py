@@ -82,8 +82,6 @@ class HelpWidgetABC(ScrollArea):
         label.setObjectName('form_label')
         label.setText(label_text)
         content_browser = ScrollableTextBrowser()
-        # 自动换行
-        content_browser.setLineWrapMode(content_browser.LineWrapMode.WidgetWidth)
 
         # 使用 QTextDocument 设置文本，可以获取文本实际高度
         doc = QTextDocument()
