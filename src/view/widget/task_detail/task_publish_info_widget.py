@@ -57,6 +57,8 @@ class TaskPublishInfoWidget(QWidget):
         self.delete_button.setText(DELETE_PUBLISH_INFO_BUTTON_TEXT)
 
     def collect_data(self, task):
+        # 收集之前先清空容器
+        self.publish_info_list.clear()
         self.do_collect_data()
         task.publish_info_list = self.publish_info_list
 
