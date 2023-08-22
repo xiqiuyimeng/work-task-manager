@@ -1,7 +1,13 @@
+altgraph==0.17.3
 colorama==0.4.6
 loguru==0.7.0
+pefile==2023.2.7
+Pillow==10.0.0
+pyinstaller==5.13.0
+pyinstaller-hooks-contrib==2023.7
 PyQt6==6.5.0
 PyQt6-Qt6==6.5.1
 PyQt6-sip==13.5.1
 pywin32==306
+pywin32-ctypes==0.2.2
 win32-setctime==1.1.0
