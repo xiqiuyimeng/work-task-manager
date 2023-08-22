@@ -6,7 +6,6 @@ from PyQt6.QtCore import pyqtSignal
 from src.logger.log import logger as log
 from src.service.async_func.async_task_abc import ThreadWorkerABC, LoadingMaskThreadExecutor
 from src.service.system_storage.attachment_sqlite import AttachmentSqlite, Attachment
-from src.service.system_storage.comment_sqlite import CommentSqlite
 from src.service.system_storage.publish_info_sqlite import PublishInfoSqlite
 from src.service.system_storage.task_sqlite import TaskSqlite, Task
 from src.service.util.system_storage_util import transactional
@@ -65,8 +64,6 @@ class TaskDetailWorker(ThreadWorkerABC):
         task_detail = TaskSqlite().get_task_detail(self.task_id)
         # 读取附件信息
         task_detail.attachment_list = AttachmentSqlite().get_by_task_id(self.task_id)
-        # 读取评论信息
-        task_detail.comment_list = CommentSqlite().get_by_task_id(self.task_id)
         # 读取发版信息
         task_detail.publish_info_list = PublishInfoSqlite().get_by_task_id(self.task_id)
         self.success_signal.emit(task_detail)
@@ -104,9 +101,6 @@ class AddTaskWorker(ThreadWorkerABC):
         # 添加附件信息
         if self.task.attachment_list:
             AttachmentSqlite().add_attachment_list(self.task.id, self.task.attachment_list)
-        # 添加评论信息
-        if self.task.comment_list:
-            CommentSqlite().add_comment_list(self.task.id, self.task.comment_list)
         # 添加发版信息
         if self.task.publish_info_list:
             PublishInfoSqlite().add_publish_info_list(self.task.id, self.task.publish_info_list)
@@ -153,8 +147,6 @@ class EditTaskWorker(ThreadWorkerABC):
         task_sqlite.update_by_id(self.task)
         # 更新附件信息
         AttachmentSqlite().update_attachment_list(self.task.id, self.task.attachment_list)
-        # 更新评论信息
-        CommentSqlite().update_comment_list(self.task.id, self.task.comment_list)
         # 更新发版信息
         PublishInfoSqlite().update_publish_info_list(self.task.id, self.task.publish_info_list)
         # 更新缓存中的名称
@@ -198,8 +190,6 @@ class DelTaskWorker(ThreadWorkerABC):
         TaskSqlite().delete_by_ids(self.task_ids)
         # 删除附件
         AttachmentSqlite().del_attachment_list(self.task_ids)
-        # 删除评论
-        CommentSqlite().del_comment_list(self.task_ids)
         # 删除发版信息
         PublishInfoSqlite().del_publish_info_list(self.task_ids)
         # 更新缓存任务名称信息

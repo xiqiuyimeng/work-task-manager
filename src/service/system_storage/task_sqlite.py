@@ -3,7 +3,6 @@ from dataclasses import dataclass, field
 from typing import List
 
 from src.service.system_storage.attachment_sqlite import Attachment
-from src.service.system_storage.comment_sqlite import Comment
 from src.service.system_storage.data_dict_sqlite import DataDict
 from src.service.system_storage.project_sqlite import Project
 from src.service.system_storage.publish_info_sqlite import PublishInfo
@@ -84,8 +83,6 @@ class Task(BasicTask):
     content: str = field(init=False, default=None)
     # 附件列表
     attachment_list: List[Attachment] = field(init=False, default=None)
-    # 评论列表
-    comment_list: List[Comment] = field(init=False, default=None)
     # 发版信息列表
     publish_info_list: List[PublishInfo] = field(init=False, default=None)
 

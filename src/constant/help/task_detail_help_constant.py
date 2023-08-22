@@ -4,7 +4,7 @@ _author_ = 'luwt'
 _date_ = '2023/8/2 15:29'
 
 
-OVERVIEW_TEXT = '任务详情包含基本信息、特征信息、附件信息、发版信息、评论信息，在完成任务名称的填写和特征信息的选择后，才可以保存数据'
+OVERVIEW_TEXT = '任务详情包含基本信息、特征信息、附件信息、发版信息，在完成任务名称的填写和特征信息的选择后，才可以保存数据'
 
 BASIC_INFO_LABEL_TEXT = '基本信息：'
 BASIC_INFO_HELP_TEXT = '<p>基本信息包含任务名称、任务的开始时间、任务的结束时间、任务耗时（输入任务结束时间后，自动计算）以及详细说明</p>'
@@ -21,10 +21,12 @@ FEATURE_INFO_HELP_TEXT = ('<p>特征信息包含以下几项</p>'
                           '</ol>')
 
 ATTACHMENT_INFO_LABEL_TEXT = '附件信息：'
-ATTACHMENT_INFO_HELP_TEXT = ''
+ATTACHMENT_INFO_HELP_TEXT = ('<p>附件信息支持对附件的管理功能，目前附件保存在本地数据库中，所以尽量不要添加超大附件</p>'
+                             '<ol>'
+                             '  <li>添加附件：支持同时选中多个附件进行添加</li>'
+                             '  <li>下载附件：在附件管理页中，选中附件后可下载附件</li>'
+                             '  <li>删除附件：在附件管理页中，选中附件后删除附件</li>'
+                             '</ol>')
 
 PUBLISH_INFO_LABEL_TEXT = '发版信息：'
-PUBLISH_INFO_HELP_TEXT = ''
-
-COMMENT_INFO_LABEL_TEXT = '评论信息：'
-COMMENT_INFO_HELP_TEXT = ''
+PUBLISH_INFO_HELP_TEXT = '<p>发版信息支持的类型，由数据字典中的 发版信息类型 提供</p>'

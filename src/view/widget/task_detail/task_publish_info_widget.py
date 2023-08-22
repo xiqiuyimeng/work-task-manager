@@ -17,7 +17,6 @@ class TaskPublishInfoWidget(QWidget):
 
     def __init__(self):
         self.publish_info_list = list()
-        self.check_box_list = list()
         self._layout: QVBoxLayout = ...
         # 按钮区
         self.button_layout: QGridLayout = ...
@@ -93,7 +92,6 @@ class TaskPublishInfoWidget(QWidget):
         layout = QGridLayout()
         self.content_layout.addLayout(layout, self.content_row, 0, 1, 1)
         check_box = QCheckBox()
-        self.check_box_list.append(check_box)
         layout.addWidget(check_box, 0, 0, 1, 1)
         combobox = QComboBox()
         fill_data_dict_combobox(combobox, DataDictTypeEnum.publish_type.value[0])

@@ -14,4 +14,3 @@ class TaskDetailHelpWidget(HelpWidgetABC):
         self.add_row_text_browser(FEATURE_INFO_LABEL_TEXT, FEATURE_INFO_HELP_TEXT)
         self.add_row_text_browser(ATTACHMENT_INFO_LABEL_TEXT, ATTACHMENT_INFO_HELP_TEXT)
         self.add_row_text_browser(PUBLISH_INFO_LABEL_TEXT, PUBLISH_INFO_HELP_TEXT)
-        self.add_row_text_browser(COMMENT_INFO_LABEL_TEXT, COMMENT_INFO_HELP_TEXT)
