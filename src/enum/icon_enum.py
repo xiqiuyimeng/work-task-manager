@@ -16,7 +16,7 @@ icon_dict = dict()
 class IconEnum(Enum):
 
     # window icon
-    window_icon = 'window', 'icon:exec.png'
+    window_icon = 'window', 'icon:add.png'
 
     # bar icon
     data_dict_icon = DATA_DICT_ACTION, 'icon:table_icon.png'

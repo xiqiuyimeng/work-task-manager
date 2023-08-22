@@ -98,9 +98,6 @@ class TaskDetailDialogFrame(StackedDialogFrame):
         # 名称可用，并且特征信息都存在
         return self.name_input.displayText() and self.name_available and self.feature_info_widget.check_data()
 
-    def check_data_changed(self) -> bool:
-        return self.dialog_data != self.new_dialog_data
-
     def connect_child_signal(self):
         self.basic_info_widget.connect_signal()
         self.feature_info_widget.connect_signal()
