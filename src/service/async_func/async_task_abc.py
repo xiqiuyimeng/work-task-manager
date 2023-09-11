@@ -144,27 +144,3 @@ class LoadingMaskThreadExecutor(ThreadExecutorABC):
 
     def post_process(self):
         self.loading_mask.stop()
-
-
-# ----------------------- icon movie thread worker manager ABC -----------------------
-
-
-class IconMovieThreadExecutor(ThreadExecutorABC):
-    """使用图标动画作为任务开始时前置动作的调度器"""
-
-    def __init__(self, item, *args, **kwargs):
-        self.item = item
-        self.icon_movie = QMovie("gif:loading_simple.gif")
-        self.icon = self.item.icon(0)
-        super().__init__(*args, **kwargs)
-
-    def pre_process(self):
-        self.icon_movie.start()
-        self.icon_movie.frameChanged.connect(lambda: self.item.setIcon(0, QIcon(self.icon_movie.currentPixmap())))
-
-    def post_process(self):
-        self.icon_movie.stop()
-        self.item.setIcon(0, self.icon)
-
-
-# ----------------------- icon movie and loading mask thread worker manager ABC -----------------------
