@@ -3,7 +3,7 @@ from PyQt6.QtCore import QSize
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QLabel, QSizePolicy, QPushButton, QStyle, QHBoxLayout
 
-from src.constant.bar_constant import WORK_TASK_MANAGER_TITLE
+from src.constant.window_constant import WINDOW_TITLE
 from src.view.custom_widget.draggable_widget import DraggableWidget
 
 _author_ = 'luwt'
@@ -23,7 +23,7 @@ class TitleBar(DraggableWidget):
         self.icon = QLabel()
         self.icon.setPixmap(QPixmap("icon:exec.png").scaled(self.title_height, self.title_height))
         # 标题栏文字
-        self.main_title = QLabel(WORK_TASK_MANAGER_TITLE)
+        self.main_title = QLabel(WINDOW_TITLE)
         self.main_title.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         self.main_title.setFixedHeight(self.title_height)
         self.main_title.setObjectName("main_title")
