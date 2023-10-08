@@ -101,6 +101,7 @@ class QueryDataDictBindDataWorker(ThreadWorkerABC):
 
     def do_run(self):
         log.info('开始查询数据字典是否绑定数据')
+        # 查询各个数据字典类型，是否存在已绑定的数据，收集所有绑定数据的字典项id
         bind_data_id_list = list()
         # 优先级
         if self.data_dict_type_code == DataDictTypeEnum.priority.value[0]:
