@@ -2,7 +2,7 @@
 import threading
 
 from PyQt6.QtCore import QThread, pyqtSignal, QObject
-from PyQt6.QtGui import QMovie, QIcon
+from PyQt6.QtGui import QMovie
 
 from src.exception.exception import ThreadStopException
 from src.logger.log import logger as log
