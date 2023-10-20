@@ -107,7 +107,7 @@ class SearchPageTableWidget(QWidget):
         # 表格表头选中状态变化
         self.table_widget.header_widget.header_check_changed.connect(self.set_button_available)
         # 表格选中行编辑信号
-        self.table_widget.row_edit_signal.connect(self.open_row_data_dialog)
+        self.table_widget.row_edit_signal.connect(lambda row_id, row_index: self.open_row_data_dialog(row_id))
         # 表格选中行删除信号
         self.table_widget.row_del_signal.connect(lambda row_id, index, item_name: self.del_row(row_id, item_name))
 
@@ -139,10 +139,11 @@ class SearchPageTableWidget(QWidget):
         # 更新分页组件
         self.page_widget.update_page()
 
-    def open_row_data_dialog(self, row_id=None, row_index=None):
+    def open_row_data_dialog(self, row_id=None):
+        """无论是新建或编辑，在操作完成后，都应重新触发一次搜索"""
         if row_id:
             self.row_data_dialog = self.get_row_data_dialog(EDIT_TASK_TITLE, row_id)
-            self.row_data_dialog.edit_signal.connect(lambda data: self.table_widget.edit_row(row_index, data))
+            self.row_data_dialog.edit_signal.connect(self.search)
         else:
             self.row_data_dialog = self.get_row_data_dialog(ADD_TASK_TITLE, row_id)
             self.row_data_dialog.save_signal.connect(self.search)
