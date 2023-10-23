@@ -48,11 +48,13 @@ class SearchPageTableWidget(QWidget):
         self.post_process()
 
     def setup_ui(self):
+        # 实例化主布局
         self._layout = QVBoxLayout(self)
 
         # 创建搜索区域
         self.setup_search_ui()
 
+        # 实例化按钮布局
         self.button_layout = QGridLayout(self)
         self._layout.addLayout(self.button_layout)
         # 创建按钮区

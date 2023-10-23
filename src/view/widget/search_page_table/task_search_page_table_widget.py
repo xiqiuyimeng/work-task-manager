@@ -66,7 +66,22 @@ class TaskSearchPageTableWidget(SearchPageTableWidget):
         super().__init__()
 
     def setup_search_ui(self):
-        # 第一行基本查询  项目名称 优先级 任务名称
+        # 第一行基本查询
+        self.setup_basic_search()
+
+        # 第二行第三行高级查询
+        self.setup_advanced_search()
+
+    def setup_search_widget_layout(self):
+        search_widget = QWidget()
+        self._layout.addWidget(search_widget)
+        search_layout = QGridLayout()
+        search_layout.setContentsMargins(0, 0, 0, 0)
+        search_widget.setLayout(search_layout)
+        return search_widget, search_layout
+
+    def setup_basic_search(self):
+        # 项目名称 优先级 任务名称
         self.basic_search_widget, self.basic_search_layout = self.setup_search_widget_layout()
         self.basic_search_layout.setColumnStretch(0, 3)
         self.basic_search_layout.setColumnStretch(1, 2)
@@ -76,6 +91,7 @@ class TaskSearchPageTableWidget(SearchPageTableWidget):
         self.priority_label, self.priority_combobox = setup_grid_form_combox(self.basic_search_layout, 1)
         self.task_name_label, self.task_name_lineedit = setup_form_lineedit(self.basic_search_layout, 2)
 
+    def setup_advanced_search(self):
         # 第二行高级查询 任务类型  任务需求方  任务状态
         self.advanced_search_widget, self.advanced_search_layout = self.setup_search_widget_layout()
         self.advanced_search_layout.setColumnStretch(0, 1)
@@ -93,14 +109,6 @@ class TaskSearchPageTableWidget(SearchPageTableWidget):
                                                                               lineedit_class=CalendarTimeLineEdit)
         self.end_time_label, self.end_time_lineedit = setup_form_lineedit(self.advanced_search_layout, 2, 1,
                                                                           lineedit_class=CalendarTimeLineEdit)
-
-    def setup_search_widget_layout(self):
-        search_widget = QWidget()
-        self._layout.addWidget(search_widget)
-        search_layout = QGridLayout()
-        search_layout.setContentsMargins(0, 0, 0, 0)
-        search_widget.setLayout(search_layout)
-        return search_widget, search_layout
 
     def setup_button_ui(self, blank_left=6):
         super().setup_button_ui()
