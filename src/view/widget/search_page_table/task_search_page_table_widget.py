@@ -166,6 +166,7 @@ class TaskSearchPageTableWidget(SearchPageTableWidget):
             self.switch_search_button.setText(SWITCH_BASIC_SEARCH_BTN_TEXT)
 
     def reset_search_data(self):
+        """重置搜索参数值"""
         self.reset_basic_search_data()
         self.reset_advanced_search_data()
 
@@ -178,6 +179,7 @@ class TaskSearchPageTableWidget(SearchPageTableWidget):
         self.project_name_combobox.setCurrentIndex(-1)
 
     def reset_advanced_search_data(self):
+        """重置高级搜索参数值"""
         self.task_type_combobox.setCurrentIndex(-1)
         self.demand_person_combobox.setCurrentIndex(-1)
         self.task_status_combobox.setCurrentIndex(-1)
