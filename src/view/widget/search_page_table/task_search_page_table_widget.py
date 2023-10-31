@@ -159,9 +159,11 @@ class TaskSearchPageTableWidget(SearchPageTableWidget):
             self.reset_advanced_search_data()
             # 清空数据后，触发查询
             self.search()
+            # 关闭高级查询，隐藏高级搜索模块，并将按钮文本切换
             self.advanced_search_widget.setVisible(False)
             self.switch_search_button.setText(SWITCH_ADVANCED_SEARCH_BTN_TEXT)
         else:
+            # 展示高级查询模块，切换按钮文本
             self.advanced_search_widget.setVisible(True)
             self.switch_search_button.setText(SWITCH_BASIC_SEARCH_BTN_TEXT)
 
