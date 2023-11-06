@@ -97,6 +97,17 @@ class TaskSqlite(SqliteBasic):
         return [task.task_name for task in self.select(select_cols=select_col)]
 
     def search_task(self, search_param: BasicTask, page):
+        self.select(return_type=BasicTask, condition=self.construct_task_condition(search_param),
+                    order_by='start_time', sort_order='desc', page=page)
+        task_list = page.data
+        if task_list:
+            for task in task_list:
+                # 项目
+                task.project_info = get_project(task.project_id)
+                # 数据字典
+                set_data_dict_obj(task)
+
+    def construct_task_condition(self, search_param: BasicTask):
         condition = Condition(self.table_name)
         # 拼接条件
         if search_param.task_name:
@@ -117,15 +128,7 @@ class TaskSqlite(SqliteBasic):
             condition.add('start_time', search_param.start_time, 'ge')
         if search_param.end_time:
             condition.add('end_time', search_param.end_time, 'le')
-
-        self.select(return_type=BasicTask, condition=condition, order_by='start_time', sort_order='desc', page=page)
-        task_list = page.data
-        if task_list:
-            for task in task_list:
-                # 项目
-                task.project_info = get_project(task.project_id)
-                # 数据字典
-                set_data_dict_obj(task)
+        return condition
 
     def get_task_detail(self, task_id):
         condition = Condition(self.table_name).add('id', task_id)
