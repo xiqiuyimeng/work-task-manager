@@ -164,13 +164,15 @@ class TaskSqlite(SqliteBasic):
         return self.get_used_foreign_ids(task_type_ids, 'task_type_id', lambda task: task.task_type_id)
 
     def get_used_demand_person_ids(self, demand_person_ids):
-        return self.get_used_foreign_ids(demand_person_ids, 'demand_person_id', lambda task: task.demand_person_id)
+        return self.get_used_foreign_ids(demand_person_ids, 'demand_person_id',
+                                         lambda task: task.demand_person_id)
 
     def get_used_task_status_ids(self, status_ids):
         return self.get_used_foreign_ids(status_ids, 'status_id', lambda task: task.status_id)
 
     def get_used_publish_status_ids(self, publish_status_ids):
-        return self.get_used_foreign_ids(publish_status_ids, 'publish_status_id', lambda task: task.publish_status_id)
+        return self.get_used_foreign_ids(publish_status_ids, 'publish_status_id',
+                                         lambda task: task.publish_status_id)
 
     def update_data_dict_ids(self, new_id, origin_ids, property_name):
         update_task = Task()
