@@ -127,6 +127,7 @@ class QueryDataDictBindDataWorker(ThreadWorkerABC):
         # 发版信息类型
         elif self.data_dict_type_code == DataDictTypeEnum.publish_type.value[0]:
             bind_data_id_list.extend(PublishInfoSqlite().get_used_publish_type_ids(self.data_dict_ids))
+        # 在查询完成后，发射已查到的数据
         self.success_signal.emit(bind_data_id_list)
         log.info('查询数据字典是否绑定数据成功')
 
