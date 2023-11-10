@@ -15,7 +15,9 @@ _date_ = '2023/7/12 9:58'
 
 
 def adjust_label_width(label: QLabel):
+    # 获取标签的文本宽度
     text_width = label.fontMetrics().boundingRect(label.text()).width()
+    # 设置标签的宽度
     label.setFixedWidth(text_width)
 
 

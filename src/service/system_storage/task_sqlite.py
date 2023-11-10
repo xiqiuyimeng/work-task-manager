@@ -39,6 +39,13 @@ sql_dict = {
 }
 
 
+search_param_operator_dict = {
+    'task_name': 'like',
+    'start_time': 'ge',
+    'end_time': 'le',
+}
+
+
 @init
 @dataclass
 class BasicTask(BasicSqliteDTO):
@@ -110,24 +117,12 @@ class TaskSqlite(SqliteBasic):
     def construct_task_condition(self, search_param: BasicTask):
         condition = Condition(self.table_name)
         # 拼接条件
-        if search_param.task_name:
-            condition.add('task_name', search_param.task_name, 'like')
-        if search_param.project_id:
-            condition.add('project_id', search_param.project_id)
-        if search_param.priority_id:
-            condition.add('priority_id', search_param.priority_id)
-        if search_param.task_type_id:
-            condition.add('task_type_id', search_param.task_type_id)
-        if search_param.demand_person_id:
-            condition.add('demand_person_id', search_param.demand_person_id)
-        if search_param.status_id:
-            condition.add('status_id', search_param.status_id)
-        if search_param.publish_status_id:
-            condition.add('publish_status_id', search_param.publish_status_id)
-        if search_param.start_time:
-            condition.add('start_time', search_param.start_time, 'ge')
-        if search_param.end_time:
-            condition.add('end_time', search_param.end_time, 'le')
+        for key, value in search_param.__dict__.items():
+            if value:
+                if key in search_param_operator_dict:
+                    condition.add(key, value, search_param_operator_dict.get(key))
+                else:
+                    condition.add(key, value)
         return condition
 
     def get_task_detail(self, task_id):
