@@ -17,6 +17,39 @@ _author_ = 'luwt'
 _date_ = '2023/7/17 17:36'
 
 
+operate_business_dict = {
+    # 优先级
+    DataDictTypeEnum.priority.value[0]: {
+        'update': (
+            ProjectSqlite().update_priority_ids,
+            # 更新缓存的项目数据
+            update_project_priority,
+            TaskSqlite().update_priority_ids
+        )
+    },
+    # 任务类型
+    DataDictTypeEnum.task_type.value[0]: {
+        'update': (TaskSqlite().update_task_type_ids, )
+    },
+    # 需求方
+    DataDictTypeEnum.demand_person.value[0]: {
+        'update': (TaskSqlite().update_demand_person_ids, )
+    },
+    # 任务状态
+    DataDictTypeEnum.task_status.value[0]: {
+        'update': (TaskSqlite().update_task_status_ids, )
+    },
+    # 发版状态
+    DataDictTypeEnum.publish_status.value[0]: {
+        'update': (TaskSqlite().update_publish_status_ids, )
+    },
+    # 发版信息类型
+    DataDictTypeEnum.publish_type.value[0]: {
+        'update': (PublishInfoSqlite().update_publish_type_ids, )
+    }
+}
+
+
 # ----------------------- 保存数据字典 start ----------------------- #
 
 class SaveDataDictWorker(ThreadWorkerABC):
@@ -46,30 +79,9 @@ class SaveDataDictWorker(ThreadWorkerABC):
             if data_dict.bind_data_list:
                 new_id = data_dict.id
                 origin_ids = [origin_data.id for origin_data in data_dict.bind_data_list]
-                self.do_update_business_data(new_id, origin_ids)
-
-    def do_update_business_data(self, new_id, origin_ids):
-        # 优先级
-        if self.data_dict_type_code == DataDictTypeEnum.priority.value[0]:
-            ProjectSqlite().update_priority_ids(new_id, origin_ids)
-            # 更新缓存的项目数据
-            update_project_priority(new_id, origin_ids)
-            TaskSqlite().update_priority_ids(new_id, origin_ids)
-        # 任务类型
-        elif self.data_dict_type_code == DataDictTypeEnum.task_type.value[0]:
-            TaskSqlite().update_task_type_ids(new_id, origin_ids)
-        # 需求方
-        elif self.data_dict_type_code == DataDictTypeEnum.demand_person.value[0]:
-            TaskSqlite().update_demand_person_ids(new_id, origin_ids)
-        # 任务状态
-        elif self.data_dict_type_code == DataDictTypeEnum.task_status.value[0]:
-            TaskSqlite().update_task_status_ids(new_id, origin_ids)
-        # 发版状态
-        elif self.data_dict_type_code == DataDictTypeEnum.publish_status.value[0]:
-            TaskSqlite().update_publish_status_ids(new_id, origin_ids)
-        # 发版信息类型
-        elif self.data_dict_type_code == DataDictTypeEnum.publish_type.value[0]:
-            PublishInfoSqlite().update_publish_type_ids(new_id, origin_ids)
+                operate_business_func_dict = operate_business_dict.get(self.data_dict_type_code)
+                for update_func in operate_business_func_dict.get('update'):
+                    update_func(new_id, origin_ids)
 
     def get_err_msg(self) -> str:
         return '保存数据字典失败'
