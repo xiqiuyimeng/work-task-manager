@@ -25,27 +25,38 @@ operate_business_dict = {
             # 更新缓存的项目数据
             update_project_priority,
             TaskSqlite().update_priority_ids
+        ),
+        'query': (
+            # 查询项目中是否绑定数据
+            ProjectSqlite().get_used_priority_ids,
+            # 查询任务中是否绑定数据
+            TaskSqlite().get_used_priority_ids
         )
     },
     # 任务类型
     DataDictTypeEnum.task_type.value[0]: {
-        'update': (TaskSqlite().update_task_type_ids, )
+        'update': (TaskSqlite().update_task_type_ids, ),
+        'query': (TaskSqlite().get_used_task_type_ids, )
     },
     # 需求方
     DataDictTypeEnum.demand_person.value[0]: {
-        'update': (TaskSqlite().update_demand_person_ids, )
+        'update': (TaskSqlite().update_demand_person_ids, ),
+        'query': (TaskSqlite().get_used_demand_person_ids, )
     },
     # 任务状态
     DataDictTypeEnum.task_status.value[0]: {
-        'update': (TaskSqlite().update_task_status_ids, )
+        'update': (TaskSqlite().update_task_status_ids, ),
+        'query': (TaskSqlite().get_used_task_status_ids, )
     },
     # 发版状态
     DataDictTypeEnum.publish_status.value[0]: {
-        'update': (TaskSqlite().update_publish_status_ids, )
+        'update': (TaskSqlite().update_publish_status_ids, ),
+        'query': (TaskSqlite().get_used_publish_status_ids, )
     },
     # 发版信息类型
     DataDictTypeEnum.publish_type.value[0]: {
-        'update': (PublishInfoSqlite().update_publish_type_ids, )
+        'update': (PublishInfoSqlite().update_publish_type_ids, ),
+        'query': (PublishInfoSqlite().get_used_publish_type_ids, )
     }
 }
 
@@ -118,27 +129,9 @@ class QueryDataDictBindDataWorker(ThreadWorkerABC):
         log.info('开始查询数据字典是否绑定数据')
         # 查询各个数据字典类型，是否存在已绑定的数据，收集所有绑定数据的字典项id
         bind_data_id_list = list()
-        # 优先级
-        if self.data_dict_type_code == DataDictTypeEnum.priority.value[0]:
-            # 查询项目中是否绑定数据
-            bind_data_id_list.extend(ProjectSqlite().get_used_priority_ids(self.data_dict_ids))
-            # 查询任务中是否绑定数据
-            bind_data_id_list.extend(TaskSqlite().get_used_priority_ids(self.data_dict_ids))
-        # 任务类型
-        elif self.data_dict_type_code == DataDictTypeEnum.task_type.value[0]:
-            bind_data_id_list.extend(TaskSqlite().get_used_task_type_ids(self.data_dict_ids))
-        # 需求方
-        elif self.data_dict_type_code == DataDictTypeEnum.demand_person.value[0]:
-            bind_data_id_list.extend(TaskSqlite().get_used_demand_person_ids(self.data_dict_ids))
-        # 任务状态
-        elif self.data_dict_type_code == DataDictTypeEnum.task_status.value[0]:
-            bind_data_id_list.extend(TaskSqlite().get_used_task_status_ids(self.data_dict_ids))
-        # 发版状态
-        elif self.data_dict_type_code == DataDictTypeEnum.publish_status.value[0]:
-            bind_data_id_list.extend(TaskSqlite().get_used_publish_status_ids(self.data_dict_ids))
-        # 发版信息类型
-        elif self.data_dict_type_code == DataDictTypeEnum.publish_type.value[0]:
-            bind_data_id_list.extend(PublishInfoSqlite().get_used_publish_type_ids(self.data_dict_ids))
+        operate_business_func_dict = operate_business_dict.get(self.data_dict_type_code)
+        for query_func in operate_business_func_dict.get('query'):
+            bind_data_id_list.extend(query_func(self.data_dict_ids))
         # 在查询完成后，发射已查到的数据
         self.success_signal.emit(bind_data_id_list)
         log.info('查询数据字典是否绑定数据成功')
