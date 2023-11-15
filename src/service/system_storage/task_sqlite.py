@@ -144,30 +144,28 @@ class TaskSqlite(SqliteBasic):
         task = self.select_one(select_cols=select_col, condition=condition)
         return task.task_name if task else None
 
-    def get_used_foreign_ids(self, foreign_ids, col_name, get_foreign_id_func):
+    def get_used_foreign_ids(self, foreign_ids, col_name):
         select_col = SelectCol(self.table_name).add(col_name, distinct=True)
         condition = Condition(self.table_name).add(col_name, foreign_ids, 'in')
-        return [get_foreign_id_func(task) for task in self.select(select_cols=select_col, condition=condition)]
+        return [getattr(task, col_name) for task in self.select(select_cols=select_col, condition=condition)]
 
     def get_used_project_ids(self, project_ids):
-        return self.get_used_foreign_ids(project_ids, 'project_id', lambda task: task.project_id)
+        return self.get_used_foreign_ids(project_ids, 'project_id')
 
     def get_used_priority_ids(self, priority_ids):
-        return self.get_used_foreign_ids(priority_ids, 'priority_id', lambda task: task.priority_id)
+        return self.get_used_foreign_ids(priority_ids, 'priority_id')
 
     def get_used_task_type_ids(self, task_type_ids):
-        return self.get_used_foreign_ids(task_type_ids, 'task_type_id', lambda task: task.task_type_id)
+        return self.get_used_foreign_ids(task_type_ids, 'task_type_id')
 
     def get_used_demand_person_ids(self, demand_person_ids):
-        return self.get_used_foreign_ids(demand_person_ids, 'demand_person_id',
-                                         lambda task: task.demand_person_id)
+        return self.get_used_foreign_ids(demand_person_ids, 'demand_person_id')
 
     def get_used_task_status_ids(self, status_ids):
-        return self.get_used_foreign_ids(status_ids, 'status_id', lambda task: task.status_id)
+        return self.get_used_foreign_ids(status_ids, 'status_id')
 
     def get_used_publish_status_ids(self, publish_status_ids):
-        return self.get_used_foreign_ids(publish_status_ids, 'publish_status_id',
-                                         lambda task: task.publish_status_id)
+        return self.get_used_foreign_ids(publish_status_ids, 'publish_status_id')
 
     def update_data_dict_ids(self, new_id, origin_ids, property_name):
         update_task = Task()
