@@ -88,11 +88,9 @@ class SaveDataDictWorker(ThreadWorkerABC):
         # 更新业务数据
         for data_dict in self.data_dict_list:
             if data_dict.bind_data_list:
-                new_id = data_dict.id
-                origin_ids = [origin_data.id for origin_data in data_dict.bind_data_list]
                 operate_business_func_dict = operate_business_dict.get(self.data_dict_type_code)
                 for update_func in operate_business_func_dict.get('update'):
-                    update_func(new_id, origin_ids)
+                    update_func(data_dict.id, [origin_data.id for origin_data in data_dict.bind_data_list])
 
     def get_err_msg(self) -> str:
         return '保存数据字典失败'
