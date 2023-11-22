@@ -57,7 +57,7 @@ class TextInputDelegate(SelectedHighlightDelegate):
         self.new_data = ...
         super().__init__()
 
-    def createEditor(self, parent: 'QWidget', option: 'QStyleOptionViewItem', index: QModelIndex) -> QWidget:
+    def createEditor(self, parent: 'QWidget', option, index: QModelIndex) -> QWidget:
         """创建编辑器，只有在编辑时才会触发，编辑器控件选择combox"""
         self.input_dialog = TableItemInputDelegateDialog(index.row() + 1, index.column(),
                                                          bool(self.get_exists_data_list_func),
@@ -82,7 +82,7 @@ class TextInputDelegate(SelectedHighlightDelegate):
             # 提交数据到模型后，将当前单元格数据重置
             self.new_data = ...
 
-    def updateEditorGeometry(self, editor: QWidget, option: 'QStyleOptionViewItem', index: QModelIndex):
+    def updateEditorGeometry(self, editor: QWidget, option, index: QModelIndex):
         """调整文本输入对话框位置"""
         editor.resize_dialog()
 
@@ -122,7 +122,7 @@ class ColorDelegate(SelectedHighlightDelegate):
             # 获取原来的颜色 重置颜色
             self.change_color(index, index.data())
 
-    def updateEditorGeometry(self, editor: QWidget, option: 'QStyleOptionViewItem', index: QModelIndex):
+    def updateEditorGeometry(self, editor: QWidget, option, index: QModelIndex):
         """调整颜色选择对话框位置"""
         window_geometry = get_window_geometry()
         editor.resize(window_geometry.width(), window_geometry.height())
