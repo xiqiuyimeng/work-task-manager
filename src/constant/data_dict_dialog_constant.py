@@ -16,7 +16,28 @@ PUBLISH_STATUS = '发版状态'
 PUBLISH_TYPE = '发版信息类型'
 
 # 默认类型值列表
-PRIORITY_VALUES = ('最高', '高', '中', '低')
+PRIORITY_VALUES = (
+    {
+        'dict_name': '最高',
+        'font_color': 'rgba(255,240,23,255)',
+        'background_color': 'rgba(255,68,5,255)'
+    },
+    {
+        'dict_name': '高',
+        'font_color': 'rgba(255,255,127,200)',
+        'background_color': 'rgba(255,93,44,196)'
+    },
+    {
+        'dict_name': '中',
+        'font_color': 'rgba(255,19,35,255)',
+        'background_color': 'rgba(23,124,255,129)'
+    },
+    {
+        'dict_name': '低',
+        'font_color': 'rgba(0,0,0,255)',
+        'background_color': 'rgba(203,255,245,255)'
+    }
+)
 TASK_TYPE_VALUES = ('产品需求', '线上bug', '代码优化', '业务问题')
 DEMAND_PERSON_VALUES = ('业务', '产品')
 TASK_STATUS_VALUES = ('提出任务', '设计分析', '开发中', '开发完成', '发布测试', '发布生产', '完成')

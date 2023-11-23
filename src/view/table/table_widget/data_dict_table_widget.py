@@ -104,12 +104,15 @@ class DataDictTableWidget(CustomTableWidget):
         self.blockSignals(True)
         # 获取当前表格已存在的值列表
         exists_data_dict_names = self.get_exists_data_dict_names()
-        # 获取当前类型默认值列表
-        for data_dict_name in data_dict_type[2]:
-            if data_dict_name not in exists_data_dict_names:
+        # 获取当前类型默认值列表，单个元素为字典
+        for name_dict in data_dict_type[2]:
+            default_name = name_dict.get('dict_name')
+            if default_name not in exists_data_dict_names:
                 data_dict = DataDict()
-                data_dict.dict_name = data_dict_name
+                data_dict.dict_name = default_name
                 data_dict.dict_type = data_dict_type[0]
+                data_dict.font_color = name_dict.get('font_color')
+                data_dict.background_color = name_dict.get('background_color')
                 self.add_row(data_dict)
         # 恢复信号
         self.blockSignals(False)
