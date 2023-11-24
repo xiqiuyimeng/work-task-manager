@@ -36,9 +36,26 @@ PRIORITY_VALUES = (
         'dict_name': '低',
         'font_color': 'rgba(0,0,0,255)',
         'background_color': 'rgba(203,255,245,255)'
-    }
+    },
 )
-TASK_TYPE_VALUES = ('产品需求', '线上bug', '代码优化', '业务问题')
+TASK_TYPE_VALUES = (
+    {
+        'dict_name': '产品需求',
+        'background_color': 'rgba(255,175,14,128)'
+    },
+    {
+        'dict_name': '线上bug',
+        'background_color': 'rgba(255,227,221,255)'
+    },
+    {
+        'dict_name': '代码优化',
+        'background_color': 'rgba(216,255,172,255)'
+    },
+    {
+        'dict_name': '业务问题',
+        'background_color': 'rgba(255,41,173,96)'
+    },
+)
 DEMAND_PERSON_VALUES = ('业务', '产品')
 TASK_STATUS_VALUES = ('提出任务', '设计分析', '开发中', '开发完成', '发布测试', '发布生产', '完成')
 PUBLISH_STATUS_VALUES = ('无需发版', '未发版', '已发版')
