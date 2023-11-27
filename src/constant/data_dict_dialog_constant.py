@@ -56,7 +56,20 @@ TASK_TYPE_VALUES = (
         'background_color': 'rgba(255,41,173,96)'
     },
 )
-DEMAND_PERSON_VALUES = ('业务', '产品')
+DEMAND_PERSON_VALUES = (
+    {
+        'dict_name': '业务',
+        'background_color': 'rgba(200,255,155,255)'
+    },
+    {
+        'dict_name': '产品',
+        'background_color': 'rgba(255,217,152,180)'
+    },
+    {
+        'dict_name': '系统优化',
+        'background_color': 'rgba(101,255,242,172)'
+    },
+)
 TASK_STATUS_VALUES = ('提出任务', '设计分析', '开发中', '开发完成', '发布测试', '发布生产', '完成')
 PUBLISH_STATUS_VALUES = ('无需发版', '未发版', '已发版')
 PUBLISH_TYPE_VALUES = ('数据库', '代码配置', '前端代码', '后端代码', '其他')
