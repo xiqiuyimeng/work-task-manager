@@ -58,12 +58,12 @@ TASK_TYPE_VALUES = (
 )
 DEMAND_PERSON_VALUES = (
     {
-        'dict_name': '业务',
-        'background_color': 'rgba(200,255,155,255)'
-    },
-    {
         'dict_name': '产品',
         'background_color': 'rgba(255,217,152,180)'
+    },
+    {
+        'dict_name': '业务',
+        'background_color': 'rgba(200,255,155,255)'
     },
     {
         'dict_name': '系统优化',
