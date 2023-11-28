@@ -70,7 +70,41 @@ DEMAND_PERSON_VALUES = (
         'background_color': 'rgba(101,255,242,172)'
     },
 )
-TASK_STATUS_VALUES = ('提出任务', '设计分析', '开发中', '开发完成', '发布测试', '发布生产', '完成')
+TASK_STATUS_VALUES = (
+    {
+        'dict_name': '提出任务',
+        'font_color': 'rgba(28,12,255,255)',
+        'background_color': 'rgba(255,238,197,255)'
+    },
+    {
+        'dict_name': '设计分析',
+        'background_color': 'rgba(96,255,210,98)'
+    },
+    {
+        'dict_name': '开发中',
+        'font_color': 'rgba(3,16,255,255)',
+        'background_color': 'rgba(217,220,255,255)'
+    },
+    {
+        'dict_name': '开发完成',
+        'background_color': 'rgba(64,210,255,255)'
+    },
+    {
+        'dict_name': '发布测试',
+        'font_color': 'rgba(235,255,238,255)',
+        'background_color': 'rgba(255,33,255,141)'
+    },
+    {
+        'dict_name': '发布生产',
+        'font_color': 'rgba(255,255,255,255)',
+        'background_color': 'rgba(255,178,84,255)'
+    },
+    {
+        'dict_name': '完成',
+        'font_color': 'rgba(109,24,255,173)',
+        'background_color': 'rgba(140,255,176,255)'
+    }
+)
 PUBLISH_STATUS_VALUES = ('无需发版', '未发版', '已发版')
 PUBLISH_TYPE_VALUES = ('数据库', '代码配置', '前端代码', '后端代码', '其他')
 
