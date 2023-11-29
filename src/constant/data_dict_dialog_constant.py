@@ -119,7 +119,28 @@ PUBLISH_STATUS_VALUES = (
         'background_color': 'rgba(138,255,206,255)'
     },
 )
-PUBLISH_TYPE_VALUES = ('数据库', '代码配置', '前端代码', '后端代码', '其他')
+PUBLISH_TYPE_VALUES = (
+    {
+        'dict_name': '数据库',
+        'background_color': 'rgba(209,255,42,173)'
+    },
+    {
+        'dict_name': '代码配置',
+        'background_color': 'rgba(181,255,208,255)'
+    },
+    {
+        'dict_name': '前端代码',
+        'background_color': 'rgba(255,232,222,255)'
+    },
+    {
+        'dict_name': '后端代码',
+        'background_color': 'rgba(143,145,255,209)'
+    },
+    {
+        'dict_name': '其他',
+        'background_color': 'rgba(255,176,255,255)'
+    },
+)
 
 # 数据字典类型列表操作提示语
 DATA_DICT_TYPE_OPERATION_TIP = '温馨提示：双击数据字典类型即可进入详情页'
