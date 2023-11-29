@@ -105,7 +105,20 @@ TASK_STATUS_VALUES = (
         'background_color': 'rgba(140,255,176,255)'
     }
 )
-PUBLISH_STATUS_VALUES = ('无需发版', '未发版', '已发版')
+PUBLISH_STATUS_VALUES = (
+    {
+        'dict_name': '无需发版',
+        'background_color': 'rgba(255,246,212,255)'
+    },
+    {
+        'dict_name': '未发版',
+        'background_color': 'rgba(99,167,255,185)'
+    },
+    {
+        'dict_name': '已发版',
+        'background_color': 'rgba(138,255,206,255)'
+    },
+)
 PUBLISH_TYPE_VALUES = ('数据库', '代码配置', '前端代码', '后端代码', '其他')
 
 # 数据字典类型列表操作提示语
