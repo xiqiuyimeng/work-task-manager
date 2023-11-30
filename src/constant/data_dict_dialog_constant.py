@@ -157,7 +157,7 @@ DEL_DATA_DICT_BTN_TEXT = '删除'
 DUPLICATE_DATA_DICT_NAME_PROMPT = '字典名称已存在，请重新填写'
 
 # 字典名称存在空值
-BLANK_DATA_DICT_NAME_PROMPT = '字典名称不允许为空，请先填写字典名称'
+BLANK_DATA_DICT_NAME_PROMPT = '字典名称不允许为空，请先填写字典名称！'
 
 # 字典为空，且需要转移数据时，不允许保存
 NO_DATA_DICT_PROMPT = '已删除的字典项绑定了数据，新的字典项不能为空，否则无法重新绑定数据，\n请先添加字典项再保存数据'
